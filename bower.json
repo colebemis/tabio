@@ -1,8 +1,0 @@
-{
-  "name": "tabio",
-  "version": "0.0.2",
-  "dependencies": {
-    "angular": "~1.2.21",
-    "jquery": "~2.1.1"
-  }
-}
