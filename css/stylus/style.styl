@@ -1,8 +1,8 @@
 @import "nib"
-@import url("http://fonts.googleapis.com/css?family=Roboto")
 
 color-accent = #245DF6
 color-text = #222
+typeface = "Helvetica Neue", sans-serif
 
 body
   width 300px
@@ -19,7 +19,7 @@ body
   border 1px solid #ccc
   border-radius 3px
   box-shadow inset 0 1px 1px rgba(0,0,0,0.07)
-  font 400 14px "Roboto", sans-serif
+  font 400 14px typeface
   font-smoothing antialiased
 
   &:hover
@@ -44,7 +44,7 @@ body
     width 300px
     height 6px
     position fixed
-    top 49px
+    top 46px
     left 8px
     background-image linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0))
     z-index 1
@@ -55,7 +55,7 @@ body
     width 300px
     height 8px
     position fixed
-    top 505px
+    top 502px
     left 8px
     background-image linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1))
 
@@ -86,7 +86,7 @@ body
 
   h1
     margin 0
-    font 400 14px "Roboto", sans-serif
+    font 400 14px typeface
     width 254px
     white-space nowrap
     overflow hidden
@@ -105,6 +105,7 @@ body
 
     &:hover svg
       opacity 0.6
+
     svg
       fill #fff
       transition opacity 0.3s
@@ -116,5 +117,5 @@ body
 .no-matches
   text-align center
   margin 14px 0 18px
-  font 400 14px "Roboto", sans-serif
+  font 400 14px typeface
   color lighten(color-text, 50%)
