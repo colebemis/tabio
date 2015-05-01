@@ -63,7 +63,7 @@
       };
 
       $scope.results = function () {
-        if ($scope.search) {
+        if ($scope.search.title) {
           var tabs = $filter('filter')($scope.tabs, $scope.search);
 
           tabs.forEach(function (tab) {
