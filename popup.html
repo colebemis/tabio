@@ -19,7 +19,7 @@
 
   <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" tabs>
     <li ng-repeat="tab in tabs | filter: search"
-        ng-class="{selected: tab.selected}"
+        ng-class="{selected: tab.selected, active: tab.active}"
         ng-mouseover="mouseover(tab)"
         ng-click="goToTab(tab.id)">
 
