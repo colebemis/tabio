@@ -17,19 +17,23 @@
     function($scope, $q, $filter, getTabs) {
       getTabs.then(function (tabs) {
         $scope.tabs = tabs;
+        console.log(tabs);
       });
-
-      $scope.mouse = true;
-
+      
       $scope.matches = function () {
         var tab = $filter('filter')($scope.tabs, $scope.search);
+        
+        // Return the number of search results
         return tab.length;
       };
 
       $scope.goToTab = function (id) {
+        
+        // Close pop-up window when active tab is clicked
         for (var i = 0, l = $scope.tabs.length; i < l; i++) {
-          if ($scope.tabs[i].active === true) {
-            window.close();
+          if ($scope.tabs[i].id === id) { 
+            window.close(); // Close pop-up
+            break;
           }
         }
 
@@ -62,9 +66,9 @@
         if ($scope.search) {
           var tabs = $filter('filter')($scope.tabs, $scope.search);
 
-          for (var i = 0, l = tabs.length; i < l; i++) {
-            tabs[i].selected = false;
-          }
+          tabs.forEach(function (tab) {
+            tab.selected = false;
+          });
 
           tabs[0].selected = true;
         } else {
@@ -73,11 +77,12 @@
           }
         }
       };
+      
+      $scope.mouse = true;
 
       $scope.mousemove = function (event) {
-        if (event.clientX != $scope.x || event.clientY != $scope.y) {
-          $scope.mouse = true;
-        }
+
+        $scope.mouse = event.clientX != $scope.x || event.clientY != $scope.y;
 
         $scope.x = event.clientX;
         $scope.y = event.clientY;
@@ -94,9 +99,11 @@
       };
 
       $scope.mouseleave = function () {
+        /*
         for (var i = 0, l = $scope.tabs.length; i < l; i++) {
           $scope.tabs[i].selected = false;
         }
+        */
       }
 
       $scope.keydown = function (event) {
