@@ -21,7 +21,7 @@
     <li ng-repeat="tab in tabs | filter: search"
         ng-class="{selected: tab.selected}"
         ng-mouseover="mouseover(tab)"
-        ng-click="goto(tab.id)">
+        ng-click="goToTab(tab.id)">
 
       <img class="favicon" src="{{tab.favIconUrl}}" alt="{{tab.title}}">
       <h1>{{tab.title}}</h1>

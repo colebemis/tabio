@@ -26,7 +26,7 @@
         return tab.length;
       };
 
-      $scope.goto = function (id) {
+      $scope.goToTab = function (id) {
         for (var i = 0, l = $scope.tabs.length; i < l; i++) {
           if ($scope.tabs[i].active === true) {
             window.close();
@@ -125,7 +125,7 @@
             break;
 
           case 13: // enter
-            $scope.goto(id);
+            $scope.goToTab(id);
             break;
 
           case 38: // up arrow
