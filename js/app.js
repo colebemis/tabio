@@ -1,7 +1,7 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  var app = angular.module('tabio', []);
+  var app = angular.module('tabio', ['htmlSortable']);
 
   app.factory('getTabs', ['$q', function ($q) {
     var deferred = $q.defer();
@@ -158,6 +158,19 @@
           default:
             break;
         }
+      };
+      
+      $scope.sortableOptions = {
+          placeholder: '<div class="sortable-placeholder"></div>',
+          forcePlaceholderSize: true
+      };
+      
+      $scope.sortableCallback = function (sourceModel, destModel, start, end) {
+          console.log(start + ' -> ' + end);
+          var tabId = $scope.tabs[end].id;
+          console.log(tabId);
+          chrome.tabs.move(tabId,{index:end});
+          console.log($scope.tabs);        
       };
     }
   ]);
