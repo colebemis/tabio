@@ -1,7 +1,7 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  var app = angular.module('tabio', ['htmlSortable']);
+  var app = angular.module('tabio', []);
 
   app.factory('getTabs', ['$q', function ($q) {
     var deferred = $q.defer();
@@ -160,6 +160,7 @@
         }
       };
       
+      /*
       $scope.sortableOptions = {
           placeholder: '<div class="sortable-placeholder"></div>',
           forcePlaceholderSize: true
@@ -172,6 +173,7 @@
           chrome.tabs.move(tabId,{index:end});
           console.log($scope.tabs);        
       };
+      */
     }
   ]);
 

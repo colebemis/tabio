@@ -17,7 +17,9 @@
          ng-model="search.title"
          ng-change="results()">
 
-  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" html-sortable="sortableOptions" html-sortable-callback="sortableCallback" ng-model='tabs' tabs>
+<!--  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" html-sortable="sortableOptions" html-sortable-callback="sortableCallback" ng-model='tabs' tabs>-->
+
+  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" tabs>
     <li ng-repeat="tab in tabs | filter: search"
         ng-class="{selected: tab.selected, active: tab.active}"
         ng-mouseover="mouseover(tab)"
@@ -44,8 +46,10 @@
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
+<!--
   <script src="bower_components/html.sortable/dist/html.sortable.js"></script>
   <script src="bower_components/html.sortable/dist/html.sortable.angular.js"></script>
+-->
   <script src="js/app.js"></script>
 </body>
 </html>
