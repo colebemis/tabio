@@ -22,8 +22,11 @@
         ng-class="{selected: tab.selected, active: tab.active}"
         ng-mouseover="mouseover(tab)"
         ng-click="goToTab(tab.id)">
-
-      <img class="favicon" src="{{tab.favIconUrl}}" alt="{{tab.title}}">
+        
+      <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl}">
+        <img ng-show="tab.favIconUrl" src="{{tab.favIconUrl}}" alt="{{tab.title}}">
+      </div>
+      
       <h1>{{tab.title}}</h1>
       <a href="#" class="delete" ng-click="close(tab.id)">
         <svg viewBox="0 0 16 16" width="16" height="16">
