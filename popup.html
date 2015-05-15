@@ -9,6 +9,7 @@
 </head>
 <body ng-controller="MainController"
       ng-keydown="keydown($event)"
+      ng-keyup="keyup($event)"
       ng-mousemove="mousemove($event)">
 
   <input class="search"
@@ -19,7 +20,7 @@
 
 <!--  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" html-sortable="sortableOptions" html-sortable-callback="sortableCallback" ng-model='tabs' tabs>-->
 
-  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" tabs>
+  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" ng-sortable="sortableConfig" tabs>
     <li ng-repeat="tab in tabs | filter: search"
         ng-class="{selected: tab.selected, active: tab.active}"
         ng-mouseover="mouseover(tab)"
@@ -50,6 +51,8 @@
   <script src="bower_components/html.sortable/dist/html.sortable.js"></script>
   <script src="bower_components/html.sortable/dist/html.sortable.angular.js"></script>
 -->
+  <script src="bower_components/Sortable/Sortable.min.js"></script>
+  <script src="bower_components/Sortable/ng-sortable.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

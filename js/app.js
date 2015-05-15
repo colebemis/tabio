@@ -1,7 +1,7 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  var app = angular.module('tabio', []);
+  var app = angular.module('tabio', ['ng-sortable']);
 
   app.factory('getTabs', ['$q', function ($q) {
     var deferred = $q.defer();
@@ -104,11 +104,21 @@
           $scope.tabs[i].selected = false;
         }
         */
-      }
+      };
+      
+      $scope.sortableConfig = {
+        animation: 150,
+        ghostClass: 'sortable-placeholder',
+        disabled: false,
+        onEnd: function (event) {
+          var tabId = $scope.tabs[event.newIndex].id;
+          chrome.tabs.move(tabId,{index: event.newIndex});
+        }
+      };
 
       $scope.keydown = function (event) {
         var tabs, index, id;
-
+        
         if ($scope.search) {
           tabs = $filter('filter')($scope.tabs, $scope.search);
         } else {
@@ -157,6 +167,16 @@
 
           default:
             break;
+        }
+      };
+      
+      $scope.keyup = function (event) {
+        if ($scope.search.title) {
+          $scope.sortableConfig.disabled = true;
+          console.log("Search is NOT empty!");
+        } else {
+          $scope.sortableConfig.disabled = false;
+          console.log("Search IS empty!");
         }
       };
       
