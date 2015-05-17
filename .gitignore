@@ -3,3 +3,4 @@ node_modules
 assets
 dist
 bower_components
+*.zip
