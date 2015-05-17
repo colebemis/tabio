@@ -5,18 +5,18 @@
   "description": "Effortless tab management.",
   "version": "1.0.4",
   "icons": {
-    "16": "img/icon16.png",
-    "32": "img/icon32.png",
-    "48": "img/icon48.png",
-    "96": "img/icon96.png",
-    "128": "img/icon128.png",
-    "256": "img/icon256.png"
+    "16": "./img/icon16.png",
+    "32": "./img/icon32.png",
+    "48": "./img/icon48.png",
+    "96": "./img/icon96.png",
+    "128": "./img/icon128.png",
+    "256": "./img/icon256.png"
   },
 
   "browser_action": {
     "default_icon": {
-      "19": "img/icon19.png",
-      "38": "img/icon38.png"
+      "19": "./img/icon19.png",
+      "38": "./img/icon38.png"
     },
     "default_title": "Tabio",
     "default_popup": "popup.html"
