@@ -4,8 +4,13 @@
   <meta charset="UTF-8">
   <title>Tabio</title>
 
+<!--
   <link rel="stylesheet" href="bower_components/angular/angular-csp.css">
   <link rel="stylesheet" href="css/style.css">
+-->
+  
+  <link rel="stylesheet" href="vendor/angular-csp.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body ng-controller="MainController"
       ng-keydown="keydown($event)"
@@ -44,10 +49,18 @@
 
   <p class="no-matches" ng-show="matches() === 0">No matches found</p>
 
+<!--
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/Sortable/Sortable.min.js"></script>
   <script src="bower_components/Sortable/ng-sortable.js"></script>
   <script src="js/app.js"></script>
+-->
+  
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/angular.min.js"></script>
+  <script src="vendor/Sortable.min.js"></script>
+  <script src="vendor/ng-sortable.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

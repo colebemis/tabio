@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Tabio",
-  "description": "Manage your tabs efficiently.",
+  "description": "Effortless tab management.",
   "version": "1.0.2",
   "icons": {
     "16": "img/icon16.png",
