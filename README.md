@@ -47,6 +47,7 @@ $ gulp build
 ```
 
 * Load the extension
+
   - Open Google Chrome and type `chrome://extensions` inside the address bar
   - Enable `developer mode`
   - Click on `Load unpacked extension`
