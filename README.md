@@ -46,17 +46,17 @@ $ bower install
 $ gulp build
 ```
 
-  * Load the extension
-1. Open Google Chrome and type `chrome://extensions` inside the address bar
-1. Enable `developer mode`
-1. Click on `Load unpacked extension`
-1. Select the `/dist` folder
+* Load the extension
+  1. Open Google Chrome and type `chrome://extensions` inside the address bar
+  2. Enable `developer mode`
+  3. Click on `Load unpacked extension`
+  4. Select the `/dist` folder
 
 ### Gulp Tasks
 
-| Task  | Description                                   |
-|-------|-----------------------------------------------|
-| build | Compile, minify and copy the extension files  |
-| zip   | Create a zip archive for publishing           |
+| Task    | Description                                   |
+|---------|-----------------------------------------------|
+| `build` | Compile, minify and copy the extension files  |
+| `zip`   | Create a zip archive for publishing           |
 
 ## License
