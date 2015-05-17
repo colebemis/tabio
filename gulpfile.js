@@ -8,7 +8,7 @@ var nib = require('nib');
 var stylus = require('gulp-stylus');
 var zip = require('gulp-zip');
 
-var version = '1.0.2';
+var version = '1.0.3';
 
 var paths = {
   html: './*.html',

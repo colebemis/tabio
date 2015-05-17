@@ -1,6 +1,6 @@
 {
   "name": "tabio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "devDependencies": {
     "bower": "^1.3.8",
     "gulp": "^3.8.7",
