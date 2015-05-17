@@ -47,10 +47,10 @@ $ gulp build
 ```
 
 * Load the extension
-  1. Open Google Chrome and type `chrome://extensions` inside the address bar
-  2. Enable `developer mode`
-  3. Click on `Load unpacked extension`
-  4. Select the `/dist` folder
+  - Open Google Chrome and type `chrome://extensions` inside the address bar
+  - Enable `developer mode`
+  - Click on `Load unpacked extension`
+  - Select the `/dist` folder
 
 ### Gulp Tasks
 
