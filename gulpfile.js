@@ -53,7 +53,7 @@ gulp.task('json', function () {
 
 gulp.task('img', function () {
   return gulp.src(paths.img)
-//    .pipe(imagemin())
+    .pipe(imagemin())
     .pipe(gulp.dest(dest + '/img'));
 });
 
