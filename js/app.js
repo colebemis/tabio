@@ -173,27 +173,10 @@
       $scope.keyup = function (event) {
         if ($scope.search.title) {
           $scope.sortableConfig.disabled = true;
-          console.log("Search is NOT empty!");
         } else {
           $scope.sortableConfig.disabled = false;
-          console.log("Search IS empty!");
         }
       };
-      
-      /*
-      $scope.sortableOptions = {
-          placeholder: '<div class="sortable-placeholder"></div>',
-          forcePlaceholderSize: true
-      };
-      
-      $scope.sortableCallback = function (sourceModel, destModel, start, end) {
-          console.log(start + ' -> ' + end);
-          var tabId = $scope.tabs[end].id;
-          console.log(tabId);
-          chrome.tabs.move(tabId,{index:end});
-          console.log($scope.tabs);        
-      };
-      */
     }
   ]);
 
