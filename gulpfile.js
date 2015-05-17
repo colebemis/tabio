@@ -76,7 +76,7 @@ gulp.task('build', ['watch', 'html', 'css', 'js', 'json', 'img', 'vendor']);
 gulp.task('zip', function () {
   return gulp.src(dest + '/*')
     .pipe(zip('tabio-' + version + '.zip'))
-    .pipe(gulp.dest(dest));
+    .pipe(gulp.dest('./'));
 });
 
 /*
