@@ -1,6 +1,6 @@
 {
   "name": "tabio",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "dependencies": {
     "angular": "~1.2.21",
     "jquery": "~2.1.1",
