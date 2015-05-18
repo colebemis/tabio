@@ -4,6 +4,6 @@
   "dependencies": {
     "angular": "~1.2.21",
     "jquery": "~2.1.1",
-    "html.sortable": "~0.2.4"
+    "Sortable": "~1.2.0"
   }
 }
