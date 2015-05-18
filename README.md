@@ -1,6 +1,5 @@
 # Tabio
 
-
 ### Effortless tab management for Chrome
 
 Tabio is a Chrome extension designed to make managing lots of browser tabs significantly easier. The extension generates a searchable, scrollable and fully keyboard-accessible list of all open browser tabs.
@@ -9,7 +8,7 @@ Tabio is available on the [Google Chrome Webstore](https://chrome.google.com/web
 
 ## Contributing
 
-
+Contributions of any kind are always welcome. Help make Tabio better by submitting a bug report, feature request or pull request. Please refer to the [contribution guidelines](CONTRIBUTING.md) for more infomation.
 
 ### Development Dependencies
 
@@ -49,7 +48,7 @@ $ gulp build
 * Load the extension
 
   - Open Google Chrome and type `chrome://extensions` inside the address bar
-  - Enable `developer mode`
+  - Enable `Developer mode`
   - Click on `Load unpacked extension`
   - Select the `/dist` folder
 
