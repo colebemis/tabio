@@ -60,3 +60,5 @@ $ gulp build
 | `zip`   | Create a zip archive for publishing           |
 
 ## License
+
+Tabio is licensed under the [MIT License](LICENSE.md).
