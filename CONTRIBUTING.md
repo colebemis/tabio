@@ -18,7 +18,7 @@ In return, they should reciprocate that respect in addressing your issue or asse
 ## TLDR;
 
 - Creating an Issue or Pull Request requires a [GitHub](http://github.com) account.
-- Issue reports should be **clear**, **concise** and **reproducible**. Check to see if your issue has already been resolved in the [master]() branch or already reported in the [GitHub Issue Tracker](https://github.com/producthunt/producthunt-chrome-extension/issues).
+- Issue reports should be **clear**, **concise** and **reproducible**. Check to see if your issue has already been resolved in the [master](https://github.com/colebemis/tabio/tree/master) branch or already reported in the [GitHub Issue Tracker](https://github.com/colebemis/tabio/issues).
 - Pull Requests must adhere to the existing coding style
 - **IMPORTANT**: By submitting a patch, you agree to allow the project owner to license your work under the same license as that used by the project.
 
