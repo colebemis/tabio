@@ -1,6 +1,6 @@
 .DS_Store
 node_modules
+bower_components
 assets
 dist
 *.zip
-/bower_components/
