@@ -449,7 +449,9 @@ footer li {
   .feature p {
     font-size: 16px;
   }
+}
 
+@media screen and (max-width: 680px) {
   /* Footer */
 
   .footer-inner {
@@ -480,7 +482,6 @@ footer li {
   .share-buttons {
     margin-top: 16px;
   }
-
 }
 
 @media screen and (max-width: 520px) {
