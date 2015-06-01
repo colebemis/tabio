@@ -138,7 +138,7 @@ header {
 
 .hero h2 {
   margin: 40px 0;
-  font-size: 50px;
+  font-size: 48px;
   font-weight: 500;
   line-height: 1.2;
   color: rgba(0, 0, 0, 0.87);
@@ -283,7 +283,7 @@ header {
 
 footer {
   padding: 48px 0;
-  background: #4E5C66;
+  background: #383F4C;
 }
 
 .footer-inner {
@@ -329,7 +329,7 @@ footer ul {
 
 footer ul a {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   color: rgba(255,255,255,0.87);
 }
 
