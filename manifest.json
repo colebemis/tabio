@@ -22,6 +22,14 @@
     "default_popup": "popup.html"
   },
 
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "MacCtrl+T"
+      }
+    }
+  },
+
   "author": "Cole Bemis",
   "permissions": [
     "tabs"
