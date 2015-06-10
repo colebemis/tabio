@@ -25,7 +25,7 @@
   "commands": {
     "_execute_browser_action": {
       "suggested_key": {
-        "default": "MacCtrl+T"
+        "default": "Alt+Shift+T"
       }
     }
   },
