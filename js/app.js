@@ -6,18 +6,36 @@
   app.factory('getTabs', ['$q', function ($q) {
     var deferred = $q.defer();
 
-    chrome.tabs.query({currentWindow: true}, function (tabs) {
+    chrome.tabs.query({}, function (tabs) {
       deferred.resolve(tabs);
     });
 
     return deferred.promise;
   }]);
 
-  app.controller('MainController', ['$scope', '$q', '$filter', 'getTabs',
-    function($scope, $q, $filter, getTabs) {
-      getTabs.then(function (tabs) {
-        $scope.tabs = tabs;
-        console.log(tabs);
+  app.factory('getCurrentWindow', ['$q', function ($q) {
+    var deferred = $q.defer();
+
+    chrome.windows.getCurrent({}, function (window) {
+      deferred.resolve(window);
+    });
+
+    return deferred.promise;
+  }]);
+
+  app.controller('MainController', ['$scope', '$q', '$filter', 'getTabs', 'getCurrentWindow',
+    function ($scope, $q, $filter, getTabs, getCurrentWindow) {
+
+      $q.all([getTabs, getCurrentWindow]).then(function (data) {
+        $scope.tabs = data[0];
+        $scope.currentWindowId = data[1].id;
+
+        $scope.tabs.forEach(function (tab) {
+          if (tab.windowId !== $scope.currentWindowId) {
+            tab.selected = false;
+            tab.active = false;
+          }
+        });
       });
       
       $scope.matches = function () {
@@ -27,7 +45,7 @@
         return tab.length;
       };
 
-      $scope.goToTab = function (id) {
+      $scope.goToTab = function (id, windowId) {
         
         // Close pop-up window when active tab is clicked
         for (var i = 0, l = $scope.tabs.length; i < l; i++) {
@@ -38,6 +56,10 @@
         }
 
         chrome.tabs.update(id, {active: true});
+
+        if (windowId != $scope.currentWindowId) {
+          chrome.windows.update(windowId, {focused: true});
+        }
       };
 
       $scope.close = function (id) {
@@ -117,7 +139,7 @@
       };
 
       $scope.keydown = function (event) {
-        var tabs, index, id;
+        var tabs, index, id, windowId;
         
         if ($scope.search) {
           tabs = $filter('filter')($scope.tabs, $scope.search);
@@ -130,6 +152,7 @@
             tabs[i].selected = false;
             index = i;
             id = tabs[i].id;
+            windowId = tabs[i].windowId;
             break;
           }
         }
@@ -142,7 +165,7 @@
             break;
 
           case 13: // enter
-            $scope.goToTab(id);
+            $scope.goToTab(id, windowId);
             break;
 
           case 38: // up arrow
