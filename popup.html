@@ -21,8 +21,9 @@
   <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" ng-sortable="sortableConfig" tabs>
     <li ng-repeat="tab in tabs | filter: search"
         ng-class="{selected: tab.selected, active: tab.active}"
+        ng-class="{'selected': tab.selected, 'active': tab.active}"
         ng-mouseover="mouseover(tab)"
-        ng-click="goToTab(tab.id)">
+        ng-click="goToTab(tab.id, tab.windowId)">
         
       <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl}">
         <img ng-show="tab.favIconUrl" src="{{tab.favIconUrl}}" alt="{{tab.title}}">
