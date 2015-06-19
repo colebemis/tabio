@@ -15,12 +15,12 @@
   <input class="search"
          type="search"
          placeholder="Search"
-         ng-model="search.title"
+         ng-model="search"
          ng-change="results()">
 
+<!--
   <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" ng-sortable="sortableConfig" tabs>
     <li ng-repeat="tab in tabs | filter: search"
-        ng-class="{selected: tab.selected, active: tab.active}"
         ng-class="{'selected': tab.selected, 'active': tab.active}"
         ng-mouseover="mouseover(tab)"
         ng-click="goToTab(tab.id, tab.windowId)">
@@ -42,8 +42,40 @@
 
     </li>
   </ul>
+-->
+ 
+  <div class="tabs" ng-hide="noMatches()" tabs>
+<!--    ng-show="matches() > 0"-->
+    <ul ng-repeat="window in windows | searchTabs: search" ng-class="{'last': $index === windows.length - 1}" ng-sortable="sortableConfig">
+<!--     ng-show="matches() > 0"-->
+<!--     ng-hide="window.length === 0"-->
+      <li ng-repeat="tab in window"
+          ng-class="{'selected': tab.selected, 'active': tab.active}"
+          ng-mouseover="mouseover(tab)"
+          ng-click="goToTab(tab.windowId, tab.id)"
+          id="{{tab.id}}">
+          
+        <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl || tab.favIconUrl.indexOf('chrome://') === 0}">
+          <img ng-src="{{tab.favIconUrl}}" alt="{{tab.title}}">
+        </div>
 
-  <p class="no-matches" ng-show="matches() === 0">No matches found</p>
+        <h1>{{tab.title}}</h1>
+
+        <a href="#" class="delete" ng-click="close(tab.windowId, tab.id)">
+          <svg viewBox="0 0 16 16" width="16" height="16">
+            <g transform="rotate(45 8 8)">
+              <rect x="7" y="1" width="2" height="14"></rect>
+              <rect x="1" y="7" width="14" height="2"></rect>
+            </g>
+          </svg>
+        </a>
+
+      </li>
+    </ul>
+  </div>
+  
+
+  <p class="no-matches" ng-show="noMatches()">No matches found</p>
   
   <script src="vendor/jquery.min.js"></script>
   <script src="vendor/angular.min.js"></script>

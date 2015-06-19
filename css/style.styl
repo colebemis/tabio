@@ -49,6 +49,18 @@ body
   overflow-x hidden
   overflow-y scroll
   user-select none
+  
+  ul
+    width 100%
+    padding 0 0 8px
+    margin 0 0 8px
+    border-bottom 1px solid #ddd
+    
+    &.last
+    &:last-child
+      margin 0
+      padding 0
+      border-bottom none
 
   &::before
     content ""
@@ -56,7 +68,7 @@ body
     width 320px
     height 6px
     position fixed
-    top 46px
+    top 48px
     left 8px
     background-image linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0))
     z-index 1
@@ -73,7 +85,7 @@ body
 
   &::-webkit-scrollbar
     display none
-
+    
   li
     color color-text
     height 36px
@@ -102,6 +114,9 @@ body
     width 16px
     height 16px
     margin 0 10px
+//    background rgba(255,255,255,0.75)
+//    padding 1px
+//    border-radius 2px
     
     img
       width 16px
@@ -110,6 +125,9 @@ body
     &.favicon-placeholder
       background rgba(204, 204, 204, 0.5)
       border-radius 3px
+      
+      img
+        opacity 0
 
   h1
     margin 0
