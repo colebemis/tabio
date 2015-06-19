@@ -16,6 +16,7 @@ var paths = {
   js: './js/*.js',
   json: 'manifest.json',
   img: './img/*.png',
+  fonts: './fonts/*',
   vendor: [
     './bower_components/angular/angular-csp.css',
     './bower_components/jquery/dist/jquery.min.js',
@@ -49,12 +50,17 @@ gulp.task('json', function () {
   return gulp.src(paths.json)
     .pipe(jsonminify())
     .pipe(gulp.dest(dest));
-})
+});
 
 gulp.task('img', function () {
   return gulp.src(paths.img)
     .pipe(imagemin())
     .pipe(gulp.dest(dest + '/img'));
+});
+
+gulp.task('fonts', function () {
+  return gulp.src(paths.fonts)
+    .pipe(gulp.dest(dest + '/fonts'));
 });
 
 gulp.task('vendor', function () {
@@ -68,10 +74,11 @@ gulp.task('watch', function () {
   gulp.watch(paths.js, ['js']);
   gulp.watch(paths.json, ['json']);
   gulp.watch(paths.img, ['img']);
+  gulp.watch(paths.fonts, ['fonts']);
   gulp.watch(paths.vendor, ['vendor']);
 })
 
-gulp.task('build', ['watch', 'html', 'css', 'js', 'json', 'img', 'vendor']);
+gulp.task('build', ['watch', 'html', 'css', 'js', 'json', 'img', 'fonts', 'vendor']);
 
 gulp.task('zip', function () {
   return gulp.src(dest + '/**')
