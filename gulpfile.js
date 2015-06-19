@@ -22,7 +22,8 @@ var paths = {
     './bower_components/jquery/dist/jquery.min.js',
     './bower_components/angular/angular.min.js',
     './bower_components/Sortable/Sortable.min.js',
-    './bower_components/Sortable/ng-sortable.js'
+    './bower_components/Sortable/ng-sortable.js',
+    './bower_components/lodash/lodash.min.js'
   ]
 };
 
