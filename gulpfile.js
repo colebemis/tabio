@@ -19,11 +19,13 @@ var paths = {
   fonts: './fonts/*',
   vendor: [
     './bower_components/angular/angular-csp.css',
-    './bower_components/jquery/dist/jquery.min.js',
     './bower_components/angular/angular.min.js',
+    './bower_components/angular-hotkeys/build/hotkeys.css',
+    './bower_components/angular-hotkeys/build/hotkeys.js',
+    './bower_components/fuse/src/fuse.min.js',
+    './bower_components/jquery/dist/jquery.min.js',
     './bower_components/Sortable/Sortable.min.js',
-    './bower_components/Sortable/ng-sortable.js',
-    './bower_components/lodash/lodash.min.js'
+    './bower_components/Sortable/ng-sortable.js'
   ]
 };
 

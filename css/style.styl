@@ -5,7 +5,7 @@ color-text = #222
 typeface = "San Francisco", "Helvetica Neue", sans-serif
 
 @font-face
-    font-family: "San Francisco"
+    font-family "San Francisco"
     src url('fonts/sanfranciscotext-regular-webfont.eot')
     src url('fonts/sanfranciscotext-regular-webfont.eot?#iefix') format('embedded-opentype'),
         url('fonts/sanfranciscotext-regular-webfont.woff2') format('woff2'),
@@ -29,19 +29,19 @@ body
   background #fcfcfc
   border 1px solid #ccc
   border-radius 3px
-  box-shadow inset 0 1px 1px rgba(0,0,0,0.07)
+  box-shadow inset 0 1px 1px rgba(0, 0, 0, .07)
   font 400 14px typeface
   font-smoothing antialiased
-  
+
   &:hover
     background #fff
 
   &:focus
-    outline none
+    outline 0
     background #fff
     border-color #b3b3b3
 
-.tabs
+.tab-groups
   padding 6px 0 8px
   margin 0
   width 100%
@@ -49,18 +49,6 @@ body
   overflow-x hidden
   overflow-y scroll
   user-select none
-  
-  ul
-    width 100%
-    padding 0 0 8px
-    margin 0 0 8px
-    border-bottom 1px solid #ddd
-    
-    &.last
-    &:last-child
-      margin 0
-      padding 0
-      border-bottom none
 
   &::before
     content ""
@@ -70,7 +58,7 @@ body
     position fixed
     top 48px
     left 8px
-    background-image linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0))
+    background-image linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
     z-index 1
 
   &::after
@@ -81,11 +69,22 @@ body
     position fixed
     bottom 0
     left 8px
-    background-image linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1))
+    background-image linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))
 
   &::-webkit-scrollbar
     display none
-    
+
+  ul
+    width 100%
+    padding 0 0 8px
+    margin 0 0 8px
+    border-bottom 1px solid #ddd
+
+    &:last-child
+      margin 0
+      padding 0
+      border-bottom none
+
   li
     color color-text
     height 36px
@@ -93,10 +92,9 @@ body
     display flex
     flex-direction row
     align-items center
-    
+
     &.active
-      color color-accent
-      color #1155cc
+      color #15c
 
     &.selected
       cursor pointer
@@ -106,7 +104,7 @@ body
 
       .delete
         visibility visible
-        
+
   .sortable-placeholder
     opacity 0
 
@@ -114,18 +112,15 @@ body
     width 16px
     height 16px
     margin 0 10px
-//    background rgba(255,255,255,0.75)
-//    padding 1px
-//    border-radius 2px
-    
+
     img
       width 16px
       height 16px
-      
+
     &.favicon-placeholder
-      background rgba(204, 204, 204, 0.5)
+      background rgba(204, 204, 204, .5)
       border-radius 3px
-      
+
       img
         opacity 0
 
@@ -144,20 +139,16 @@ body
     visibility hidden
     padding 10px 10px 10px 16px
     border-radius 0 3px 3px 0
-    background-image linear-gradient(90deg, rgba(0,0,0, 0) ,color-accent 50%)
+    background-image linear-gradient(90deg, rgba(0, 0, 0, 0), color-accent 50%)
     position absolute
     right 0
 
     &:hover svg
-      opacity 0.6
+      opacity .6
 
     svg
       fill #fff
-      transition opacity 0.3s
-
-  .deleted
-    background red
-    margin-left -20px
+      transition opacity .3s
 
 .no-matches
   text-align center

@@ -3,65 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <title>Tabio</title>
-  
+
   <link rel="stylesheet" href="vendor/angular-csp.css">
+  <link rel="stylesheet" href="vendor/hotkeys.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body ng-controller="MainController"
-      ng-keydown="keydown($event)"
-      ng-keyup="keyup($event)"
-      ng-mousemove="mousemove($event)">
+<body ng-controller="MainController" ng-mousemove="onMousemove($event)">
 
   <input class="search"
          type="search"
          placeholder="Search"
          ng-model="search"
-         ng-change="results()">
+         ng-change="onChange()"
+         autofocus>
 
-<!--
-  <ul class="tabs" ng-show="matches() > 0" ng-mouseleave="mouseleave()" ng-sortable="sortableConfig" tabs>
-    <li ng-repeat="tab in tabs | filter: search"
-        ng-class="{'selected': tab.selected, 'active': tab.active}"
-        ng-mouseover="mouseover(tab)"
-        ng-click="goToTab(tab.id, tab.windowId)">
-        
-      <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl}">
-        <img ng-show="tab.favIconUrl" src="{{tab.favIconUrl}}" alt="{{tab.title}}">
-      </div>
-      
-      <h1>{{tab.title}}</h1>
+  <div tab-groups class="tab-groups" ng-if="!!filteredTabGroups.length">
+    <ul ng-repeat="tabGroup in filteredTabGroups" ng-sortable="sortableConfig">
+      <li ng-repeat="tab in tabGroup"
+          ng-class="{'active': tab.active, 'selected': tab.selected}"
+          ng-mouseover="onMouseover(tab)"
+          ng-click="goToTab(tab.windowId, tab.id)">
 
-      <a href="#" class="delete" ng-click="close(tab.id)">
-        <svg viewBox="0 0 16 16" width="16" height="16">
-          <g transform="rotate(45 8 8)">
-            <rect x="7" y="1" width="2" height="14"></rect>
-            <rect x="1" y="7" width="14" height="2"></rect>
-          </g>
-        </svg>
-      </a>
-
-    </li>
-  </ul>
--->
- 
-  <div class="tabs" ng-hide="noMatches()" tabs>
-<!--    ng-show="matches() > 0"-->
-    <ul ng-repeat="window in windows | searchTabs: search" ng-class="{'last': $index === windows.length - 1}" ng-sortable="sortableConfig">
-<!--     ng-show="matches() > 0"-->
-<!--     ng-hide="window.length === 0"-->
-      <li ng-repeat="tab in window"
-          ng-class="{'selected': tab.selected, 'active': tab.active}"
-          ng-mouseover="mouseover(tab)"
-          ng-click="goToTab(tab.windowId, tab.id)"
-          id="{{tab.id}}">
-          
-        <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl || tab.favIconUrl.indexOf('chrome://') === 0}">
+        <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl}">
           <img ng-src="{{tab.favIconUrl}}" alt="{{tab.title}}">
         </div>
 
         <h1>{{tab.title}}</h1>
 
-        <a href="#" class="delete" ng-click="close(tab.windowId, tab.id)">
+        <a href="#" class="delete" ng-click="closeTab(tab.windowId, tab.id)">
           <svg viewBox="0 0 16 16" width="16" height="16">
             <g transform="rotate(45 8 8)">
               <rect x="7" y="1" width="2" height="14"></rect>
@@ -73,15 +42,15 @@
       </li>
     </ul>
   </div>
-  
 
-  <p class="no-matches" ng-show="noMatches()">No matches found</p>
-  
+  <p class="no-matches" ng-if="!filteredTabGroups.length">No matches found</p>
+
   <script src="vendor/jquery.min.js"></script>
   <script src="vendor/angular.min.js"></script>
+  <script src="vendor/fuse.min.js"></script>
+  <script src="vendor/hotkeys.js"></script>
   <script src="vendor/Sortable.min.js"></script>
   <script src="vendor/ng-sortable.js"></script>
-  <script src="vendor/lodash.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

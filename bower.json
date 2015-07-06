@@ -5,6 +5,7 @@
     "angular": "~1.2.21",
     "jquery": "~2.1.1",
     "Sortable": "~1.2.0",
-    "lodash": "~3.9.3"
+    "fuse": "~1.2.2",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5"
   }
 }
