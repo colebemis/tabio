@@ -24,7 +24,7 @@
           ng-mouseover="onMouseover(tab)"
           ng-click="goToTab(tab.windowId, tab.id)">
 
-        <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl}">
+        <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl || tab.favIconUrl.indexOf('http') === -1}">
           <img ng-src="{{tab.favIconUrl}}" alt="{{tab.title}}">
         </div>
 
