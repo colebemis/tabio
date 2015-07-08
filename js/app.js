@@ -23,6 +23,18 @@
     return deferred.promise;
   }]);
 
+  app.factory('focus', function ($timeout, $window) {
+    return function (name) {
+      // Run on the next turn of the event loop
+      $timeout(function () {
+        var element = $window.document.querySelector(name);
+        if (element) {
+          element.focus();
+        }
+      });
+    };
+  });
+
   app.filter('filterTabs', function () {
     return function (tabGroups, search) {
       if (!search) {
@@ -53,8 +65,8 @@
     };
   });
 
-  app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys',
-    function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys) {
+  app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys', 'focus',
+    function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus) {
 
       var unselect = function (tabGroups) {
         tabGroups.forEach(function (tabGroup) {
@@ -352,6 +364,14 @@
           callback: function (event) {
             event.preventDefault();
             window.close();
+          }
+        })
+        .add({
+          combo: 'meta+shift+k',
+          description: 'Focus search input',
+          callback: function (event) {
+            event.preventDefault();
+            focus('.search');
           }
         });
 
