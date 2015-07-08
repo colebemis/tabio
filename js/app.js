@@ -123,6 +123,8 @@
         if ($scope.search) {
           // Select the first tab in the search results
           selectTab($scope.filteredTabGroups[0][0]);
+
+          $scope.sortableConfig.disabled = true;
         } else {
           // Select the active tab
           $scope.filteredTabGroups[0].forEach(function (tab) {
@@ -130,6 +132,8 @@
               selectTab(tab);
             }
           });
+
+          $scope.sortableConfig.disabled = false;
         }
 
         mouse = false;
