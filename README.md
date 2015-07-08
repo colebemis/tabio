@@ -13,8 +13,8 @@ Available on the [Google Chrome Webstore](https://chrome.google.com/webstore/det
 | <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>K</kbd> | Toggle extension<sup>1</sup> |
 | <kbd>Enter</kbd> | <kbd>Enter</kbd> | Go to selected tab |
 | <kbd>Cmd</kbd> + <kbd>Delete</kbd> | <kbd>Ctrl</kbd> + <kbd>Backspace</kbd> | Close selected tab |
-| <kbd>↑</kbd> | <kbd>↑</kbd> | Select previous tab |
-| <kbd>↓</kbd> | <kbd>↓</kbd> | Select next tab |
+| <kbd>Up</kbd> | <kbd>Up</kbd> | Select previous tab |
+| <kbd>Down</kbd> | <kbd>Down</kbd> | Select next tab |
 | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | Focus search input |
 | <kbd>Esc</kbd> | <kbd>Esc</kbd> | Close extension |
 
