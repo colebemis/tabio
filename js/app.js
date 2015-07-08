@@ -153,7 +153,7 @@
         // Run on the next turn of the event loop
         $timeout(function () {
           $scope.$broadcast('selectionChanged');
-        }, 0);
+        });
       };
 
       var mouse = false;
@@ -274,7 +274,7 @@
             // Run on the next turn of the event loop
             $timeout(function () {
               $scope.$broadcast('selectionChanged');
-            }, 0);
+            });
           }
         })
         .add({
@@ -314,7 +314,7 @@
             // Run on the next turn of the event loop
             $timeout(function () {
               $scope.$broadcast('selectionChanged');
-            }, 0);
+            });
           }
         })
         .add({
