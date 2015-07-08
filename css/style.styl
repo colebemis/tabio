@@ -3,6 +3,7 @@
 color-accent = #4285f4
 color-text = #222
 typeface = "San Francisco", "Helvetica Neue", sans-serif
+popup-width = 340
 
 @font-face
     font-family "San Francisco"
@@ -16,7 +17,7 @@ typeface = "San Francisco", "Helvetica Neue", sans-serif
     font-style normal
 
 body
-  width 320px
+  width (popup-width)px
   margin 0 8px
   box-sizing border-box
   font-smoothing antialiased
@@ -53,7 +54,7 @@ body
   &::before
     content ""
     display block
-    width 320px
+    width (popup-width)px
     height 6px
     position fixed
     top 48px
@@ -64,7 +65,7 @@ body
   &::after
     content ""
     display block
-    width 320px
+    width (popup-width)px
     height 8px
     position fixed
     bottom 0
@@ -127,7 +128,7 @@ body
   h1
     margin 0
     font 400 14px typeface
-    width 274px
+    width (popup-width - 46)px
     white-space nowrap
     overflow hidden
     text-overflow ellipsis
