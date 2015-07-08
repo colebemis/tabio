@@ -1,4 +1,4 @@
-# Tabio
+# [Tabio](http://colebemis.github.io/tabio)
 
 ### Effortless tab management for Chrome
 
