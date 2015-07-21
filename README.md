@@ -10,17 +10,15 @@ Available on the [Google Chrome Webstore](https://chrome.google.com/webstore/det
 
 | OSX | Windows/Linux | Description |
 |---|---|---|
-| <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>K</kbd> | Toggle extension<sup>1,2</sup> |
+| <kbd>Cmd</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>K</kbd> | Toggle extension<sup>1</sup> |
 | <kbd>Enter</kbd> | <kbd>Enter</kbd> | Go to selected tab |
-| <kbd>Cmd</kbd> + <kbd>Delete</kbd> | <kbd>Ctrl</kbd> + <kbd>Backspace</kbd> | Close selected tab<sup>2</sup> |
+| <kbd>Cmd</kbd> + <kbd>Delete</kbd> | <kbd>Ctrl</kbd> + <kbd>Backspace</kbd> | Close selected tab |
 | <kbd>Up</kbd> | <kbd>Up</kbd> | Select previous tab |
 | <kbd>Down</kbd> | <kbd>Down</kbd> | Select next tab |
-| <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | Focus search input<sup>2</sup> |
-| <kbd>Esc</kbd> | <kbd>Esc</kbd> | Close extension<sup>2</sup> |
+| <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | Focus search input |
+| <kbd>Esc</kbd> | <kbd>Esc</kbd> | Close extension |
 
-<sup>1</sup> This can be configured in `chrome://extensions`. More information on that [here](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121). 
-
-<sup>2</sup> Coming in v1.2.0
+<sup>1</sup> This can be configured in `chrome://extensions`. More information on that [here](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121).
 
 ## Contributing
 
