@@ -318,6 +318,146 @@
           }
         })
         .add({
+          combo: 'meta+up',
+          description: 'Move selected tab up',
+          allowIn: ['INPUT'],
+          callback: function (event) {
+            event.preventDefault();
+
+            if (!$scope.search) {
+              var tabGroupIndex, tabGroupId, oldTabIndex, newTabIndex, tabId;
+
+              $scope.tabGroups.forEach(function (tabGroup, i) {
+                tabGroup.forEach(function (tab, j) {
+                  if (tab.selected) {
+                    tabGroupIndex = i;
+                    oldTabIndex = j;
+                    tabId = tab.id;
+                  }
+                });
+              });
+
+              // Remove selected tab from the current tab group
+              var removed = $scope.tabGroups[tabGroupIndex].splice(oldTabIndex, 1)[0];
+
+              // If it's not the first tab in the tab group
+              if (oldTabIndex > 0) {
+                newTabIndex = oldTabIndex - 1;
+
+                // At "newIndex", remove 0 elements, insert the removed tab
+                $scope.tabGroups[tabGroupIndex].splice(newTabIndex, 0, removed);
+
+                chrome.tabs.move(tabId, {index: newTabIndex});
+              } else {
+                // If it's not in the first tab group
+                if (tabGroupIndex > 0) {
+                  newTabIndex =  $scope.tabGroups[tabGroupIndex - 1].length;
+
+                  // Append the removed tab to the previous tab group
+                  $scope.tabGroups[tabGroupIndex - 1].push(removed);
+
+                  tabGroupId = $scope.tabGroups[tabGroupIndex - 1][0].windowId;
+                } else {
+                  newTabIndex =  $scope.tabGroups[$scope.tabGroups.length - 1].length;
+
+                  // Append the removed tab to the last tab group
+                  $scope.tabGroups[$scope.tabGroups.length - 1].push(removed);
+
+                  tabGroupId = $scope.tabGroups[$scope.tabGroups.length - 1][0].windowId;
+                }
+
+                chrome.tabs.move(tabId, {windowId: tabGroupId, index: newTabIndex});
+
+                $scope.tabGroups.forEach(function (tabGroup) {
+                  tabGroup.forEach(function (tab) {
+                    if (tab.id === tabId) {
+                      tab.windowId = tabGroupId;
+                    }
+                  });
+                });
+              }
+
+              $scope.filteredTabGroups = filterTabsFilter($scope.tabGroups, $scope.search);
+
+              mouse = false;
+
+              // Run on the next turn of the event loop
+              $timeout(function () {
+                $scope.$broadcast('selectionChanged');
+              });
+            }
+          }
+        })
+        .add({
+          combo: 'meta+down',
+          description: 'Move selected tab down',
+          allowIn: ['INPUT'],
+          callback: function (event) {
+            event.preventDefault();
+
+            if (!$scope.search) {
+              var tabGroupIndex, tabGroupId, oldTabIndex, newTabIndex, tabId;
+
+              $scope.tabGroups.forEach(function (tabGroup, i) {
+                tabGroup.forEach(function (tab, j) {
+                  if (tab.selected) {
+                    tabGroupIndex = i;
+                    oldTabIndex = j;
+                    tabId = tab.id;
+                  }
+                });
+              });
+
+              // Remove selected tab from the current tab group
+              var removed = $scope.tabGroups[tabGroupIndex].splice(oldTabIndex, 1)[0];
+
+              // If the tab is not the last tab in the tab group
+              if (oldTabIndex < $scope.tabGroups[tabGroupIndex].length) {
+                newTabIndex = oldTabIndex + 1;
+
+                // At "newIndex", remove 0 elements, insert the removed tab
+                $scope.tabGroups[tabGroupIndex].splice(newTabIndex, 0, removed);
+
+                chrome.tabs.move(tabId, {index: newTabIndex});
+              } else {
+                newTabIndex = 0;
+
+                // If the tab is not in the last tab group
+                if (tabGroupIndex < $scope.tabGroups.length - 1) {
+                  // Prepend the removed tab to the next tab group
+                  $scope.tabGroups[tabGroupIndex + 1].unshift(removed);
+
+                  tabGroupId = $scope.tabGroups[tabGroupIndex + 1][$scope.tabGroups[tabGroupIndex + 1].length - 1].windowId;
+                } else {
+                  // Prepend the removed tab to the first tab group
+                  $scope.tabGroups[0].unshift(removed);
+
+                  tabGroupId = $scope.tabGroups[0][$scope.tabGroups[0].length - 1].windowId;
+                }
+
+                chrome.tabs.move(tabId, {windowId: tabGroupId, index: newTabIndex});
+
+                $scope.tabGroups.forEach(function (tabGroup) {
+                  tabGroup.forEach(function (tab) {
+                    if (tab.id === tabId) {
+                      tab.windowId = tabGroupId;
+                    }
+                  });
+                });
+              }
+
+              $scope.filteredTabGroups = filterTabsFilter($scope.tabGroups, $scope.search);
+
+              mouse = false;
+
+              // Run on the next turn of the event loop
+              $timeout(function () {
+                $scope.$broadcast('selectionChanged');
+              });
+            }
+          }
+        })
+        .add({
           combo: 'enter',
           description: 'Go to selected tab',
           allowIn: ['INPUT'],
