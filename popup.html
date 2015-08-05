@@ -10,21 +10,34 @@
 </head>
 <body ng-controller="MainController" ng-mousemove="onMousemove($event)">
 
-  <input class="search"
-         type="search"
-         placeholder="Search"
-         ng-model="search"
-         ng-change="onChange()"
-         autofocus>
+  <input
+    class="search"
+    type="search"
+    placeholder="Search"
+    ng-model="search"
+    ng-change="onChange()"
+    autofocus
+  >
 
   <div tab-groups class="tab-groups" ng-if="!!filteredTabGroups.length">
     <ul ng-repeat="tabGroup in filteredTabGroups" ng-sortable="sortableConfig">
-      <li ng-repeat="tab in tabGroup"
-          ng-class="{'active': tab.active, 'selected': tab.selected}"
-          ng-mouseover="onMouseover(tab)"
-          ng-click="goToTab(tab.windowId, tab.id)">
+      <li
+        ng-repeat="tab in tabGroup"
+        ng-class="{
+          'active': tab.active,
+          'selected': tab.selected,
+          'pinned': tab.pinned
+        }"
+        ng-mouseover="onMouseover(tab)"
+        ng-click="goToTab(tab.windowId, tab.id)"
+      >
 
-        <div class="favicon" ng-class="{'favicon-placeholder': !tab.favIconUrl || tab.favIconUrl.indexOf('http') === -1}">
+        <div
+          class="favicon"
+          ng-class="{
+            'favicon-placeholder': !tab.favIconUrl || tab.favIconUrl.indexOf('http') === -1
+          }"
+        >
           <img ng-src="{{tab.favIconUrl}}" alt="{{tab.title}}">
         </div>
 

@@ -15,7 +15,7 @@ var paths = {
   stylus: './css/*.styl',
   js: './js/*.js',
   json: 'manifest.json',
-  img: './img/*.png',
+  img: './img/*',
   fonts: './fonts/*',
   vendor: [
     './bower_components/angular/angular-csp.css',
