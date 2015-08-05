@@ -15,10 +15,13 @@ Available on the [Google Chrome Webstore](https://chrome.google.com/webstore/det
 | <kbd>Cmd</kbd> + <kbd>Delete</kbd> | <kbd>Ctrl</kbd> + <kbd>Backspace</kbd> | Close selected tab |
 | <kbd>Up</kbd> | <kbd>Up</kbd> | Select previous tab |
 | <kbd>Down</kbd> | <kbd>Down</kbd> | Select next tab |
+| <kbd>Cmd</kbd> + <kbd>Up</kbd> | <kbd>Ctrl</kbd> + <kbd>Up</kbd> | Move selected tab up<sup>2</sup> |
+| <kbd>Cmd</kbd> + <kbd>Down</kbd> | <kbd>Ctrl</kbd> + <kbd>Down</kbd> | Move selected tab down<sup>2</sup> |
 | <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>K</kbd> | Focus search input |
 | <kbd>Esc</kbd> | <kbd>Esc</kbd> | Close extension |
 
 <sup>1</sup> This can be configured in `chrome://extensions`. More information on that [here](http://lifehacker.com/add-custom-keyboard-shortcuts-to-chrome-extensions-for-1595322121).
+<sup>2</sup> Coming in v1.3.0
 
 ## Contributing
 
@@ -72,6 +75,8 @@ $ gulp build
 |---------|-----------------------------------------------|
 | `build` | Compile, minify and copy the extension files  |
 | `zip`   | Create a zip archive for publishing           |
+
+### Known Issues
 
 ## License
 
