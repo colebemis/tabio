@@ -23,7 +23,7 @@
     return deferred.promise;
   }]);
 
-  app.factory('focus', function ($timeout, $window) {
+  app.factory('focus', ['$timeout', '$window', function ($timeout, $window) {
     return function (name) {
       // Run on the next turn of the event loop
       $timeout(function () {
@@ -33,9 +33,9 @@
         }
       });
     };
-  });
+  }]);
 
-  app.filter('filterTabs', function () {
+  app.filter('filterTabs', [function () {
     return function (tabGroups, search) {
       if (!search) {
         tabGroups.forEach(function (tabGroup, i) {
@@ -63,7 +63,7 @@
 
       return filteredTabGroups;
     };
-  });
+  }]);
 
   app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys', 'focus',
     function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus) {
@@ -294,12 +294,12 @@
               });
             });
 
-            // If the tab is not the last tab in the window
+            // If the tab is not the last tab in the tab group
             if (tabIndex < $scope.filteredTabGroups[tabGroupIndex].length - 1) {
               // Select the next tab
               selectTab($scope.filteredTabGroups[tabGroupIndex][tabIndex + 1]);
             } else {
-              // If the tab is not in the last window
+              // If the tab is not in the last tab group
               if (tabGroupIndex < $scope.filteredTabGroups.length - 1) {
                 // Select the first tab of the next tab group
                 selectTab($scope.filteredTabGroups[tabGroupIndex + 1][0]);
@@ -545,7 +545,7 @@
           $scope.filteredTabGroups = filterTabsFilter($scope.tabGroups, $scope.search);
         },
 
-        // Changed sorting within tab group
+        // Reorder within tab group
         onUpdate: function (event) {
           var tabId = event.model.id;
 
@@ -565,7 +565,7 @@
       var top = 54;
       var bottom = 468;
 
-      var scrollToSelection = function () {
+      function scrollToSelection() {
         var offset = $('.selected').offset().top;
         var oldScrollPosition = $('.tab-groups').scrollTop();
         var newScrollPosition;
@@ -581,7 +581,7 @@
           element.scrollTop(newScrollPosition);
 
         }
-      };
+      }
 
       scope.$on('selectionChanged', scrollToSelection);
     }
