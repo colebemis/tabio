@@ -5,8 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### v1.3.0
 *Unreleased*
 
+* Access help menu using <kbd>Cmd</kbd> + <kbd>/</kbd>
 * Reorder tabs using <kbd>Cmd</kbd> + <kbd>Up</kbd> or <kbd>Down</kbd>
 * Visually indicate pinned tabs
+* Various visual tweaks
 
 ### v1.2.0
 *Released 2015-07-20*
