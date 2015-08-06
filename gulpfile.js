@@ -20,6 +20,7 @@ var paths = {
   vendor: [
     './bower_components/angular/angular-csp.css',
     './bower_components/angular/angular.min.js',
+    './bower_components/angular-animate/angular-animate.min.js',
     './bower_components/angular-hotkeys/build/hotkeys.css',
     './bower_components/angular-hotkeys/build/hotkeys.js',
     './bower_components/fuse/src/fuse.min.js',

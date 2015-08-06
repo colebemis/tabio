@@ -1,7 +1,7 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  var app = angular.module('tabio', ['cfp.hotkeys', 'ng-sortable']);
+  var app = angular.module('tabio', ['ngAnimate', 'cfp.hotkeys', 'ng-sortable']);
 
   app.factory('getTabs', ['$q', function ($q) {
     var deferred = $q.defer();
@@ -30,6 +30,18 @@
         var element = $window.document.querySelector(name);
         if (element) {
           element.focus();
+        }
+      });
+    };
+  }]);
+
+  app.factory('blur', ['$timeout', '$window', function ($timeout, $window) {
+    return function (name) {
+      // Run on the next turn of the event loop
+      $timeout(function () {
+        var element = $window.document.querySelector(name);
+        if (element) {
+          element.blur();
         }
       });
     };
@@ -65,8 +77,8 @@
     };
   }]);
 
-  app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys', 'focus',
-    function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus) {
+  app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys', 'focus', 'blur',
+    function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus, blur) {
 
       var unselect = function (tabGroups) {
         tabGroups.forEach(function (tabGroup) {
@@ -80,6 +92,8 @@
         unselect($scope.filteredTabGroups);
         tab.selected = true;
       };
+
+      $scope.showHelp = false;
 
       $q.all({tabs: getTabs, tabGroups: getTabGroups})
         .then(function (result) {
@@ -120,6 +134,8 @@
           console.log($scope.tabGroups);
 
           $scope.filteredTabGroups = filterTabsFilter($scope.tabGroups, $scope.search);
+
+          focus('.search');
 
           console.log($scope.filteredTabGroups);
 
@@ -236,6 +252,17 @@
         mouse = false;
       };
 
+      $scope.toggleHelp = function () {
+
+        if ($scope.showHelp) {
+          focus('.search');
+        } else {
+          blur('.search');
+        }
+
+        $scope.showHelp = !$scope.showHelp;
+      };
+
       hotkeys.bindTo($scope)
         .add({
           combo: 'up',
@@ -243,38 +270,41 @@
           allowIn: ['INPUT'],
           callback: function (event) {
             event.preventDefault();
-            var tabGroupIndex, tabIndex;
 
-            $scope.filteredTabGroups.forEach(function (tabGroup, i) {
-              tabGroup.forEach(function (tab, j) {
-                if (tab.selected) {
-                  tabGroupIndex = i;
-                  tabIndex = j;
-                }
+            if (!$scope.showHelp) {
+              var tabGroupIndex, tabIndex;
+
+              $scope.filteredTabGroups.forEach(function (tabGroup, i) {
+                tabGroup.forEach(function (tab, j) {
+                  if (tab.selected) {
+                    tabGroupIndex = i;
+                    tabIndex = j;
+                  }
+                });
               });
-            });
 
-            // If it's not the first tab in the tab group
-            if (tabIndex > 0) {
-              // Select the previous tab
-              selectTab($scope.filteredTabGroups[tabGroupIndex][tabIndex - 1]);
-            } else {
-              // If it's not in the first tab group
-              if (tabGroupIndex > 0) {
-                // Select the last tab of the previous tab group
-                selectTab($scope.filteredTabGroups[tabGroupIndex - 1][$scope.filteredTabGroups[tabGroupIndex - 1].length - 1]);
+              // If it's not the first tab in the tab group
+              if (tabIndex > 0) {
+                // Select the previous tab
+                selectTab($scope.filteredTabGroups[tabGroupIndex][tabIndex - 1]);
               } else {
-                // Select the last tab on the last tab group
-                selectTab($scope.filteredTabGroups[$scope.filteredTabGroups.length - 1][$scope.filteredTabGroups[$scope.filteredTabGroups.length - 1].length - 1]);
+                // If it's not in the first tab group
+                if (tabGroupIndex > 0) {
+                  // Select the last tab of the previous tab group
+                  selectTab($scope.filteredTabGroups[tabGroupIndex - 1][$scope.filteredTabGroups[tabGroupIndex - 1].length - 1]);
+                } else {
+                  // Select the last tab on the last tab group
+                  selectTab($scope.filteredTabGroups[$scope.filteredTabGroups.length - 1][$scope.filteredTabGroups[$scope.filteredTabGroups.length - 1].length - 1]);
+                }
               }
+
+              mouse = false;
+
+              // Run on the next turn of the event loop
+              $timeout(function () {
+                $scope.$broadcast('selectionChanged');
+              });
             }
-
-            mouse = false;
-
-            // Run on the next turn of the event loop
-            $timeout(function () {
-              $scope.$broadcast('selectionChanged');
-            });
           }
         })
         .add({
@@ -283,38 +313,41 @@
           allowIn: ['INPUT'],
           callback: function (event) {
             event.preventDefault();
-            var tabGroupIndex, tabIndex;
 
-            $scope.filteredTabGroups.forEach(function (tabGroup, i) {
-              tabGroup.forEach(function (tab, j) {
-                if (tab.selected) {
-                  tabGroupIndex = i;
-                  tabIndex = j;
-                }
+            if (!$scope.showHelp) {
+              var tabGroupIndex, tabIndex;
+
+              $scope.filteredTabGroups.forEach(function (tabGroup, i) {
+                tabGroup.forEach(function (tab, j) {
+                  if (tab.selected) {
+                    tabGroupIndex = i;
+                    tabIndex = j;
+                  }
+                });
               });
-            });
 
-            // If the tab is not the last tab in the tab group
-            if (tabIndex < $scope.filteredTabGroups[tabGroupIndex].length - 1) {
-              // Select the next tab
-              selectTab($scope.filteredTabGroups[tabGroupIndex][tabIndex + 1]);
-            } else {
-              // If the tab is not in the last tab group
-              if (tabGroupIndex < $scope.filteredTabGroups.length - 1) {
-                // Select the first tab of the next tab group
-                selectTab($scope.filteredTabGroups[tabGroupIndex + 1][0]);
+              // If the tab is not the last tab in the tab group
+              if (tabIndex < $scope.filteredTabGroups[tabGroupIndex].length - 1) {
+                // Select the next tab
+                selectTab($scope.filteredTabGroups[tabGroupIndex][tabIndex + 1]);
               } else {
-                // Select the first tab on the first tab group
-                selectTab($scope.filteredTabGroups[0][0]);
+                // If the tab is not in the last tab group
+                if (tabGroupIndex < $scope.filteredTabGroups.length - 1) {
+                  // Select the first tab of the next tab group
+                  selectTab($scope.filteredTabGroups[tabGroupIndex + 1][0]);
+                } else {
+                  // Select the first tab on the first tab group
+                  selectTab($scope.filteredTabGroups[0][0]);
+                }
               }
+
+              mouse = false;
+
+              // Run on the next turn of the event loop
+              $timeout(function () {
+                $scope.$broadcast('selectionChanged');
+              });
             }
-
-            mouse = false;
-
-            // Run on the next turn of the event loop
-            $timeout(function () {
-              $scope.$broadcast('selectionChanged');
-            });
           }
         })
         .add({
@@ -324,7 +357,7 @@
           callback: function (event) {
             event.preventDefault();
 
-            if (!$scope.search) {
+            if (!$scope.search && !$scope.showHelp) {
               var tabGroupIndex, tabGroupId, oldTabIndex, newTabIndex, tabId;
 
               $scope.tabGroups.forEach(function (tabGroup, i) {
@@ -395,7 +428,7 @@
           callback: function (event) {
             event.preventDefault();
 
-            if (!$scope.search) {
+            if (!$scope.search && !$scope.showHelp) {
               var tabGroupIndex, tabGroupId, oldTabIndex, newTabIndex, tabId;
 
               $scope.tabGroups.forEach(function (tabGroup, i) {
@@ -463,18 +496,21 @@
           allowIn: ['INPUT'],
           callback: function (event) {
             event.preventDefault();
-            var tabGroupId, tabId;
 
-            $scope.filteredTabGroups.forEach(function (tabGroup) {
-              tabGroup.forEach(function (tab) {
-                if (tab.selected) {
-                  tabGroupId = tab.windowId;
-                  tabId = tab.id;
-                }
+            if (!$scope.showHelp) {
+              var tabGroupId, tabId;
+
+              $scope.filteredTabGroups.forEach(function (tabGroup) {
+                tabGroup.forEach(function (tab) {
+                  if (tab.selected) {
+                    tabGroupId = tab.windowId;
+                    tabId = tab.id;
+                  }
+                });
               });
-            });
 
-            $scope.goToTab(tabGroupId, tabId);
+              $scope.goToTab(tabGroupId, tabId);
+            }
           }
         })
         .add({
@@ -483,18 +519,21 @@
           allowIn: ['INPUT'],
           callback: function (event) {
             event.preventDefault();
-            var tabGroupId, tabId;
 
-            $scope.filteredTabGroups.forEach(function (tabGroup) {
-              tabGroup.forEach(function (tab) {
-                if (tab.selected) {
-                  tabGroupId = tab.windowId;
-                  tabId = tab.id;
-                }
+            if (!$scope.showHelp) {
+              var tabGroupId, tabId;
+
+              $scope.filteredTabGroups.forEach(function (tabGroup) {
+                tabGroup.forEach(function (tab) {
+                  if (tab.selected) {
+                    tabGroupId = tab.windowId;
+                    tabId = tab.id;
+                  }
+                });
               });
-            });
 
-            $scope.closeTab(tabGroupId, tabId);
+              $scope.closeTab(tabGroupId, tabId);
+            }
           }
         })
         .add({
@@ -503,7 +542,11 @@
           allowIn: ['INPUT'],
           callback: function (event) {
             event.preventDefault();
-            window.close();
+            if ($scope.showHelp) {
+              $scope.toggleHelp();
+            } else {
+              window.close();
+            }
           }
         })
         .add({
@@ -511,7 +554,21 @@
           description: 'Focus search input',
           callback: function (event) {
             event.preventDefault();
-            focus('.search');
+
+            if (!$scope.showHelp) {
+              focus('.search');
+            }
+          }
+        })
+        .add({
+          combo: 'meta+/',
+          description: 'Focus search input',
+          allowIn: ['INPUT'],
+          callback: function (event) {
+            event.preventDefault();
+            console.log('Help!');
+
+            $scope.toggleHelp();
           }
         });
 

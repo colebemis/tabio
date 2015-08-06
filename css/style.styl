@@ -16,12 +16,110 @@ popup-width = 340
     font-weight normal
     font-style normal
 
+@keyframes fadeInDown
+  from
+    padding-top 0
+    opacity 0
+
+  to
+    padding-top 3%
+    opacity 1
+
+@keyframes fadeOutUp
+  from
+    transform translateY(0)
+    opacity 1
+
+  to
+    transform translateY(-3%)
+    opacity 0
+
 body
+  position relative
   width (popup-width)px
   margin 0
   padding 0 8px
   box-sizing border-box
   font-smoothing antialiased
+
+.help
+  padding 3% 0
+  position absolute
+  top 0
+  left 0
+  right 0
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  background-color rgba(240, 240, 240, .9)
+  transform translate3d(0,0,0)
+  z-index 2
+
+  &.ng-enter
+    animation fadeInDown 200ms ease-out
+
+  &.ng-leave
+    animation fadeOutUp 200ms ease-in
+
+  .modal
+    width 94%
+    box-sizing border-box
+    padding 20px
+    background-color #FFF
+    box-shadow 0 1px 2px rgba(0, 0, 0, .15)
+    border-radius 3px
+
+    header
+      margin 0 0 16px
+      display flex
+      flex-direction row
+      justify-content space-between
+      align-items center
+
+    h2
+      margin 0
+      font 400 16px typeface
+      color color-text
+
+    .close-modal
+      display inline-block
+      width 16px
+      height 16px
+
+      svg
+        fill rgba(0,0,0,0.5)
+        transition fill 300ms
+
+      &:hover svg
+        fill color-accent
+
+    ul
+      list-style none
+      margin 0
+      padding 0
+
+    li
+      padding 12px 0
+      display flex
+      flex-direction row
+      justify-content space-between
+      align-items center
+      border-top 1px solid #ddd
+      font 400 14px typeface
+      color color-text
+
+      &:last-child
+        padding-bottom 0
+
+    h3
+      margin 0
+      font 400 14px typeface
+
+    p
+      margin 0
+      opacity 0.5
+      font 400 14px typeface
 
 .search
   width 100%

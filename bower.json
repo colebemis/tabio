@@ -2,10 +2,11 @@
   "name": "tabio",
   "version": "1.2.0",
   "dependencies": {
-    "angular": "~1.2.21",
     "jquery": "~2.1.1",
     "Sortable": "~1.2.0",
     "fuse": "~1.2.2",
-    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5"
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5",
+    "angular-animate": "~1.4.3",
+    "angular": "~1.4.3"
   }
 }
