@@ -78,6 +78,10 @@ $ gulp build
 
 ### Known Issues
 
+* Incorrect drawing occasionally on activation (Still don't know why! :cry:)
+* Delayed activation on occasion
+* Unpredictable pinned tab behavior
+
 ## License
 
 Tabio is licensed under the [MIT License](LICENSE.md).
