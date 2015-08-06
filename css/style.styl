@@ -18,7 +18,8 @@ popup-width = 340
 
 body
   width (popup-width)px
-  margin 0 8px
+  margin 0
+  padding 0 8px
   box-sizing border-box
   font-smoothing antialiased
 
@@ -28,7 +29,7 @@ body
   margin 8px 0 4px
   color color-text
   background #fcfcfc
-  border 1px solid #ccc
+  border 1px solid #ddd
   border-radius 3px
   box-shadow inset 0 1px 1px rgba(0, 0, 0, .07)
   font 400 14px typeface
@@ -40,7 +41,7 @@ body
   &:focus
     outline 0
     background #fff
-    border-color #b3b3b3
+    border-color #ccc
 
 .tab-groups
   padding 6px 0 8px
@@ -60,7 +61,6 @@ body
     top 48px
     left 8px
     background-image linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))
-    // background-color rgba(0, 0, 255, 0.2)
     z-index 1
 
   &::after
@@ -72,7 +72,6 @@ body
     bottom 0
     left 8px
     background-image linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))
-    // background-color rgba(0, 0, 255, 0.2)
 
   &::-webkit-scrollbar
     display none
@@ -100,11 +99,10 @@ body
       color #15c
 
     &.pinned
-      // border-radius 3px
-      background url('img/pin.svg') no-repeat center right // #f2f2f2
+      background url('img/pin.svg') no-repeat center right
 
       h1
-        width (popup-width - 76)px
+        width (popup-width - 88)px
 
     &.selected
       cursor pointer
@@ -112,8 +110,10 @@ body
       background-color color-accent
       border-radius 3px
 
-      .delete
-        // visibility visible
+      h1
+        width (popup-width - 78)px
+
+      .close-tab
         opacity 1
 
   .sortable-placeholder
@@ -138,20 +138,18 @@ body
   h1
     margin 0
     font 400 14px typeface
-    width (popup-width - 46)px
+    width (popup-width - 62)px
     white-space nowrap
     overflow hidden
-    text-overflow ellipsis
+    // text-overflow ellipsis
+    // TODO: Check browser support
+    -webkit-mask-image -webkit-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)
 
-  .delete
+  .close-tab
     width 16px
     height 16px
-    margin 0 0 0 10px
-    // visibility hidden
     opacity 0
-    padding 10px 10px 10px 16px
-    border-radius 0 3px 3px 0
-    background-image linear-gradient(90deg, rgba(0, 0, 0, 0), color-accent 50%)
+    padding 10px
     position absolute
     right 0
 
