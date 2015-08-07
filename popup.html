@@ -19,7 +19,11 @@
     autofocus
   >
 
-  <div tab-groups class="tab-groups" ng-if="!!filteredTabGroups.length">
+  <div class="loader" ng-if="showLoader">
+    <img src="img/loader.svg">
+  </div>
+
+  <div tab-groups class="tab-groups" ng-if="!showLoader && !!filteredTabGroups.length">
     <ul ng-repeat="tabGroup in filteredTabGroups" ng-sortable="sortableConfig">
       <li
         ng-repeat="tab in tabGroup"
@@ -56,7 +60,7 @@
     </ul>
   </div>
 
-  <p class="no-matches" ng-if="!filteredTabGroups.length">No matches found</p>
+  <p class="no-matches" ng-if="!showLoader && !filteredTabGroups.length">No matches found</p>
 
   <script src="vendor/jquery.min.js"></script>
   <script src="vendor/angular.min.js"></script>

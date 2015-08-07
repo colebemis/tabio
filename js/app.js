@@ -68,6 +68,9 @@
   app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys', 'focus',
     function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus) {
 
+      console.log('Loading');
+      $scope.showLoader = true;
+
       var unselect = function (tabGroups) {
         tabGroups.forEach(function (tabGroup) {
           tabGroup.forEach(function (tab) {
@@ -122,6 +125,9 @@
           $scope.filteredTabGroups = filterTabsFilter($scope.tabGroups, $scope.search);
 
           console.log($scope.filteredTabGroups);
+
+          console.log('Ready!');
+          $scope.showLoader = false;
 
           // Run on the next turn of the event loop
           $timeout(function () {
