@@ -126,6 +126,8 @@
 
           console.log($scope.filteredTabGroups);
 
+          focus('.search');
+
           console.log('Ready!');
           $scope.showLoader = false;
 
