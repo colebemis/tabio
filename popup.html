@@ -10,6 +10,64 @@
 </head>
 <body ng-controller="MainController" ng-mousemove="onMousemove($event)">
 
+  <div class="modal" ng-if="isModalShowing" ng-switch on="modalId">
+    <div ng-switch-when="cheatSheet" class="cheat-sheet">
+      <header>
+        <h2>Keyboard Shortcuts</h2>
+        <a href="#" class="close-modal" ng-click="hideModal()">
+          <svg viewBox="0 0 16 16" width="16" height="16">
+            <g transform="rotate(45 8 8)">
+              <rect x="7.5" y="1" width="1" height="14"></rect>
+              <rect x="1" y="7.5" width="14" height="1"></rect>
+            </g>
+          </svg>
+        </a>
+      </header>
+      <ul>
+        <li>
+          <h3>Toggle cheat sheet</h3>
+          <p>Cmd + /</p>
+        </li>
+        <li>
+          <h3>Toggle extension</h3>
+          <p>Cmd + K</p>
+        </li>
+        <li>
+          <h3>Go to selected tab</h3>
+          <p>Enter</p>
+        </li>
+        <li>
+          <h3>Close selected tab</h3>
+          <p>Cmd + Delete</p>
+        </li>
+        <li>
+          <h3>Select previous tab</h3>
+          <p>Up</p>
+        </li>
+        <li>
+          <h3>Select next tab</h3>
+          <p>Down</p>
+        </li>
+        <li>
+          <h3>Move selected tab up</h3>
+          <p>Cmd + Up</p>
+        </li>
+        <li>
+          <h3>Move selected tab down</h3>
+          <p>Cmd + Down</p>
+        </li>
+        <li>
+          <h3>Focus search input</h3>
+          <p>Cmd + Shift + K</p>
+        </li>
+        <li>
+          <h3>Close cheat sheet or extension</h3>
+          <p>Esc</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <input
     class="search"
     type="search"

@@ -20,8 +20,97 @@ body
   width (popup-width)px
   margin 0
   padding 0 8px
+  position relative
   box-sizing border-box
+  font-family typeface
   font-smoothing antialiased
+
+a:focus
+  outline none
+
+.modal
+  min-height 100%
+  position absolute
+  top 0
+  left 0
+  right 0
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  background-color rgba(240, 240, 240, .9)
+  z-index 2
+
+  > div
+    box-sizing border-box
+    box-shadow 0 1px 2px rgba(0, 0, 0, .15)
+    border-radius 3px
+
+  header
+    margin 0 0 16px
+    display flex
+    flex-direction row
+    justify-content space-between
+    align-items center
+
+  h2
+    margin 0
+    font-weight 400
+    font-size 16px
+    color color-text
+
+  .close-modal
+    display inline-block
+    width 16px
+    height 16px
+    padding 3px 0
+    transition opacity 300ms
+
+    svg
+      fill rgba(0, 0, 0, .5)
+      // transition fill 300ms
+
+    &:hover
+      opacity .6
+
+    // &:hover svg
+        //fill #E40014
+
+.cheat-sheet
+  width 94%
+  margin 3% 0
+  padding 20px
+  background-color #fff
+
+  ul
+    list-style none
+    margin 0
+    padding 0
+
+  li
+    padding 12px 0
+    display flex
+    flex-direction row
+    justify-content space-between
+    align-items center
+    border-top 1px solid #ddd
+    font-size 14px
+    font-weight 400
+    color color-text
+
+    &:last-child
+      padding-bottom 0
+
+  h3
+    margin 0
+    font-size 14px
+    font-weight 400
+
+  p
+    margin 0
+    opacity 0.5
+    font-size 14px
+    font-weight 400
 
 .search
   width 100%
@@ -169,4 +258,3 @@ body
   margin 14px 0 18px
   font 400 14px typeface
   color lighten(color-text, 50%)
-
