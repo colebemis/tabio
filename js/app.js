@@ -69,7 +69,8 @@
     function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus) {
 
       console.log('Loading');
-      $scope.showLoader = true;
+      console.time('load');
+      $scope.contentReady = false;
 
       var unselect = function (tabGroups) {
         tabGroups.forEach(function (tabGroup) {
@@ -129,7 +130,8 @@
           focus('.search');
 
           console.log('Ready!');
-          $scope.showLoader = false;
+          console.timeEnd('load');
+          $scope.contentReady = true;
 
           // Run on the next turn of the event loop
           $timeout(function () {
