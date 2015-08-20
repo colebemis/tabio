@@ -76,6 +76,12 @@ $ gulp build
 | `build` | Compile, minify and copy the extension files  |
 | `zip`   | Create a zip archive for publishing           |
 
+### Known Issues
+
+* Incorrect drawing occasionally on activation - Don't know why! :cry:
+* Delayed activation on occasion
+* Unpredictable pinned tab behavior
+
 ## License
 
 Tabio is licensed under the [MIT License](LICENSE.md).
