@@ -33,7 +33,8 @@
 
   "author": "Cole Bemis",
   "permissions": [
-    "tabs"
+    "tabs",
+    "storage"
   ]
 }
 

@@ -11,6 +11,13 @@
 <body ng-controller="MainController" ng-mousemove="onMousemove($event)">
 
   <div class="modal" ng-if="isModalShowing" ng-switch on="modalId">
+    <div ng-switch-when="welcome" class="welcome">
+      <img src="img/smiley.svg">
+      <h2>Welcome to Tabio</h2>
+      <p class="blurb">Tabio makes it easier than ever to manage your tabs.</p>
+      <a href="#" ng-click="hideWelcome()">Start using Tabio</a>
+      <p>Press Cmd + / to view keyboard shortcuts</p>
+    </div>
     <div ng-switch-when="cheatSheet" class="cheat-sheet">
       <header>
         <h2>Keyboard Shortcuts</h2>

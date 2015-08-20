@@ -1,7 +1,7 @@
 (function (window, angular, undefined) {
   'use strict';
 
-  var app = angular.module('tabio', ['cfp.hotkeys', 'ng-sortable']);
+  var app = angular.module('tabio', ['ngAnimate', 'cfp.hotkeys', 'ng-sortable']);
 
   app.factory('getTabs', ['$q', function ($q) {
     var deferred = $q.defer();
@@ -18,6 +18,16 @@
 
     chrome.windows.getAll({}, function (tabGroups) {
       deferred.resolve(tabGroups);
+    });
+
+    return deferred.promise;
+  }]);
+
+  app.factory('getSyncStorage', ['$q', function ($q) {
+    var deferred = $q.defer();
+
+    chrome.storage.sync.get('seenWelcome', function (value) {
+      deferred.resolve(value);
     });
 
     return deferred.promise;
@@ -77,8 +87,8 @@
     };
   }]);
 
-  app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'filterTabsFilter', 'hotkeys', 'focus', 'blur',
-    function ($scope, $q, $timeout, getTabs, getTabGroups, filterTabsFilter, hotkeys, focus, blur) {
+  app.controller('MainController', ['$scope', '$q', '$timeout', 'getTabs', 'getTabGroups', 'getSyncStorage', 'filterTabsFilter', 'hotkeys', 'focus', 'blur',
+    function ($scope, $q, $timeout, getTabs, getTabGroups, getSyncStorage, filterTabsFilter, hotkeys, focus, blur) {
 
       console.log('Loading');
       console.time('load');
@@ -99,7 +109,7 @@
         tab.selected = true;
       };
 
-      $q.all({tabs: getTabs, tabGroups: getTabGroups})
+      $q.all({tabs: getTabs, tabGroups: getTabGroups, syncStorage: getSyncStorage})
         .then(function (result) {
           $scope.tabGroups = [];
 
@@ -146,6 +156,12 @@
           console.log('Ready!');
           console.timeEnd('load');
           $scope.contentReady = true;
+
+          // Check if user has seen the welcome modal before
+          if (!result.syncStorage.seenWelcome) {
+            $scope.modalId = 'welcome';
+            $scope.isModalShowing = true;
+          }
 
           // Run on the next turn of the event loop
           $timeout(function () {
@@ -260,6 +276,12 @@
         mouse = false;
       };
 
+      $scope.hideWelcome = function () {
+        chrome.storage.sync.set({'seenWelcome': true});
+
+        $scope.hideModal();
+      };
+
       $scope.showModal = function (id) {
         blur('.search');
         $scope.modalId = id;
@@ -272,11 +294,11 @@
       }
 
       $scope.toggleModal = function (id) {
-        if ($scope.isModalShowing) {
-          $scope.hideModal();
-        } else {
-          $scope.showModal(id);
-        }
+          if ($scope.isModalShowing && $scope.modalId === id) {
+            $scope.hideModal();
+          } else {
+            $scope.showModal(id);
+          }
       };
 
       hotkeys.bindTo($scope)
