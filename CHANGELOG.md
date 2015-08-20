@@ -7,8 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * Reorder tabs using <kbd>Cmd</kbd> + <kbd>Up</kbd> or <kbd>Down</kbd>
 * Visually indicate pinned tabs
-* View keyboard shortcuts using <kbd>Cmd</kbd> + <kbd>/</kbd>
+* Access cheat sheet using <kbd>Cmd</kbd> + <kbd>/</kbd>
 * New welcome modal
+* Various visual tweaks
 
 ### v1.2.0
 *Released 2015-07-20*
