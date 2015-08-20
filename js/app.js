@@ -161,6 +161,7 @@
           if (!result.syncStorage.seenWelcome) {
             $scope.modalId = 'welcome';
             $scope.isModalShowing = true;
+            $scope.isWelcomeState = true;
           }
 
           // Run on the next turn of the event loop
@@ -276,21 +277,26 @@
         mouse = false;
       };
 
-      $scope.hideWelcome = function () {
-        chrome.storage.sync.set({'seenWelcome': true});
-
-        $scope.hideModal();
-      };
-
       $scope.showModal = function (id) {
         blur('.search');
         $scope.modalId = id;
         $scope.isModalShowing = true;
       };
 
+      $scope.hideWelcome = function () {
+        $scope.isWelcomeState = false;
+        $scope.hideModal();
+
+        chrome.storage.sync.set({'seenWelcome': true});
+      }
+
       $scope.hideModal = function () {
-        focus('.search');
-        $scope.isModalShowing = false;
+        if ($scope.isWelcomeState) {
+          $scope.showModal('welcome');
+        } else {
+          focus('.search');
+          $scope.isModalShowing = false;
+        }
       }
 
       $scope.toggleModal = function (id) {
@@ -535,7 +541,9 @@
           callback: function (event) {
             event.preventDefault();
 
-            if (!$scope.isModalShowing) {
+            if ($scope.isWelcomeState) {
+              $scope.hideWelcome();
+            } else if (!$scope.isModalShowing) {
               var tabGroupId, tabId;
 
               $scope.filteredTabGroups.forEach(function (tabGroup) {
@@ -581,11 +589,13 @@
           callback: function (event) {
             event.preventDefault();
 
-            if ($scope.isModalShowing) {
+            window.close();
+
+            /*if ($scope.isModalShowing) {
               $scope.hideModal();
             } else {
               window.close();
-            }
+            }*/
           }
         })
         .add({

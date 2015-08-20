@@ -16,6 +16,40 @@ popup-width = 340
     font-weight normal
     font-style normal
 
+@keyframes fadeOutLeft
+  from
+    opacity 1
+
+  to
+    opacity 0
+    transform translate3d(-100%, 0, 0)
+
+@keyframes fadeOutRight
+  from
+    opacity 1
+
+  to
+    opacity 0
+    transform translate3d(100%, 0, 0)
+
+@keyframes fadeInRight
+  from
+    opacity 0
+    transform translate3d(100%, 0, 0)
+
+  to
+    opacity 1
+    transform translate3d(-50%, 0, 0)
+
+@keyframes fadeInLeft
+  from
+    opacity 0
+    transform translate3d(-100%, 0, 0)
+
+  to
+    opacity 1
+    transform translate3d(50%, 0, 0)
+
 body
   width (popup-width)px
   margin 0
@@ -38,7 +72,7 @@ a:focus
   left 0
   right 0
   display flex
-  flex-direction column
+  flex-direction row
   justify-content center
   align-items center
   background-color rgba(240, 240, 240, .9)
@@ -57,6 +91,7 @@ a:focus
     opacity 1
 
   > div
+    flex 0 0 94%
     box-sizing border-box
     box-shadow 0 1px 2px rgba(0, 0, 0, .15)
     border-radius 3px
@@ -92,11 +127,20 @@ a:focus
         //fill #E40014
 
 .welcome
-  width 94%
+  // width 94%
   margin 3% 0
   padding 36px
   text-align center
   background-color color-accent
+  transform translateZ(0)
+
+  &.ng-enter
+    animation fadeInLeft 400ms ease-out
+    animation-fill-mode both
+
+  &.ng-leave
+    animation fadeOutLeft 400ms ease-out
+    animation-fill-mode both
 
   img
     margin 4px 0 16px
@@ -131,10 +175,19 @@ a:focus
       opacity 0.8
 
 .cheat-sheet
-  width 94%
+  // width 94%
   margin 3% 0
   padding 20px
   background-color #fff
+  transform translateZ(0)
+
+  &.ng-enter
+    animation fadeInRight 400ms ease-out
+    animation-fill-mode both
+
+  &.ng-leave
+    animation fadeOutRight 400ms ease-out
+    animation-fill-mode both
 
   ul
     list-style none
