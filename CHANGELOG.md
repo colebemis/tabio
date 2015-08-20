@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### v1.3.0
-*Unreleased*
+*Released 2015-08-20*
 
 * Reorder tabs using <kbd>Cmd</kbd> + <kbd>Up</kbd> or <kbd>Down</kbd>
 * Visually indicate pinned tabs
