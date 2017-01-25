@@ -1,6 +1,6 @@
 # [Tabio](http://colebemis.github.io/tabio)
 
-> **Psst!** I'm currently working on a major update to Tabio. Development on version 2 is being done in the [tabio-2](https://github.com/colebemis/tabio-2) repo. Stay up to date by following me on Twitter @colebemis.
+> **Note:** I'm currently working on a major update to Tabio. Development on version 2 is being done in the [tabio-2](https://github.com/colebemis/tabio-2) repo. Stay up to date by following me on Twitter [@colebemis](https://twitter.com/colebemis).
 
 ### Effortless tab management for Chrome
 
