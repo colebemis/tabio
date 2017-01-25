@@ -79,7 +79,7 @@ $ gulp build
 
 ### Known Issues
 
-* Incorrect drawing occasionally on activation - Don't know why! :cry:
+* Incorrect drawing occasionally on activation
 * Delayed activation on occasion
 * Unpredictable pinned tab behavior
 
