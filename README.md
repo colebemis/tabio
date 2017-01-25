@@ -1,5 +1,7 @@
 # [Tabio](http://colebemis.github.io/tabio)
 
+> **Psst!** I'm currently working on a major update to Tabio. Development on version 2 is being done in the [tabio-2](https://github.com/colebemis/tabio-2) repo. Stay up to date by following me on Twitter @colebemis.
+
 ### Effortless tab management for Chrome
 
 Tabio is a Chrome extension designed to make managing lots of browser tabs significantly easier. The extension generates a searchable, scrollable and fully keyboard-accessible list of all open browser tabs.
