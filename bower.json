@@ -1,6 +1,21 @@
 {
   "name": "tabio",
   "version": "1.3.1",
+  "description": "Tabio is a Chrome extension designed to make managing lots of browser tabs significantly easier.",
+  "main": "",
+  "authors": [
+    "Cole Bemis"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/colebemis/tabio",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "angular": "~1.4.4",
     "jquery": "~2.1.1",

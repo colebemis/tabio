@@ -50,16 +50,10 @@ $ cd tabio
 $ npm install
 ```
 
-* Install bower dependencies
-
-```
-$ bower install
-```
-
 * Create the initial build
 
 ```
-$ gulp build
+$ npm run build
 ```
 
 * Load the extension
