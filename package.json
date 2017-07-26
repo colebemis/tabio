@@ -5,6 +5,7 @@
   "author": "Cole Bemis <cole@colebemis.com>",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint --ext .js,.jsx .",
     "build": "webpack",
     "watch": "webpack --watch"
   },
@@ -18,6 +19,11 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
+    "eslint": "^4.3.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
     "webpack": "^3.4.0"
   }
 }
