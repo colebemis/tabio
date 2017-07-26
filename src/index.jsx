@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+import TabGroup from './components/TabGroup';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,11 +18,11 @@ class App extends Component {
 
   render() {
     return (
-      <pre>
-        <code>
-          {JSON.stringify(this.state.tabGroups, null, 2)}
-        </code>
-      </pre>
+      <div>
+        {this.state.tabGroups.map(tabGroup =>
+          <TabGroup key={tabGroup.id} {...tabGroup} />,
+        )}
+      </div>
     );
   }
 }
