@@ -1,0 +1,8 @@
+{
+  "manifest_version": 2,
+  "name": "Tabio",
+  "version": "2.0.0",
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
+}
