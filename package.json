@@ -1,0 +1,11 @@
+{
+  "name": "tabio",
+  "version": "0.0.0",
+  "repository": "https://github.com/colebemis/tabio.git",
+  "author": "Cole Bemis <cole@colebemis.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
