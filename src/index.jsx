@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div>
         {this.state.tabGroups.map(tabGroup =>
-          <TabGroup key={tabGroup.id} {...tabGroup} />,
+          <TabGroup key={tabGroup.id} tabs={tabGroup.tabs} />,
         )}
       </div>
     );
