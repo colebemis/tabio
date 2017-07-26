@@ -2,7 +2,11 @@
   "extends": "airbnb",
   "rules": {
     "max-len": "off",
-    "arrow-parens": ["error", "as-needed"]
+    "arrow-parens": ["error", "as-needed"],
+    "react/jsx-wrap-multilines": [
+      "error",
+      { "declaration": false, "assignment": false, "arrow": false }
+    ]
   },
   "env": {
     "browser": true
