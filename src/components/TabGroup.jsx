@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import glamorous from 'glamorous';
 
 import Tab from './Tab';
 
+const Container = glamorous.ul({
+  margin: 0,
+  padding: 8,
+});
+
 const TabGroup = ({ tabs }) =>
-  <ul>
+  <Container>
     {tabs.map(tab =>
       <Tab
         key={tab.id}
@@ -13,7 +19,7 @@ const TabGroup = ({ tabs }) =>
         url={tab.url}
       />,
     )}
-  </ul>;
+  </Container>;
 
 TabGroup.propTypes = { tabs: PropTypes.arrayOf(PropTypes.object).isRequired };
 
