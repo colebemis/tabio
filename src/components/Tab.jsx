@@ -30,7 +30,7 @@ const Url = glamorous.span({
   margin: '0 6px',
   fontSize: 14,
   lineHeight: 1.5,
-  color: 'rgba(0, 0, 0, 0.4)',
+  color: 'rgba(0, 0, 0, 0.5)',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',

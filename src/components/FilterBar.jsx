@@ -8,8 +8,9 @@ const Input = glamorous.input({
   padding: '0 20px',
   fontFamily: 'inherit',
   fontSize: 24,
-  color: 'rgba(0, 0, 0, 0.8)',
+  color: 'inherit',
   border: 'none',
+  boxShadow: '0 1px 0 rgba(0, 0, 0, 0.1)',
   outline: 'none',
 });
 
