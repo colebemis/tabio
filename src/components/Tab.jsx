@@ -10,7 +10,7 @@ const Container = glamorous.li({
   padding: 6,
 });
 
-const Favicon = glamorous.img({
+const FavIcon = glamorous.span({
   flex: '0 0 auto',
   width: 16,
   height: 16,
@@ -37,9 +37,24 @@ const Url = glamorous.span({
   textOverflow: 'ellipsis',
 });
 
+const favIconPlaceholder = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+  >
+    <rect x="0" y="0" width="16" height="16" fill="black" />
+  </svg>
+);
+
 const Tab = ({ favIconUrl, title, url }) =>
   <Container>
-    <Favicon src={favIconUrl} alt="Favicon" />
+    <FavIcon>
+      {/^https?:\/\//.test(favIconUrl)
+        ? <img src={favIconUrl} alt="FavIcon" width="16" height="16" />
+        : favIconPlaceholder}
+    </FavIcon>
     <Title>
       {title}
     </Title>
