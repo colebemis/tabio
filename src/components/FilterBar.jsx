@@ -6,7 +6,9 @@ const Input = glamorous.input({
   width: '100%',
   height: 64,
   padding: '0 20px',
+  fontFamily: 'inherit',
   fontSize: 24,
+  color: 'rgba(0, 0, 0, 0.8)',
   border: 'none',
   outline: 'none',
 });
