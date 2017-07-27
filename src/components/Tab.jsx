@@ -5,7 +5,6 @@ import glamorous from 'glamorous';
 const Container = glamorous.li({
   display: 'flex',
   alignItems: 'center',
-  boxSizing: 'border-box',
   height: 40,
   padding: 6,
 });
