@@ -30,7 +30,7 @@ class App extends Component {
     // copy tabGroups
     const sortedTabGroups = tabGroups.slice();
 
-    // find current tab group index
+    // find index of current tab group
     const currentTabGroupIndex = sortedTabGroups.findIndex(
       tabGroup => tabGroup.id === currentTabGroupId,
     );
