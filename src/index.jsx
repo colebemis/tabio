@@ -42,18 +42,36 @@ class App extends Component {
     return sortedTabGroups;
   };
 
+  filterTabGroup = (tabGroups, filterTerm) => {
+    if (filterTerm === '') {
+      return tabGroups;
+    }
+
+    return tabGroups
+      .map(tabGroup => {
+        const filteredTabs = tabGroup.tabs.filter(tab =>
+          `${tab.title} ${tab.url}`
+            .toLowerCase()
+            .includes(filterTerm.toLowerCase()),
+        );
+
+        return Object.assign({}, tabGroup, { tabs: filteredTabs });
+      })
+      .filter(tabGroup => tabGroup.tabs.length > 0);
+  };
+
   handleFilterTermChange = event => {
     this.setState({ filterTerm: event.target.value });
   };
 
   render() {
-    const tabGroups = this.sortTabGroups(
-      this.state.tabGroups,
-      this.state.currentTabGroupId,
+    const tabGroups = this.filterTabGroup(
+      this.sortTabGroups(this.state.tabGroups, this.state.currentTabGroupId),
+      this.state.filterTerm,
     );
 
     return (
-      <Div width={400}>
+      <Div width={400} color="rgba(0,0,0,0.7)">
         <FilterBar
           filterTerm={this.state.filterTerm}
           onChange={this.handleFilterTermChange}
