@@ -5,7 +5,7 @@ import glamorous from 'glamorous';
 const Input = glamorous.input({
   width: '100%',
   height: 64,
-  padding: '0 20px',
+  padding: '0 24px',
   fontFamily: 'inherit',
   fontSize: 24,
   color: 'inherit',

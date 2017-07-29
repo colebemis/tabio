@@ -5,19 +5,19 @@ import glamorous from 'glamorous';
 const Container = glamorous.li({
   display: 'flex',
   alignItems: 'center',
-  height: 40,
-  padding: 6,
+  height: 48,
+  padding: '0 8px',
 });
 
 const FavIcon = glamorous.span({
   flex: '0 0 auto',
   width: 16,
   height: 16,
-  margin: '0 6px',
+  margin: '0 8px',
 });
 
 const Title = glamorous.span({
-  margin: '0 6px',
+  margin: '0 8px',
   fontSize: 14,
   lineHeight: 1.5,
   whiteSpace: 'nowrap',
@@ -27,10 +27,9 @@ const Title = glamorous.span({
 
 const Url = glamorous.span({
   flex: '0 0 auto',
-  margin: '0 6px',
+  margin: '0 8px',
   fontSize: 14,
   lineHeight: 1.5,
-  color: 'rgba(0, 0, 0, 0.5)',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
