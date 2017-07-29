@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Div } from 'glamorous';
+import fuzzysearch from 'fuzzysearch';
 
 import FilterBar from './components/FilterBar';
 import TabGroup from './components/TabGroup';
@@ -50,9 +51,10 @@ class App extends Component {
     return tabGroups
       .map(tabGroup => {
         const filteredTabs = tabGroup.tabs.filter(tab =>
-          `${tab.title} ${tab.url}`
-            .toLowerCase()
-            .includes(filterTerm.toLowerCase()),
+          fuzzysearch(
+            filterTerm.toLowerCase(),
+            `${tab.title} ${tab.url}`.toLowerCase(),
+          ),
         );
 
         return Object.assign({}, tabGroup, { tabs: filteredTabs });
