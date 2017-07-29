@@ -14,11 +14,13 @@ class App extends Component {
       this.setState({ currentTabGroupId: tabGroup.id });
     });
 
+    // HACK: prevent popup window from getting stuck at the wrong size
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=428044
     setTimeout(() => {
       chrome.windows.getAll({ populate: true }, tabGroups => {
         this.setState({ tabGroups });
       });
-    }, 250);
+    }, 100);
   }
 
   sortTabGroups = (tabGroups, currentTabGroupId) => {
