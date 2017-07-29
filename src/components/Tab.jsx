@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 
+const textStyle = {
+  margin: '0 8px',
+  fontSize: 14,
+  lineHeight: 1.5,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+};
+
 const Container = glamorous.li({
   display: 'flex',
   alignItems: 'center',
@@ -16,24 +25,9 @@ const FavIcon = glamorous.span({
   margin: '0 8px',
 });
 
-const Title = glamorous.span({
-  margin: '0 8px',
-  fontSize: 14,
-  lineHeight: 1.5,
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
+const Title = glamorous.span(textStyle);
 
-const Url = glamorous.span({
-  flex: '0 0 auto',
-  margin: '0 8px',
-  fontSize: 14,
-  lineHeight: 1.5,
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-});
+const Url = glamorous.span(textStyle, { flex: '0 0 auto' });
 
 const favIconPlaceholder = (
   <svg
