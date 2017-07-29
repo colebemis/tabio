@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { Div } from 'glamorous';
+import glamorous from 'glamorous';
 import fuzzysearch from 'fuzzysearch';
 
 import FilterBar from './FilterBar';
 import TabGroup from './TabGroup';
+
+const Container = glamorous.div({
+  width: 400,
+  color: 'rgba(0, 0, 0, 0.7)',
+});
 
 class App extends Component {
   state = { filterTerm: '', tabGroups: [], currentTabGroupId: '' };
@@ -74,7 +79,7 @@ class App extends Component {
     );
 
     return (
-      <Div width={400} color="rgba(0,0,0,0.7)">
+      <Container>
         <FilterBar
           filterTerm={this.state.filterTerm}
           onChange={this.handleFilterTermChange}
@@ -82,7 +87,7 @@ class App extends Component {
         {tabGroups.map(tabGroup =>
           <TabGroup key={tabGroup.id} tabs={tabGroup.tabs} />,
         )}
-      </Div>
+      </Container>
     );
   }
 }
