@@ -30,6 +30,10 @@ class App extends Component {
     }, 100);
   }
 
+  setFilterTerm = event => {
+    this.setState({ filterTerm: event.target.value });
+  };
+
   sortTabGroups = (tabGroups, currentTabGroupId) => {
     if (tabGroups.length === 0 || currentTabGroupId === '') {
       return tabGroups;
@@ -71,10 +75,6 @@ class App extends Component {
       .filter(tabGroup => tabGroup.tabs.length > 0);
   };
 
-  handleFilterTermChange = event => {
-    this.setState({ filterTerm: event.target.value });
-  };
-
   render() {
     const tabGroups = this.filterTabGroup(
       this.sortTabGroups(this.state.tabGroups, this.state.currentTabGroupId),
@@ -85,7 +85,7 @@ class App extends Component {
       <Container>
         <FilterBar
           filterTerm={this.state.filterTerm}
-          onChange={this.handleFilterTermChange}
+          onChange={this.setFilterTerm}
         />
         <TabGroups tabGroups={tabGroups} />
       </Container>
