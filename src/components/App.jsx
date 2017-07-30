@@ -3,10 +3,13 @@ import glamorous from 'glamorous';
 import fuzzysearch from 'fuzzysearch';
 
 import FilterBar from './FilterBar';
-import TabGroup from './TabGroup';
+import TabGroups from './TabGroups';
 
 const Container = glamorous.div({
+  display: 'flex',
+  flexDirection: 'column',
   width: 400,
+  maxHeight: 600,
   color: 'rgba(0, 0, 0, 0.7)',
 });
 
@@ -84,9 +87,7 @@ class App extends Component {
           filterTerm={this.state.filterTerm}
           onChange={this.handleFilterTermChange}
         />
-        {tabGroups.map(tabGroup =>
-          <TabGroup key={tabGroup.id} tabs={tabGroup.tabs} />,
-        )}
+        <TabGroups tabGroups={tabGroups} />
       </Container>
     );
   }

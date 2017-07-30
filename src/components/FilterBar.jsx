@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 
 const Input = glamorous.input({
+  flex: '0 0 auto',
   width: '100%',
   height: 64,
   padding: '0 24px',
