@@ -48,7 +48,7 @@ const Tab = ({ favIconUrl, title, url, goToTab }) =>
         : favIconPlaceholder}
     </FavIcon>
     <Title>
-      {title}
+      {title === '' ? 'Untitled' : title}
     </Title>
     <Url>
       {url.split('/')[2]}
