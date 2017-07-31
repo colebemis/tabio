@@ -4,7 +4,7 @@ import { Ul } from 'glamorous';
 
 import Tab from './Tab';
 
-const TabGroup = ({ tabs }) =>
+const TabGroup = ({ tabs, goToTab }) =>
   <Ul margin={0} padding={8}>
     {tabs.map(tab =>
       <Tab
@@ -12,6 +12,7 @@ const TabGroup = ({ tabs }) =>
         favIconUrl={tab.favIconUrl}
         title={tab.title}
         url={tab.url}
+        goToTab={goToTab(tab.id)}
       />,
     )}
   </Ul>;

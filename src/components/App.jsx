@@ -75,6 +75,11 @@ class App extends Component {
       .filter(tabGroup => tabGroup.tabs.length > 0);
   };
 
+  goToTab = tabGroupId => tabId => () => {
+    chrome.tabs.update(tabId, { active: true });
+    chrome.windows.update(tabGroupId, { focused: true });
+  };
+
   render() {
     const tabGroups = this.filterTabGroup(
       this.sortTabGroups(this.state.tabGroups, this.state.currentTabGroupId),
@@ -87,7 +92,7 @@ class App extends Component {
           filterTerm={this.state.filterTerm}
           onChange={this.setFilterTerm}
         />
-        <TabGroups tabGroups={tabGroups} />
+        <TabGroups tabGroups={tabGroups} goToTab={this.goToTab} />
       </Container>
     );
   }

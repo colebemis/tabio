@@ -40,8 +40,8 @@ const favIconPlaceholder = (
   </svg>
 );
 
-const Tab = ({ favIconUrl, title, url }) =>
-  <Container>
+const Tab = ({ favIconUrl, title, url, goToTab }) =>
+  <Container onClick={goToTab}>
     <FavIcon>
       {/^https?:\/\//.test(favIconUrl)
         ? <img src={favIconUrl} alt="FavIcon" width="16" height="16" />
