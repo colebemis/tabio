@@ -34,6 +34,7 @@ class App extends Component {
     this.setState({ filterTerm: event.target.value });
   };
 
+  /** Move current tab group to the beginning of the list */
   sortTabGroups = (tabGroups, currentTabGroupId) => {
     if (tabGroups.length === 0 || currentTabGroupId === '') {
       return tabGroups;
@@ -56,6 +57,7 @@ class App extends Component {
     return sortedTabGroups;
   };
 
+  /** Filter list of tabs based on filterTerm */
   filterTabGroup = (tabGroups, filterTerm) => {
     if (filterTerm === '') {
       return tabGroups;
@@ -75,9 +77,34 @@ class App extends Component {
       .filter(tabGroup => tabGroup.tabs.length > 0);
   };
 
-  goToTab = tabGroupId => tabId => () => {
+  /** Update active tab and focused window */
+  goToTab = (tabGroupId, tabId) => {
     chrome.tabs.update(tabId, { active: true });
     chrome.windows.update(tabGroupId, { focused: true });
+  };
+
+  /** Close tab */
+  closeTab = (tabGroupId, tabId, event) => {
+    event.stopPropagation();
+    chrome.tabs.remove(tabId);
+
+    // copy tabGroups from state
+    const tabGroups = this.state.tabGroups.slice();
+
+    // find index of tab group that contains the closed tab
+    const closedTabGroupIndex = tabGroups.findIndex(
+      tabGroup => tabGroup.id === tabGroupId,
+    );
+
+    // find index of closed tab within its tab group
+    const closedTabIndex = tabGroups[closedTabGroupIndex].tabs.findIndex(
+      tab => tab.id === tabId,
+    );
+
+    // remove closed tab from tabGroups
+    tabGroups[closedTabGroupIndex].tabs.splice(closedTabIndex, 1);
+
+    this.setState({ tabGroups });
   };
 
   render() {
@@ -92,7 +119,11 @@ class App extends Component {
           filterTerm={this.state.filterTerm}
           onChange={this.setFilterTerm}
         />
-        <TabGroups tabGroups={tabGroups} goToTab={this.goToTab} />
+        <TabGroups
+          tabGroups={tabGroups}
+          goToTab={this.goToTab}
+          closeTab={this.closeTab}
+        />
       </Container>
     );
   }
