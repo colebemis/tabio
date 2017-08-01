@@ -23,6 +23,8 @@ const TabGroups = ({ tabGroups, goToTab, closeTab }) =>
 
 TabGroups.propTypes = {
   tabGroups: PropTypes.arrayOf(PropTypes.object).isRequired,
+  goToTab: PropTypes.func.isRequired,
+  closeTab: PropTypes.func.isRequired,
 };
 
 export default TabGroups;

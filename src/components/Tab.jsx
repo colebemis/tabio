@@ -73,6 +73,8 @@ Tab.propTypes = {
   favIconUrl: PropTypes.string,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  goToTab: PropTypes.func.isRequired,
+  closeTab: PropTypes.func.isRequired,
 };
 
 Tab.defaultProps = {
