@@ -28,6 +28,20 @@ class App extends Component {
           value={this.state.inputValue}
           onChange={this.onInputChange}
         />
+        <div>
+          {this.state.tabGroups.map(tabGroup =>
+            <ul key={tabGroup.id}>
+              {tabGroup.tabs.map(tab =>
+                <li
+                  key={tab.id}
+                  style={{ fontWeight: tab.active ? 'bold' : 'normal' }}
+                >
+                  {tab.title}
+                </li>,
+              )}
+            </ul>,
+          )}
+        </div>
       </div>
     );
   }
