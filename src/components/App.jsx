@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 
 class App extends Component {
   state = {
-    filterTerm: '',
+    inputValue: '',
     tabGroups: [],
   };
 
   componentDidMount() {
-    // HACK: prevent popup window from getting stuck at the wrong size
+    // HACK: setTimeout prevents popup window from getting stuck at the wrong size
     // https://bugs.chromium.org/p/chromium/issues/detail?id=428044
     setTimeout(() => {
       chrome.windows.getAll({ populate: true }, tabGroups => {
@@ -16,14 +16,18 @@ class App extends Component {
     }, 200);
   }
 
-  setFilterTerm = event => {
-    this.setState({ filterTerm: event.target.value });
+  onInputChange = event => {
+    this.setState({ inputValue: event.target.value });
   };
 
   render() {
     return (
       <div>
-        Hello World
+        <input
+          type="text"
+          value={this.state.inputValue}
+          onChange={this.onInputChange}
+        />
       </div>
     );
   }
