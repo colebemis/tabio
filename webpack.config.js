@@ -3,7 +3,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   context: __dirname,
-  entry: path.resolve(__dirname, 'src/index.jsx'),
+  entry: [
+    // TODO: set up development and production configs
+    'react-devtools',
+    path.resolve(__dirname, 'src/index.jsx'),
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
