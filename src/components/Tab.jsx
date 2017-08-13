@@ -5,34 +5,46 @@ import glamorous from 'glamorous';
 const textStyle = {
   margin: '0 8px',
   fontSize: 14,
-  lineHeight: 1.5,
+  lineHeight: '48px',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
 };
 
-const Container = glamorous.li({
+const Container = glamorous.li(({ selected }) => ({
   display: 'flex',
   alignItems: 'center',
   height: 48,
   padding: '0 8px',
+  background: selected ? '#0C77F8' : 'transparent',
+  borderRadius: 4,
+  color: selected ? '#FFF' : 'currentColor',
   cursor: 'pointer',
-});
+}));
 
 const FavIcon = glamorous.span({
   flex: '0 0 auto',
   width: 16,
   height: 16,
-  margin: '0 8px',
+  margin: 4,
+  padding: 4,
+  borderRadius: 4,
+  backgroundColor: '#FFF',
+
+  boxSizing: 'content-box',
 });
 
 const Title = glamorous.span(textStyle);
 
-const Url = glamorous.span(textStyle, { flex: '1 0 auto' });
+const Url = glamorous.span(textStyle, ({ selected }) => ({
+  flex: '1 0 auto',
+  opacity: selected ? 0.7 : 0.5,
+}));
 
-const Close = glamorous.svg({
+const Close = glamorous.svg(({ selected }) => ({
   flex: '0 0 auto',
   boxSizing: 'content-box',
+  display: selected ? 'block' : 'none',
   width: 16,
   height: 16,
   margin: 4,
@@ -41,9 +53,9 @@ const Close = glamorous.svg({
   strokeWidth: 1,
   borderRadius: 4,
   ':hover': {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
   },
-});
+}));
 
 const favIconPlaceholder = (
   <svg width="16" height="16" viewBox="0 0 16 16">
@@ -51,8 +63,16 @@ const favIconPlaceholder = (
   </svg>
 );
 
-const Tab = ({ favIconUrl, title, url, goToTab, closeTab }) =>
-  <Container onClick={goToTab}>
+const Tab = ({
+  favIconUrl,
+  title,
+  url,
+  selected,
+  selectTab,
+  goToTab,
+  closeTab,
+}) =>
+  <Container onClick={goToTab} onMouseOver={selectTab} selected={selected}>
     <FavIcon>
       {/^https?:\/\//.test(favIconUrl)
         ? <img src={favIconUrl} alt="FavIcon" width="16" height="16" />
@@ -61,10 +81,10 @@ const Tab = ({ favIconUrl, title, url, goToTab, closeTab }) =>
     <Title>
       {title === '' ? 'Untitled' : title}
     </Title>
-    <Url>
+    <Url selected={selected}>
       {url.split('/')[2]}
     </Url>
-    <Close viewBox="0 0 16 16" onClick={closeTab}>
+    <Close selected={selected} viewBox="0 0 16 16" onClick={closeTab}>
       <path d="M 3 3, l 10 10 M 13 3 l -10 10" />
     </Close>
   </Container>;

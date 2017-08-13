@@ -10,11 +10,16 @@ const Container = glamorous.div({
   flexDirection: 'column',
   width: 400,
   maxHeight: 600,
-  color: 'rgba(0, 0, 0, 0.7)',
+  color: 'rgba(0, 0, 0, 0.9)',
 });
 
 class App extends Component {
-  state = { filterTerm: '', tabGroups: [], currentTabGroupId: '' };
+  state = {
+    filterTerm: '',
+    tabGroups: [],
+    currentTabGroupId: '',
+    selectedTab: {},
+  };
 
   componentDidMount() {
     chrome.windows.getCurrent({}, tabGroup => {
@@ -27,7 +32,7 @@ class App extends Component {
       chrome.windows.getAll({ populate: true }, tabGroups => {
         this.setState({ tabGroups });
       });
-    }, 100);
+    }, 200);
   }
 
   setFilterTerm = event => {
@@ -77,6 +82,10 @@ class App extends Component {
       .filter(tabGroup => tabGroup.tabs.length > 0);
   };
 
+  selectTab = tab => {
+    this.setState({ selectedTab: tab });
+  };
+
   /** Update active tab and focused window */
   goToTab = (tabGroupId, tabId) => {
     chrome.tabs.update(tabId, { active: true });
@@ -121,8 +130,10 @@ class App extends Component {
         />
         <TabGroups
           tabGroups={tabGroups}
+          selectedTab={this.state.selectedTab}
           goToTab={this.goToTab}
           closeTab={this.closeTab}
+          selectTab={this.selectTab}
         />
       </Container>
     );

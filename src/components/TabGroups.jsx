@@ -9,12 +9,14 @@ const Container = glamorous.div({
   overflow: 'auto',
 });
 
-const TabGroups = ({ tabGroups, goToTab, closeTab }) =>
+const TabGroups = ({ tabGroups, selectedTab, selectTab, goToTab, closeTab }) =>
   <Container>
     {tabGroups.map(tabGroup =>
       <TabGroup
         key={tabGroup.id}
         tabs={tabGroup.tabs}
+        selectedTab={selectedTab}
+        selectTab={selectTab}
         goToTab={tabId => goToTab(tabGroup.id, tabId)}
         closeTab={(tabId, event) => closeTab(tabGroup.id, tabId, event)}
       />,
