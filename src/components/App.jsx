@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Fuse from 'fuse.js';
 
 class App extends Component {
   state = {
@@ -20,7 +21,31 @@ class App extends Component {
     this.setState({ inputValue: event.target.value });
   };
 
+  filterTabGroups = (tabGroups, inputValue) => {
+    if (inputValue === '') {
+      return tabGroups;
+    }
+
+    return tabGroups
+      .map(tabGroup => {
+        const options = {
+          threshold: 0.4,
+          keys: ['title', 'url'],
+        };
+
+        const fuse = new Fuse(tabGroup.tabs, options);
+
+        return Object.assign({}, tabGroup, { tabs: fuse.search(inputValue) });
+      })
+      .filter(tabGroup => tabGroup.tabs.length > 0);
+  };
+
   render() {
+    const tabGroups = this.filterTabGroups(
+      this.state.tabGroups,
+      this.state.inputValue,
+    );
+
     return (
       <div>
         <input
@@ -29,7 +54,7 @@ class App extends Component {
           onChange={this.onInputChange}
         />
         <div>
-          {this.state.tabGroups.map(tabGroup =>
+          {tabGroups.map(tabGroup =>
             <ul key={tabGroup.id}>
               {tabGroup.tabs.map(tab =>
                 <li
