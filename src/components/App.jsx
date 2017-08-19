@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 
+import Hightlighter from './Highlighter';
+
 class App extends Component {
   state = {
     inputValue: '',
@@ -35,7 +37,7 @@ class App extends Component {
 
         const fuse = new Fuse(tabGroup.tabs, options);
 
-        return Object.assign({}, tabGroup, { tabs: fuse.search(inputValue) });
+        return { tabGroup, ...{ tabs: fuse.search(inputValue) } };
       })
       .filter(tabGroup => tabGroup.tabs.length > 0);
   };
@@ -47,27 +49,38 @@ class App extends Component {
     );
 
     return (
-      <div>
-        <input
-          type="text"
-          value={this.state.inputValue}
-          onChange={this.onInputChange}
-        />
-        <div>
-          {tabGroups.map(tabGroup =>
-            <ul key={tabGroup.id}>
-              {tabGroup.tabs.map(tab =>
-                <li
-                  key={tab.id}
-                  style={{ fontWeight: tab.active ? 'bold' : 'normal' }}
-                >
-                  {tab.title}
-                </li>,
-              )}
-            </ul>,
-          )}
-        </div>
-      </div>
+      <Hightlighter tabGroups={tabGroups}>
+        {({ getInputProps, highlighted, highlight }) =>
+          <div>
+            <input
+              {...getInputProps({
+                type: 'text',
+                value: this.state.inputValue,
+                onChange: this.onInputChange,
+              })}
+            />
+            {tabGroups.map((tabGroup, tabGroupIndex) =>
+              <ul key={tabGroup.id}>
+                {tabGroup.tabs.map((tab, tabIndex) =>
+                  <li
+                    key={tab.id}
+                    onMouseOver={() => highlight({ tabGroupIndex, tabIndex })}
+                    style={{
+                      fontWeight: tab.active ? 'bold' : 'normal',
+                      backgroundColor:
+                        tabGroupIndex === highlighted.tabGroupIndex &&
+                        tabIndex === highlighted.tabIndex
+                          ? 'lightgray'
+                          : 'white',
+                    }}
+                  >
+                    {tab.title}
+                  </li>,
+                )}
+              </ul>,
+            )}
+          </div>}
+      </Hightlighter>
     );
   }
 }
