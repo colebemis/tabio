@@ -13,6 +13,7 @@
     "fuse.js": "^3.0.5",
     "glamor": "^2.20.37",
     "glamorous": "^3.24.0",
+    "mousetrap": "^1.6.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"

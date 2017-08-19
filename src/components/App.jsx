@@ -50,14 +50,12 @@ class App extends Component {
 
     return (
       <Hightlighter tabGroups={tabGroups}>
-        {({ getInputProps, highlighted, highlight }) =>
+        {({ highlighted, highlight }) =>
           <div>
             <input
-              {...getInputProps({
-                type: 'text',
-                value: this.state.inputValue,
-                onChange: this.onInputChange,
-              })}
+              type="text"
+              value={this.state.inputValue}
+              onChange={this.onInputChange}
             />
             {tabGroups.map((tabGroup, tabGroupIndex) =>
               <ul key={tabGroup.id}>

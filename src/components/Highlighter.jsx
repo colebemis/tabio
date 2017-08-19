@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Mousetrap from 'mousetrap';
 
 class Hightlighter extends Component {
   state = {
@@ -8,18 +9,28 @@ class Hightlighter extends Component {
     },
   };
 
-  onKeyDown = event => {
-    switch (event.key) {
-      case 'ArrowUp':
-        this.highlightPrevTab();
-        break;
-      case 'ArrowDown':
-        this.highlightNextTab();
-        break;
-    }
-  };
+  componentDidMount() {
+    Mousetrap.prototype.stopCallback = () => false;
+    Object.keys(this.keyHandlers).forEach(key => {
+      Mousetrap.bind(key, this.keyHandlers[key]);
+    });
+  }
 
-  getInputProps = props => ({ onKeyDown: this.onKeyDown, ...props });
+  componentWillUnmount() {
+    Mousetrap.reset();
+  }
+
+  keyHandlers = {
+    down: event => {
+      this.highlightNext();
+      event.preventDefault();
+    },
+
+    up: event => {
+      this.highlightPrev();
+      event.preventDefault();
+    },
+  };
 
   highlight = ({ tabGroupIndex, tabIndex }) => {
     this.setState({
@@ -30,7 +41,7 @@ class Hightlighter extends Component {
     });
   };
 
-  highlightNextTab = () => {
+  highlightNext = () => {
     const { tabGroups } = this.props;
     const { highlighted } = this.state;
 
@@ -64,7 +75,7 @@ class Hightlighter extends Component {
     });
   };
 
-  highlightPrevTab = () => {
+  highlightPrev = () => {
     const { tabGroups } = this.props;
     const { highlighted } = this.state;
 
@@ -97,7 +108,6 @@ class Hightlighter extends Component {
 
   render() {
     return this.props.children({
-      getInputProps: this.getInputProps,
       highlighted: this.state.highlighted,
       highlight: this.highlight,
     });
