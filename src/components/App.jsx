@@ -7,6 +7,8 @@ class App extends Component {
   state = {
     inputValue: '',
     tabGroups: [],
+    currentTabGroupId: null,
+    highlightedIndex: { tabGroupIndex: 0, tabIndex: 0 },
   };
 
   componentDidMount() {
@@ -16,11 +18,46 @@ class App extends Component {
       chrome.windows.getAll({ populate: true }, tabGroups => {
         this.setState({ tabGroups });
       });
+
+      chrome.windows.getCurrent(tabGroup => {
+        this.setState({ currentTabGroupId: tabGroup.id });
+      });
     }, 200);
   }
 
-  onInputChange = event => {
-    this.setState({ inputValue: event.target.value });
+  getActiveIndex = (tabGroups, currentTabGroupId) => {
+    const currentTabGroupIndex = tabGroups.findIndex(
+      tabGroup => tabGroup.id === currentTabGroupId,
+    );
+
+    const activeTabIndex = tabGroups[currentTabGroupIndex].tabs.findIndex(
+      tab => tab.active,
+    );
+
+    return {
+      tabGroupIndex: currentTabGroupIndex,
+      tabIndex: activeTabIndex,
+    };
+  };
+
+  handleHighlightChange = changes => {
+    this.setState(changes);
+  };
+
+  handleInputChange = event => {
+    const { tabGroups, currentTabGroupId } = this.state;
+    let highlightedIndex;
+
+    if (event.target.value === '') {
+      highlightedIndex = this.getActiveIndex(tabGroups, currentTabGroupId);
+    } else {
+      highlightedIndex = { tabGroupIndex: 0, tabIndex: 0 };
+    }
+
+    this.setState({
+      inputValue: event.target.value,
+      highlightedIndex,
+    });
   };
 
   filterTabGroups = (tabGroups, inputValue) => {
@@ -49,36 +86,46 @@ class App extends Component {
     );
 
     return (
-      <Hightlighter tabGroups={tabGroups}>
-        {({ highlighted, highlight }) =>
-          <div>
-            <input
-              type="text"
-              value={this.state.inputValue}
-              onChange={this.onInputChange}
-            />
-            {tabGroups.map((tabGroup, tabGroupIndex) =>
-              <ul key={tabGroup.id}>
-                {tabGroup.tabs.map((tab, tabIndex) =>
-                  <li
-                    key={tab.id}
-                    onMouseOver={() => highlight({ tabGroupIndex, tabIndex })}
-                    style={{
-                      fontWeight: tab.active ? 'bold' : 'normal',
-                      backgroundColor:
-                        tabGroupIndex === highlighted.tabGroupIndex &&
-                        tabIndex === highlighted.tabIndex
-                          ? 'lightgray'
-                          : 'white',
-                    }}
-                  >
-                    {tab.title}
-                  </li>,
-                )}
-              </ul>,
-            )}
-          </div>}
-      </Hightlighter>
+      <div>
+        <input
+          type="text"
+          value={this.state.inputValue}
+          onChange={this.handleInputChange}
+        />
+        <Hightlighter
+          tabGroups={tabGroups}
+          highlightedIndex={this.state.highlightedIndex}
+          onStateChange={this.handleHighlightChange}
+        >
+          {({ highlightedIndex, highlight }) =>
+            <div>
+              {tabGroups.map((tabGroup, tabGroupIndex) =>
+                <ul key={tabGroup.id}>
+                  {tabGroup.tabs.map((tab, tabIndex) =>
+                    <li
+                      key={tab.id}
+                      onMouseOver={() => highlight({ tabGroupIndex, tabIndex })}
+                      style={{
+                        fontWeight:
+                          tabGroup.id === this.state.currentTabGroupId &&
+                          tab.active
+                            ? 'bold'
+                            : 'normal',
+                        backgroundColor:
+                          tabGroupIndex === highlightedIndex.tabGroupIndex &&
+                          tabIndex === highlightedIndex.tabIndex
+                            ? 'lightgray'
+                            : 'white',
+                      }}
+                    >
+                      {tab.title}
+                    </li>,
+                  )}
+                </ul>,
+              )}
+            </div>}
+        </Hightlighter>
+      </div>
     );
   }
 }
