@@ -5,11 +5,11 @@ import Mousetrap from 'mousetrap';
 const propTypes = {
   children: PropTypes.func.isRequired,
   highlightedIndex: PropTypes.number.isRequired,
-  itemCount: PropTypes.number.isRequired,
+  listSize: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
-class TabNavigation extends Component {
+class Highlighter extends Component {
   componentDidMount() {
     Mousetrap.prototype.stopCallback = () => false;
     Object.keys(this.keyHandlers).forEach(key => {
@@ -21,14 +21,15 @@ class TabNavigation extends Component {
     Mousetrap.reset();
   }
 
-  setHighlightedIndex = highlightedIndex => {
-    this.props.onChange({ highlightedIndex });
+  changeHighlightedIndex = highlightedIndex => {
+    this.props.onChange(highlightedIndex);
   };
 
   moveHighlightedIndex = amount => {
-    const { highlightedIndex, itemCount } = this.props;
-    const newIndex = (highlightedIndex + amount + itemCount) % itemCount;
-    this.setHighlightedIndex(newIndex);
+    const { highlightedIndex, listSize } = this.props;
+    // TODO: figure out a better algorithm for this
+    const newIndex = (highlightedIndex + amount + listSize) % listSize;
+    this.changeHighlightedIndex(newIndex);
   };
 
   keyHandlers = {
@@ -56,11 +57,11 @@ class TabNavigation extends Component {
   render() {
     return this.props.children({
       highlightedIndex: this.props.highlightedIndex,
-      setHighlightedIndex: this.setHighlightedIndex,
+      changeHighlightedIndex: this.changeHighlightedIndex,
     });
   }
 }
 
-TabNavigation.propTypes = propTypes;
+Highlighter.propTypes = propTypes;
 
-export default TabNavigation;
+export default Highlighter;

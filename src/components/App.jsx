@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 
-import TabNavigation from './TabNavigation';
+import Highlighter from './Highlighter';
 
 class App extends Component {
   state = {
@@ -49,7 +49,7 @@ class App extends Component {
     });
   };
 
-  handleHighlightChange = ({ highlightedIndex }) => {
+  handleHighlightChange = highlightedIndex => {
     this.setState({ highlightedIndex });
   };
 
@@ -79,12 +79,12 @@ class App extends Component {
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
-        <TabNavigation
+        <Highlighter
           highlightedIndex={this.state.highlightedIndex}
-          itemCount={tabs.length}
+          listSize={tabs.length}
           onChange={this.handleHighlightChange}
         >
-          {({ highlightedIndex, setHighlightedIndex }) =>
+          {({ highlightedIndex, changeHighlightedIndex }) =>
             <ul>
               {tabs.map((tab, index) =>
                 <li
@@ -97,13 +97,13 @@ class App extends Component {
                     backgroundColor:
                       index === highlightedIndex ? 'lightgray' : 'white',
                   }}
-                  onMouseEnter={() => setHighlightedIndex(index)}
+                  onMouseEnter={() => changeHighlightedIndex(index)}
                 >
                   {tab.title}
                 </li>,
               )}
             </ul>}
-        </TabNavigation>
+        </Highlighter>
       </div>
     );
   }
