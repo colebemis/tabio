@@ -23,12 +23,12 @@ class App extends Component {
     }, 200);
   }
 
-  handleHighlightChange = changes => {
-    this.setState(changes);
-  };
-
   handleInputChange = event => {
     this.setState({ inputValue: event.target.value });
+  };
+
+  handleHighlightChange = ({ highlightedIndex }) => {
+    this.setState({ highlightedIndex });
   };
 
   filterTabGroups = (tabGroups, inputValue) => {
@@ -39,7 +39,7 @@ class App extends Component {
     return tabGroups
       .map(tabGroup => {
         const options = {
-          threshold: 0.4,
+          threshold: 0.5,
           keys: ['title', 'url'],
         };
 
