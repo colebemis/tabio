@@ -60,6 +60,7 @@ class App extends Component {
       <div>
         <input
           type="text"
+          placeholder="Jump to..."
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
