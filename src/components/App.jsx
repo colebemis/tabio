@@ -1,60 +1,53 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 
-import Hightlighter from './Highlighter';
+import Highlighter from './Highlighter';
 
 class App extends Component {
   state = {
     inputValue: '',
-    tabGroups: [],
-    highlightedIndex: {
-      tabGroupIndex: 0,
-      tabIndex: 0,
-    },
+    tabs: [],
+    highlightedIndex: 0,
   };
 
   componentDidMount() {
     // HACK: setTimeout prevents popup window from getting stuck at the wrong size
     // https://bugs.chromium.org/p/chromium/issues/detail?id=428044
     setTimeout(() => {
-      chrome.windows.getAll({ populate: true }, tabGroups => {
-        this.setState({ tabGroups });
+      chrome.tabs.query({}, tabs => {
+        this.setState({ tabs });
       });
     }, 200);
   }
 
   handleInputChange = event => {
-    this.setState({ inputValue: event.target.value });
+    this.setState({
+      inputValue: event.target.value,
+      highlightedIndex: 0,
+    });
   };
 
   handleHighlightChange = ({ highlightedIndex }) => {
     this.setState({ highlightedIndex });
   };
 
-  filterTabGroups = (tabGroups, inputValue) => {
+  filterTabs = (tabs, inputValue) => {
     if (inputValue === '') {
-      return tabGroups;
+      return tabs;
     }
 
-    return tabGroups
-      .map(tabGroup => {
-        const options = {
-          threshold: 0.5,
-          keys: ['title', 'url'],
-        };
+    const options = {
+      threshold: 0.5,
+      keys: ['title', 'url'],
+    };
 
-        const fuse = new Fuse(tabGroup.tabs, options);
+    const fuse = new Fuse(tabs, options);
 
-        return { tabGroup, ...{ tabs: fuse.search(inputValue) } };
-      })
-      .filter(tabGroup => tabGroup.tabs.length > 0);
+    return fuse.search(inputValue);
   };
 
   render() {
-    const tabGroups = this.filterTabGroups(
-      this.state.tabGroups,
-      this.state.inputValue,
-    );
+    const tabs = this.filterTabs(this.state.tabs, this.state.inputValue);
 
     return (
       <div>
@@ -64,34 +57,27 @@ class App extends Component {
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
-        <Hightlighter
-          tabGroups={tabGroups}
+        <Highlighter
           highlightedIndex={this.state.highlightedIndex}
+          itemCount={tabs.length}
           onChange={this.handleHighlightChange}
         >
-          {({ highlightedIndex, highlight }) =>
-            <div>
-              {tabGroups.map((tabGroup, tabGroupIndex) =>
-                <ul key={tabGroup.id}>
-                  {tabGroup.tabs.map((tab, tabIndex) =>
-                    <li
-                      key={tab.id}
-                      onMouseOver={() => highlight({ tabGroupIndex, tabIndex })}
-                      style={{
-                        backgroundColor:
-                          tabGroupIndex === highlightedIndex.tabGroupIndex &&
-                          tabIndex === highlightedIndex.tabIndex
-                            ? 'lightgray'
-                            : 'white',
-                      }}
-                    >
-                      {tab.title}
-                    </li>,
-                  )}
-                </ul>,
+          {({ highlightedIndex, setHighlightedIndex }) =>
+            <ul>
+              {tabs.map((tab, index) =>
+                <li
+                  key={tab.id}
+                  style={{
+                    backgroundColor:
+                      index === highlightedIndex ? 'lightgray' : 'white',
+                  }}
+                  onMouseEnter={() => setHighlightedIndex(index)}
+                >
+                  {tab.title}
+                </li>,
               )}
-            </div>}
-        </Hightlighter>
+            </ul>}
+        </Highlighter>
       </div>
     );
   }

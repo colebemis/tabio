@@ -1,5 +1,13 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
+
+const propTypes = {
+  children: PropTypes.func.isRequired,
+  highlightedIndex: PropTypes.number.isRequired,
+  itemCount: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 class Hightlighter extends Component {
   componentDidMount() {
@@ -13,96 +21,34 @@ class Hightlighter extends Component {
     Mousetrap.reset();
   }
 
-  getNextIndex = () => {
-    const { tabGroups, highlightedIndex } = this.props;
-
-    if (tabGroups.length === 0) return;
-
-    let newTabGroupIndex;
-    let newTabIndex;
-
-    if (
-      highlightedIndex.tabIndex <
-      tabGroups[highlightedIndex.tabGroupIndex].tabs.length - 1
-    ) {
-      // if highlighted tab is not last tab in tabGroup
-      // highlight next tab
-      newTabGroupIndex = highlightedIndex.tabGroupIndex;
-      newTabIndex = highlightedIndex.tabIndex + 1;
-    } else if (highlightedIndex.tabGroupIndex < tabGroups.length - 1) {
-      // if highlighted tab is not in last tabGroup
-      // highlight first tab in next tabGroup
-      newTabGroupIndex = highlightedIndex.tabGroupIndex + 1;
-      newTabIndex = 0;
-    } else {
-      // highlight first tab in first tabGroup
-      newTabGroupIndex = 0;
-      newTabIndex = 0;
-    }
-
-    return {
-      tabGroupIndex: newTabGroupIndex,
-      tabIndex: newTabIndex,
-    };
+  setHighlightedIndex = highlightedIndex => {
+    this.props.onChange({ highlightedIndex });
   };
 
-  getPrevIndex = () => {
-    const { tabGroups, highlightedIndex } = this.props;
-
-    if (tabGroups.length === 0) return;
-
-    let newTabGroupIndex;
-    let newTabIndex;
-
-    if (highlightedIndex.tabIndex > 0) {
-      // if highlighted tab is not first tab in tabGroup
-      // highlight previous tab
-      newTabGroupIndex = highlightedIndex.tabGroupIndex;
-      newTabIndex = highlightedIndex.tabIndex - 1;
-    } else if (highlightedIndex.tabGroupIndex > 0) {
-      // if highlighted tab is not in first tabGroup
-      // highlight last tab in previous tabGroup
-      newTabGroupIndex = highlightedIndex.tabGroupIndex - 1;
-      newTabIndex = tabGroups[newTabGroupIndex].tabs.length - 1;
-    } else {
-      // highlight last tab in last tabGroup
-      newTabGroupIndex = tabGroups.length - 1;
-      newTabIndex = tabGroups[newTabGroupIndex].tabs.length - 1;
-    }
-
-    return {
-      tabGroupIndex: newTabGroupIndex,
-      tabIndex: newTabIndex,
-    };
-  };
-
-  highlight = ({ tabGroupIndex, tabIndex }) => {
-    this.props.onChange({
-      highlightedIndex: {
-        tabGroupIndex,
-        tabIndex,
-      },
-    });
+  moveHighlightedIndex = amount => {
+    const { highlightedIndex, itemCount } = this.props;
+    const newIndex = (highlightedIndex + amount + itemCount) % itemCount;
+    this.setHighlightedIndex(newIndex);
   };
 
   keyHandlers = {
     down: event => {
-      this.highlight(this.getNextIndex());
+      this.moveHighlightedIndex(1);
       event.preventDefault();
     },
 
     up: event => {
-      this.highlight(this.getPrevIndex());
+      this.moveHighlightedIndex(-1);
       event.preventDefault();
     },
 
     tab: event => {
-      this.highlight(this.getNextIndex());
+      this.moveHighlightedIndex(1);
       event.preventDefault();
     },
 
     'shift+tab': event => {
-      this.highlight(this.getPrevIndex());
+      this.moveHighlightedIndex(-1);
       event.preventDefault();
     },
   };
@@ -110,9 +56,11 @@ class Hightlighter extends Component {
   render() {
     return this.props.children({
       highlightedIndex: this.props.highlightedIndex,
-      highlight: this.highlight,
+      setHighlightedIndex: this.setHighlightedIndex,
     });
   }
 }
+
+Hightlighter.propTypes = propTypes;
 
 export default Hightlighter;
