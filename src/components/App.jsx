@@ -8,6 +8,7 @@ class App extends Component {
     inputValue: '',
     tabs: [],
     highlightedIndex: 0,
+    currentWindowId: null,
   };
 
   componentDidMount() {
@@ -17,13 +18,23 @@ class App extends Component {
       chrome.tabs.query({}, tabs => {
         this.setState({ tabs });
       });
+
+      chrome.windows.getCurrent({}, window => {
+        this.setState({ currentWindowId: window.id });
+      });
     }, 200);
   }
 
-  handleInputChange = event => {
+  getActiveIndex = (tabs, currentWindowId) =>
+    tabs.findIndex(tab => tab.windowId === currentWindowId && tab.active);
+
+  handleInputChange = ({ target: { value } }) => {
+    const { tabs, currentWindowId } = this.state;
+
     this.setState({
-      inputValue: event.target.value,
-      highlightedIndex: 0,
+      inputValue: value,
+      highlightedIndex:
+        value === '' ? this.getActiveIndex(tabs, currentWindowId) : 0,
     });
   };
 
@@ -68,6 +79,10 @@ class App extends Component {
                 <li
                   key={tab.id}
                   style={{
+                    fontWeight:
+                      tab.windowId === this.state.currentWindowId && tab.active
+                        ? 'bold'
+                        : 'normal',
                     backgroundColor:
                       index === highlightedIndex ? 'lightgray' : 'white',
                   }}
