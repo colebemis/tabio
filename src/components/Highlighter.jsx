@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Mousetrap from 'mousetrap';
 
 class Hightlighter extends Component {
@@ -92,6 +92,16 @@ class Hightlighter extends Component {
     },
 
     up: event => {
+      this.highlight(this.getPrevIndex());
+      event.preventDefault();
+    },
+
+    tab: event => {
+      this.highlight(this.getNextIndex());
+      event.preventDefault();
+    },
+
+    'shift+tab': event => {
       this.highlight(this.getPrevIndex());
       event.preventDefault();
     },
