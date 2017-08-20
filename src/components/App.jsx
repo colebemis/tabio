@@ -7,8 +7,10 @@ class App extends Component {
   state = {
     inputValue: '',
     tabGroups: [],
-    currentTabGroupId: null,
-    highlightedIndex: { tabGroupIndex: 0, tabIndex: 0 },
+    highlightedIndex: {
+      tabGroupIndex: 0,
+      tabIndex: 0,
+    },
   };
 
   componentDidMount() {
@@ -18,46 +20,15 @@ class App extends Component {
       chrome.windows.getAll({ populate: true }, tabGroups => {
         this.setState({ tabGroups });
       });
-
-      chrome.windows.getCurrent(tabGroup => {
-        this.setState({ currentTabGroupId: tabGroup.id });
-      });
     }, 200);
   }
-
-  getActiveIndex = (tabGroups, currentTabGroupId) => {
-    const currentTabGroupIndex = tabGroups.findIndex(
-      tabGroup => tabGroup.id === currentTabGroupId,
-    );
-
-    const activeTabIndex = tabGroups[currentTabGroupIndex].tabs.findIndex(
-      tab => tab.active,
-    );
-
-    return {
-      tabGroupIndex: currentTabGroupIndex,
-      tabIndex: activeTabIndex,
-    };
-  };
 
   handleHighlightChange = changes => {
     this.setState(changes);
   };
 
   handleInputChange = event => {
-    const { tabGroups, currentTabGroupId } = this.state;
-    let highlightedIndex;
-
-    if (event.target.value === '') {
-      highlightedIndex = this.getActiveIndex(tabGroups, currentTabGroupId);
-    } else {
-      highlightedIndex = { tabGroupIndex: 0, tabIndex: 0 };
-    }
-
-    this.setState({
-      inputValue: event.target.value,
-      highlightedIndex,
-    });
+    this.setState({ inputValue: event.target.value });
   };
 
   filterTabGroups = (tabGroups, inputValue) => {
@@ -106,11 +77,6 @@ class App extends Component {
                       key={tab.id}
                       onMouseOver={() => highlight({ tabGroupIndex, tabIndex })}
                       style={{
-                        fontWeight:
-                          tabGroup.id === this.state.currentTabGroupId &&
-                          tab.active
-                            ? 'bold'
-                            : 'normal',
                         backgroundColor:
                           tabGroupIndex === highlightedIndex.tabGroupIndex &&
                           tabIndex === highlightedIndex.tabIndex
