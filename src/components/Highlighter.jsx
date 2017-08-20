@@ -77,7 +77,7 @@ class Hightlighter extends Component {
   };
 
   highlight = ({ tabGroupIndex, tabIndex }) => {
-    this.props.onStateChange({
+    this.props.onChange({
       highlightedIndex: {
         tabGroupIndex,
         tabIndex,

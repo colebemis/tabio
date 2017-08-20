@@ -66,7 +66,7 @@ class App extends Component {
         <Hightlighter
           tabGroups={tabGroups}
           highlightedIndex={this.state.highlightedIndex}
-          onStateChange={this.handleHighlightChange}
+          onChange={this.handleHighlightChange}
         >
           {({ highlightedIndex, highlight }) =>
             <div>
