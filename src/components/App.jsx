@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 
-import Highlighter from './Highlighter';
+import TabNavigation from './TabNavigation';
 
 class App extends Component {
   state = {
@@ -79,7 +79,7 @@ class App extends Component {
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
-        <Highlighter
+        <TabNavigation
           highlightedIndex={this.state.highlightedIndex}
           itemCount={tabs.length}
           onChange={this.handleHighlightChange}
@@ -103,7 +103,7 @@ class App extends Component {
                 </li>,
               )}
             </ul>}
-        </Highlighter>
+        </TabNavigation>
       </div>
     );
   }

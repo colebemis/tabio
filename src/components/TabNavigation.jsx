@@ -9,7 +9,7 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-class Hightlighter extends Component {
+class TabNavigation extends Component {
   componentDidMount() {
     Mousetrap.prototype.stopCallback = () => false;
     Object.keys(this.keyHandlers).forEach(key => {
@@ -61,6 +61,6 @@ class Hightlighter extends Component {
   }
 }
 
-Hightlighter.propTypes = propTypes;
+TabNavigation.propTypes = propTypes;
 
-export default Hightlighter;
+export default TabNavigation;
