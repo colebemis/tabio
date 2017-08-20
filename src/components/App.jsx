@@ -7,20 +7,31 @@ class App extends Component {
   state = {
     inputValue: '',
     tabs: [],
-    highlightedIndex: 0,
     currentWindowId: null,
+    highlightedIndex: 0,
   };
 
   componentDidMount() {
     // HACK: setTimeout prevents popup window from getting stuck at the wrong size
     // https://bugs.chromium.org/p/chromium/issues/detail?id=428044
     setTimeout(() => {
-      chrome.tabs.query({}, tabs => {
-        this.setState({ tabs });
-      });
+      const promises = [
+        new Promise(resolve => {
+          chrome.tabs.query({}, tabs => resolve(tabs));
+        }),
+        new Promise(resolve => {
+          chrome.windows.getCurrent({}, ({ id }) => resolve(id));
+        }),
+      ];
 
-      chrome.windows.getCurrent({}, window => {
-        this.setState({ currentWindowId: window.id });
+      Promise.all(promises).then(([tabs, currentWindowId]) => {
+        const highlightedIndex = this.getActiveIndex(tabs, currentWindowId);
+
+        this.setState({
+          tabs,
+          currentWindowId,
+          highlightedIndex,
+        });
       });
     }, 200);
   }
