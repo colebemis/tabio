@@ -27,8 +27,13 @@ class Highlighter extends Component {
 
   moveHighlightedIndex = amount => {
     const { highlightedIndex, listSize } = this.props;
-    // TODO: figure out a better algorithm for this
-    const newIndex = (highlightedIndex + amount + listSize) % listSize;
+
+    let newIndex = (highlightedIndex + amount) % listSize;
+
+    if (newIndex < 0) {
+      newIndex += listSize;
+    }
+
     this.changeHighlightedIndex(newIndex);
   };
 
