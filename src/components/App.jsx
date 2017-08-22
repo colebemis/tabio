@@ -81,13 +81,13 @@ class App extends Component {
         />
         <Highlighter
           highlightedIndex={this.state.highlightedIndex}
-          listSize={tabs.length}
           onChange={this.handleHighlightChange}
         >
-          {({ highlightedIndex, changeHighlightedIndex }) =>
+          {({ getItemProps, highlightedIndex }) =>
             <ul>
               {tabs.map((tab, index) =>
                 <li
+                  {...getItemProps({ item: tab, index })}
                   key={tab.id}
                   style={{
                     fontWeight:
@@ -97,7 +97,6 @@ class App extends Component {
                     backgroundColor:
                       index === highlightedIndex ? 'lightgray' : 'white',
                   }}
-                  onMouseEnter={() => changeHighlightedIndex(index)}
                 >
                   {tab.title}
                 </li>,

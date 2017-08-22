@@ -5,13 +5,13 @@ import Mousetrap from 'mousetrap';
 const propTypes = {
   children: PropTypes.func.isRequired,
   highlightedIndex: PropTypes.number.isRequired,
-  listSize: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
 class Highlighter extends Component {
   componentDidMount() {
     Mousetrap.prototype.stopCallback = () => false;
+
     Object.keys(this.keyHandlers).forEach(key => {
       Mousetrap.bind(key, this.keyHandlers[key]);
     });
@@ -21,12 +21,22 @@ class Highlighter extends Component {
     Mousetrap.reset();
   }
 
+  getItemProps = ({ item, index, ...rest }) => {
+    this.items[index] = item;
+
+    return {
+      onMouseEnter: () => this.changeHighlightedIndex(index),
+      ...rest,
+    };
+  };
+
   changeHighlightedIndex = highlightedIndex => {
     this.props.onChange(highlightedIndex);
   };
 
   moveHighlightedIndex = amount => {
-    const { highlightedIndex, listSize } = this.props;
+    const { highlightedIndex } = this.props;
+    const listSize = this.items.length;
 
     let newIndex = (highlightedIndex + amount) % listSize;
 
@@ -60,9 +70,11 @@ class Highlighter extends Component {
   };
 
   render() {
+    this.items = [];
+
     return this.props.children({
+      getItemProps: this.getItemProps,
       highlightedIndex: this.props.highlightedIndex,
-      changeHighlightedIndex: this.changeHighlightedIndex,
     });
   }
 }
