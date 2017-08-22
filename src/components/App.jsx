@@ -39,6 +39,16 @@ class App extends Component {
   getActiveIndex = (tabs, currentWindowId) =>
     tabs.findIndex(tab => tab.windowId === currentWindowId && tab.active);
 
+  setHighlightedIndex = highlightedIndex => {
+    this.setState({ highlightedIndex });
+  };
+
+  goToTab = ({ windowId, id }) => {
+    chrome.windows.update(windowId, { focused: true }, () => {
+      chrome.tabs.update(id, { active: true });
+    });
+  };
+
   handleInputChange = ({ target: { value } }) => {
     const { tabs, currentWindowId } = this.state;
 
@@ -47,10 +57,6 @@ class App extends Component {
       highlightedIndex:
         value === '' ? this.getActiveIndex(tabs, currentWindowId) : 0,
     });
-  };
-
-  handleHighlightChange = highlightedIndex => {
-    this.setState({ highlightedIndex });
   };
 
   filterTabs = (tabs, inputValue) => {
@@ -81,7 +87,8 @@ class App extends Component {
         />
         <Highlighter
           highlightedIndex={this.state.highlightedIndex}
-          onChange={this.handleHighlightChange}
+          onChange={this.setHighlightedIndex}
+          onSelect={this.goToTab}
         >
           {({ getItemProps, highlightedIndex }) =>
             <ul>

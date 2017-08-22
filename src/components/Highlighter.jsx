@@ -6,6 +6,7 @@ const propTypes = {
   children: PropTypes.func.isRequired,
   highlightedIndex: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 class Highlighter extends Component {
@@ -26,6 +27,7 @@ class Highlighter extends Component {
 
     return {
       onMouseEnter: () => this.changeHighlightedIndex(index),
+      onClick: () => this.selectItem(item),
       ...rest,
     };
   };
@@ -47,6 +49,16 @@ class Highlighter extends Component {
     this.changeHighlightedIndex(newIndex);
   };
 
+  selectItem = item => {
+    this.props.onSelect(item);
+  };
+
+  selectHighlightedItem = () => {
+    const { highlightedIndex } = this.props;
+
+    this.selectItem(this.items[highlightedIndex]);
+  };
+
   keyHandlers = {
     down: event => {
       this.moveHighlightedIndex(1);
@@ -65,6 +77,11 @@ class Highlighter extends Component {
 
     'shift+tab': event => {
       this.moveHighlightedIndex(-1);
+      event.preventDefault();
+    },
+
+    enter: event => {
+      this.selectHighlightedItem();
       event.preventDefault();
     },
   };
