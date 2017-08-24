@@ -102,7 +102,7 @@ class App extends Component {
           onSelect={this.handleTabSelect}
           onRemove={this.handleTabRemove}
         >
-          {({ getItemProps, removeItem, highlightedIndex }) =>
+          {({ highlightedIndex, getItemProps, removeItem }) =>
             <ul>
               {tabs.map((tab, index) =>
                 <li

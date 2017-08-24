@@ -114,6 +114,9 @@ class Highlighter extends Component {
     this.items = [];
 
     return this.props.children({
+      // state
+      highlightedIndex: this.props.highlightedIndex,
+
       // prop getters
       getItemProps: this.getItemProps,
 
@@ -121,9 +124,6 @@ class Highlighter extends Component {
       changeHighlightedIndex: this.changeHighlightedIndex,
       selectItem: this.selectItem,
       removeItem: this.removeItem,
-
-      // state
-      highlightedIndex: this.props.highlightedIndex,
     });
   }
 }
