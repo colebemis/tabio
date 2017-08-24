@@ -39,16 +39,6 @@ class App extends Component {
   getActiveIndex = (tabs, currentWindowId) =>
     tabs.findIndex(tab => tab.windowId === currentWindowId && tab.active);
 
-  setHighlightedIndex = highlightedIndex => {
-    this.setState({ highlightedIndex });
-  };
-
-  goToTab = ({ windowId, id }) => {
-    chrome.windows.update(windowId, { focused: true }, () => {
-      chrome.tabs.update(id, { active: true });
-    });
-  };
-
   handleInputChange = ({ target: { value } }) => {
     const { tabs, currentWindowId } = this.state;
 
@@ -56,6 +46,27 @@ class App extends Component {
       inputValue: value,
       highlightedIndex:
         value === '' ? this.getActiveIndex(tabs, currentWindowId) : 0,
+    });
+  };
+
+  handleHighlightChange = highlightedIndex => {
+    this.setState({ highlightedIndex });
+  };
+
+  handleTabSelect = tab => {
+    chrome.windows.update(tab.windowId, { focused: true }, () => {
+      chrome.tabs.update(tab.id, { active: true });
+    });
+  };
+
+  handleTabRemove = tab => {
+    const { tabs } = this.state;
+
+    chrome.tabs.remove(tab.id);
+
+    this.setState({
+      // remove closed tab from tabs array
+      tabs: tabs.filter(({ id }) => id !== tab.id),
     });
   };
 
@@ -87,14 +98,14 @@ class App extends Component {
         />
         <Highlighter
           highlightedIndex={this.state.highlightedIndex}
-          onChange={this.setHighlightedIndex}
-          onSelect={this.goToTab}
+          onChange={this.handleHighlightChange}
+          onSelect={this.handleTabSelect}
+          onRemove={this.handleTabRemove}
         >
-          {({ getItemProps, highlightedIndex }) =>
+          {({ getItemProps, removeItem, highlightedIndex }) =>
             <ul>
               {tabs.map((tab, index) =>
                 <li
-                  {...getItemProps({ item: tab, index })}
                   key={tab.id}
                   style={{
                     fontWeight:
@@ -104,8 +115,17 @@ class App extends Component {
                     backgroundColor:
                       index === highlightedIndex ? 'lightgray' : 'white',
                   }}
+                  {...getItemProps({ item: tab, index })}
                 >
                   {tab.title}
+                  <button
+                    onClick={event => {
+                      removeItem(tab, index);
+                      event.stopPropagation();
+                    }}
+                  >
+                    x
+                  </button>
                 </li>,
               )}
             </ul>}

@@ -7,6 +7,7 @@ const propTypes = {
   highlightedIndex: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 class Highlighter extends Component {
@@ -54,9 +55,27 @@ class Highlighter extends Component {
   };
 
   selectHighlightedItem = () => {
+    if (this.items.length === 0) return;
+
     const { highlightedIndex } = this.props;
 
     this.selectItem(this.items[highlightedIndex]);
+  };
+
+  removeItem = (item, index) => {
+    if (index === this.items.length - 1) {
+      this.changeHighlightedIndex(index - 1);
+    }
+
+    this.props.onRemove(item);
+  };
+
+  removeHighlightedItem = () => {
+    if (this.items.length === 0) return;
+
+    const { highlightedIndex } = this.props;
+
+    this.removeItem(this.items[highlightedIndex], highlightedIndex);
   };
 
   keyHandlers = {
@@ -84,13 +103,26 @@ class Highlighter extends Component {
       this.selectHighlightedItem();
       event.preventDefault();
     },
+
+    'shift+backspace': event => {
+      this.removeHighlightedItem();
+      event.preventDefault();
+    },
   };
 
   render() {
     this.items = [];
 
     return this.props.children({
+      // prop getters
       getItemProps: this.getItemProps,
+
+      // actions
+      changeHighlightedIndex: this.changeHighlightedIndex,
+      selectItem: this.selectItem,
+      removeItem: this.removeItem,
+
+      // state
       highlightedIndex: this.props.highlightedIndex,
     });
   }
