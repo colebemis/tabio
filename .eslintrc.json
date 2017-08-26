@@ -2,8 +2,8 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
-    "max-len": "off",
     "arrow-parens": ["error", "as-needed"],
+    "max-len": "off",
     "react/jsx-wrap-multilines": [
       "error",
       { "declaration": false, "assignment": false, "arrow": false }
