@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
 
+import FilterInput from './FilterInput';
 import Highlighter from './Highlighter';
 
 class App extends Component {
@@ -90,8 +91,7 @@ class App extends Component {
 
     return (
       <div>
-        <input
-          type="text"
+        <FilterInput
           placeholder="Jump to..."
           value={this.state.filterValue}
           onChange={this.handleFilterChange}
