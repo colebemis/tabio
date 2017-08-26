@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 
 class Highlighter extends Component {
-  propTypes = {
+  static propTypes = {
     children: PropTypes.func.isRequired,
     highlightedIndex: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.any).isRequired,
@@ -23,6 +23,38 @@ class Highlighter extends Component {
   componentWillUnmount() {
     Mousetrap.reset();
   }
+
+  keyHandlers = {
+    down: event => {
+      this.moveHighlightedIndex(1);
+      event.preventDefault();
+    },
+
+    up: event => {
+      this.moveHighlightedIndex(-1);
+      event.preventDefault();
+    },
+
+    tab: event => {
+      this.moveHighlightedIndex(1);
+      event.preventDefault();
+    },
+
+    'shift+tab': event => {
+      this.moveHighlightedIndex(-1);
+      event.preventDefault();
+    },
+
+    enter: event => {
+      this.selectHighlightedItem();
+      event.preventDefault();
+    },
+
+    'shift+backspace': event => {
+      this.removeHighlightedItem();
+      event.preventDefault();
+    },
+  };
 
   changeHighlightedIndex = highlightedIndex => {
     this.props.onChange(highlightedIndex);
@@ -68,38 +100,6 @@ class Highlighter extends Component {
     if (items.length === 0) return;
 
     this.removeItem(items[highlightedIndex], highlightedIndex);
-  };
-
-  keyHandlers = {
-    down: event => {
-      this.moveHighlightedIndex(1);
-      event.preventDefault();
-    },
-
-    up: event => {
-      this.moveHighlightedIndex(-1);
-      event.preventDefault();
-    },
-
-    tab: event => {
-      this.moveHighlightedIndex(1);
-      event.preventDefault();
-    },
-
-    'shift+tab': event => {
-      this.moveHighlightedIndex(-1);
-      event.preventDefault();
-    },
-
-    enter: event => {
-      this.selectHighlightedItem();
-      event.preventDefault();
-    },
-
-    'shift+backspace': event => {
-      this.removeHighlightedItem();
-      event.preventDefault();
-    },
   };
 
   render() {
