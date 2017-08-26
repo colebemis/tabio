@@ -2,15 +2,15 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 
-const propTypes = {
-  children: PropTypes.func.isRequired,
-  highlightedIndex: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-};
-
 class Highlighter extends Component {
+  propTypes = {
+    children: PropTypes.func.isRequired,
+    highlightedIndex: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSelect: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+  };
+
   componentDidMount() {
     Mousetrap.prototype.stopCallback = () => false;
 
@@ -127,7 +127,5 @@ class Highlighter extends Component {
     });
   }
 }
-
-Highlighter.propTypes = propTypes;
 
 export default Highlighter;
