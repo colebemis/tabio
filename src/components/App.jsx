@@ -5,7 +5,7 @@ import Highlighter from './Highlighter';
 
 class App extends Component {
   state = {
-    inputValue: '',
+    filterValue: '',
     tabs: [],
     currentWindowId: null,
     highlightedIndex: 0,
@@ -39,11 +39,11 @@ class App extends Component {
   getActiveIndex = (tabs, currentWindowId) =>
     tabs.findIndex(tab => tab.windowId === currentWindowId && tab.active);
 
-  handleInputChange = ({ target: { value } }) => {
+  handleFilterChange = ({ target: { value } }) => {
     const { tabs, currentWindowId } = this.state;
 
     this.setState({
-      inputValue: value,
+      filterValue: value,
       highlightedIndex:
         value === '' ? this.getActiveIndex(tabs, currentWindowId) : 0,
     });
@@ -70,8 +70,8 @@ class App extends Component {
     });
   };
 
-  filterTabs = (tabs, inputValue) => {
-    if (inputValue === '') {
+  filterTabs = (tabs, filterValue) => {
+    if (filterValue === '') {
       return tabs;
     }
 
@@ -82,19 +82,19 @@ class App extends Component {
 
     const fuse = new Fuse(tabs, options);
 
-    return fuse.search(inputValue);
+    return fuse.search(filterValue);
   };
 
   render() {
-    const tabs = this.filterTabs(this.state.tabs, this.state.inputValue);
+    const tabs = this.filterTabs(this.state.tabs, this.state.filterValue);
 
     return (
       <div>
         <input
           type="text"
           placeholder="Jump to..."
-          value={this.state.inputValue}
-          onChange={this.handleInputChange}
+          value={this.state.filterValue}
+          onChange={this.handleFilterChange}
         />
         <Highlighter
           items={tabs}
