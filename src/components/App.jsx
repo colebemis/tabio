@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
+import { Div } from 'glamorous';
 
 import FilterInput from './FilterInput';
 import Highlighter from './Highlighter';
@@ -90,7 +91,7 @@ class App extends Component {
     const tabs = this.filterTabs(this.state.tabs, this.state.filterValue);
 
     return (
-      <div>
+      <Div width={400}>
         <FilterInput
           placeholder="Jump to..."
           value={this.state.filterValue}
@@ -139,7 +140,7 @@ class App extends Component {
               )}
             </ul>}
         </Highlighter>
-      </div>
+      </Div>
     );
   }
 }
