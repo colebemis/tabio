@@ -97,30 +97,39 @@ class App extends Component {
           onChange={this.handleInputChange}
         />
         <Highlighter
+          items={tabs}
           highlightedIndex={this.state.highlightedIndex}
           onChange={this.handleHighlightChange}
           onSelect={this.handleTabSelect}
           onRemove={this.handleTabRemove}
         >
-          {({ highlightedIndex, getItemProps, removeItem }) =>
+          {({
+            items,
+            highlightedIndex,
+            changeHighlightedIndex,
+            selectItem,
+            removeItem,
+          }) =>
             <ul>
-              {tabs.map((tab, index) =>
+              {items.map((item, index) =>
                 <li
-                  key={tab.id}
+                  key={item.id}
                   style={{
                     fontWeight:
-                      tab.windowId === this.state.currentWindowId && tab.active
+                      item.windowId === this.state.currentWindowId &&
+                      item.active
                         ? 'bold'
                         : 'normal',
                     backgroundColor:
                       index === highlightedIndex ? 'lightgray' : 'white',
                   }}
-                  {...getItemProps({ item: tab, index })}
+                  onMouseEnter={() => changeHighlightedIndex(index)}
+                  onClick={() => selectItem(item)}
                 >
-                  {tab.title}
+                  {item.title}
                   <button
                     onClick={event => {
-                      removeItem(tab, index);
+                      removeItem(item, index);
                       event.stopPropagation();
                     }}
                   >

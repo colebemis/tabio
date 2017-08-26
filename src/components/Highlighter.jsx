@@ -6,6 +6,7 @@ class Highlighter extends Component {
   propTypes = {
     children: PropTypes.func.isRequired,
     highlightedIndex: PropTypes.number.isRequired,
+    items: PropTypes.arrayOf(PropTypes.any).isRequired,
     onChange: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
@@ -23,28 +24,17 @@ class Highlighter extends Component {
     Mousetrap.reset();
   }
 
-  getItemProps = ({ item, index, ...rest }) => {
-    this.items[index] = item;
-
-    return {
-      onMouseEnter: () => this.changeHighlightedIndex(index),
-      onClick: () => this.selectItem(item),
-      ...rest,
-    };
-  };
-
   changeHighlightedIndex = highlightedIndex => {
     this.props.onChange(highlightedIndex);
   };
 
   moveHighlightedIndex = amount => {
-    const { highlightedIndex } = this.props;
-    const listSize = this.items.length;
+    const { items, highlightedIndex } = this.props;
 
-    let newIndex = (highlightedIndex + amount) % listSize;
+    let newIndex = (highlightedIndex + amount) % items.length;
 
     if (newIndex < 0) {
-      newIndex += listSize;
+      newIndex += items.length;
     }
 
     this.changeHighlightedIndex(newIndex);
@@ -55,15 +45,17 @@ class Highlighter extends Component {
   };
 
   selectHighlightedItem = () => {
-    if (this.items.length === 0) return;
+    const { items, highlightedIndex } = this.props;
 
-    const { highlightedIndex } = this.props;
+    if (items.length === 0) return;
 
-    this.selectItem(this.items[highlightedIndex]);
+    this.selectItem(items[highlightedIndex]);
   };
 
   removeItem = (item, index) => {
-    if (index === this.items.length - 1) {
+    const { items } = this.props;
+
+    if (index === items.length - 1) {
       this.changeHighlightedIndex(index - 1);
     }
 
@@ -71,11 +63,11 @@ class Highlighter extends Component {
   };
 
   removeHighlightedItem = () => {
-    if (this.items.length === 0) return;
+    const { items, highlightedIndex } = this.props;
 
-    const { highlightedIndex } = this.props;
+    if (items.length === 0) return;
 
-    this.removeItem(this.items[highlightedIndex], highlightedIndex);
+    this.removeItem(items[highlightedIndex], highlightedIndex);
   };
 
   keyHandlers = {
@@ -111,14 +103,10 @@ class Highlighter extends Component {
   };
 
   render() {
-    this.items = [];
-
     return this.props.children({
       // state
+      items: this.props.items,
       highlightedIndex: this.props.highlightedIndex,
-
-      // prop getters
-      getItemProps: this.getItemProps,
 
       // actions
       changeHighlightedIndex: this.changeHighlightedIndex,
