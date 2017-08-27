@@ -24,41 +24,43 @@ const defaultProps = {
 };
 
 const Container = glamorous.div(
-  {
+  ({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    height: 40,
-    padding: '0 6px',
-    borderRadius: 3,
+    height: '2.5rem',
+    padding: '0 0.375rem',
+    color: theme.text,
+    borderRadius: '0.1875rem',
     cursor: 'pointer',
-  },
-  ({ isActive }) =>
+    userSelect: 'none',
+  }),
+  ({ isActive, theme }) =>
     isActive && {
-      color: '#0366D6',
+      color: theme.accent,
     },
-  ({ isHighlighted }) =>
+  ({ isHighlighted, theme }) =>
     isHighlighted && {
-      color: '#FFFFFF',
-      backgroundColor: '#0366D6',
+      color: theme.highlightedText,
+      backgroundColor: theme.accent,
     },
 );
 
 const FavIcon = glamorous.span({
   flex: '0 0 auto',
   boxSizing: 'content-box',
-  width: 16,
-  height: 16,
-  padding: 3,
-  margin: 3,
+  width: '1rem',
+  height: '1rem',
+  padding: '0.1875rem',
+  margin: '0.1875rem',
   backgroundColor: '#FFFFFF',
-  borderRadius: 3,
+  borderRadius: '0.1875rem',
 });
 
 const Title = glamorous.span({
   flex: '1 1 auto',
-  margin: '0 6px',
-  fontSize: 14,
-  lineHeight: '40px',
+  margin: '0 0.375rem',
+  fontSize: '0.875rem',
+  lineHeight: '2.5rem',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
   overflow: 'hidden',
@@ -69,14 +71,14 @@ const CloseIcon = glamorous('svg', { withProps: { viewBox: '0 0 16 16' } })(
     flex: '0 0 auto',
     display: 'none',
     boxSizing: 'content-box',
-    width: 16,
-    height: 16,
-    margin: 4,
-    padding: 4,
+    width: '1rem',
+    height: '1rem',
+    margin: '0.1875rem',
+    padding: '0.1875rem',
     stroke: 'currentColor',
     strokeWidth: 1.5,
     strokeLinecap: 'round',
-    borderRadius: 3,
+    borderRadius: '0.1875rem',
 
     ':hover': {
       backgroundColor: 'rgba(0, 0, 0, 0.1)',
@@ -89,14 +91,7 @@ const CloseIcon = glamorous('svg', { withProps: { viewBox: '0 0 16 16' } })(
 );
 
 const favIconPlaceholder = (
-  <svg
-    viewBox="0 0 16 16"
-    width="16"
-    height="16"
-    fill="none"
-    stroke="#5A5A5A"
-    strokeWidth="1"
-  >
+  <svg viewBox="0 0 16 16" fill="none" stroke="#5A5A5A" strokeWidth="1">
     <polygon points="3.5,1.5 8.5,1.5 12.5,5.5 12.5,14.5 3.5,14.5" />
     <polyline points="8.5,1.5 8.5,5.5 12.5,5.5" />
   </svg>
@@ -119,7 +114,12 @@ function Tab({
     >
       <FavIcon>
         {/^https?:\/\//.test(tab.favIconUrl)
-          ? <img src={tab.favIconUrl} alt="FavIcon" width={16} height={16} />
+          ? <img
+            src={tab.favIconUrl}
+            alt="FavIcon"
+            width="100%"
+            height="100%"
+          />
           : favIconPlaceholder}
       </FavIcon>
       <Title>

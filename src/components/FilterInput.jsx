@@ -14,20 +14,21 @@ const defaultProps = {
   onChange: () => {},
 };
 
-const Input = glamorous.input({
+const Input = glamorous.input(({ theme }) => ({
+  flex: '0 0 auto',
   width: '100%',
-  padding: 16,
-  fontSize: 20,
+  padding: '1rem 1.5rem',
+  fontSize: '1.25rem',
   fontWeight: '500',
-  color: 'inherit',
+  color: theme.text,
   border: 'none',
   borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   outline: 0,
 
   '&::placeholder': {
-    color: 'rgba(0, 0, 0, 0.3)',
+    color: theme.placeholderText,
   },
-});
+}));
 
 function FilterInput({ placeholder, value, onChange }) {
   return (

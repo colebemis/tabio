@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
-import { Div } from 'glamorous';
+import glamorous, { ThemeProvider, Div } from 'glamorous';
 
 import FilterInput from './FilterInput';
 import Highlighter from './Highlighter';
 import Tab from './Tab';
+
+const theme = {
+  accent: '#0366D6',
+  text: 'rgba(0, 0, 0, 0.9)',
+  placeholderText: 'rgba(0, 0, 0, 0.3)',
+  highlightedText: '#FFFFFF',
+};
+
+const Container = glamorous.div({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '25rem',
+  maxHeight: 600,
+});
 
 class App extends Component {
   state = {
@@ -92,46 +106,49 @@ class App extends Component {
     const tabs = this.filterTabs(this.state.tabs, this.state.filterValue);
 
     return (
-      <Div width={400} color="rgba(0, 0, 0, 0.9)">
-        <FilterInput
-          placeholder="Jump to..."
-          value={this.state.filterValue}
-          onChange={this.handleFilterChange}
-        />
-        <Highlighter
-          items={tabs}
-          highlightedIndex={this.state.highlightedIndex}
-          onChange={this.handleHighlightChange}
-          onSelect={this.handleTabSelect}
-          onRemove={this.handleTabRemove}
-        >
-          {({
-            items,
-            highlightedIndex,
-            changeHighlightedIndex,
-            selectItem,
-            removeItem,
-          }) =>
-            <Div padding={6}>
-              {items.map((item, index) =>
-                <Tab
-                  key={item.id}
-                  tab={item}
-                  isActive={
-                    item.windowId === this.state.currentWindowId && item.active
-                  }
-                  isHighlighted={index === highlightedIndex}
-                  onMouseEnter={() => changeHighlightedIndex(index)}
-                  onClick={() => selectItem(item)}
-                  onRemove={event => {
-                    removeItem(item, index);
-                    event.stopPropagation();
-                  }}
-                />,
-              )}
-            </Div>}
-        </Highlighter>
-      </Div>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <FilterInput
+            placeholder="Jump to..."
+            value={this.state.filterValue}
+            onChange={this.handleFilterChange}
+          />
+          <Highlighter
+            items={tabs}
+            highlightedIndex={this.state.highlightedIndex}
+            onChange={this.handleHighlightChange}
+            onSelect={this.handleTabSelect}
+            onRemove={this.handleTabRemove}
+          >
+            {({
+              items,
+              highlightedIndex,
+              changeHighlightedIndex,
+              selectItem,
+              removeItem,
+            }) =>
+              <Div flex="1 1 auto" overflow="auto" padding="0.75rem">
+                {items.map((item, index) =>
+                  <Tab
+                    key={item.id}
+                    tab={item}
+                    isActive={
+                      item.windowId === this.state.currentWindowId &&
+                      item.active
+                    }
+                    isHighlighted={index === highlightedIndex}
+                    onMouseEnter={() => changeHighlightedIndex(index)}
+                    onClick={() => selectItem(item)}
+                    onRemove={event => {
+                      removeItem(item, index);
+                      event.stopPropagation();
+                    }}
+                  />,
+                )}
+              </Div>}
+          </Highlighter>
+        </Container>
+      </ThemeProvider>
     );
   }
 }
