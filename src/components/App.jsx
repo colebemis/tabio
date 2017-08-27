@@ -20,6 +20,12 @@ const Container = glamorous.div({
   maxHeight: 600,
 });
 
+const TabsContainer = glamorous.div({
+  flex: '1 1 auto',
+  padding: '0.75rem',
+  overflow: 'auto',
+});
+
 class App extends Component {
   state = {
     filterValue: '',
@@ -114,38 +120,32 @@ class App extends Component {
             onChange={this.handleFilterChange}
           />
           <Highlighter
-            items={tabs}
             highlightedIndex={this.state.highlightedIndex}
             onChange={this.handleHighlightChange}
             onSelect={this.handleTabSelect}
             onRemove={this.handleTabRemove}
           >
-            {({
-              items,
-              highlightedIndex,
-              changeHighlightedIndex,
-              selectItem,
-              removeItem,
-            }) =>
-              <Div flex="1 1 auto" padding="0.75rem" overflow="auto">
-                {items.map((item, index) =>
+            {({ getRootProps, getItemProps, highlightedIndex, removeItem }) =>
+              <TabsContainer {...getRootProps({ refKey: 'innerRef' })}>
+                {tabs.map((tab, index) =>
                   <Tab
-                    key={item.id}
-                    tab={item}
-                    isActive={
-                      item.windowId === this.state.currentWindowId &&
-                      item.active
-                    }
-                    isHighlighted={index === highlightedIndex}
-                    onMouseEnter={() => changeHighlightedIndex(index)}
-                    onClick={() => selectItem(item)}
-                    onRemove={event => {
-                      removeItem(item, index);
-                      event.stopPropagation();
-                    }}
+                    key={tab.id}
+                    {...getItemProps({
+                      item: tab,
+                      index,
+                      tab,
+                      isActive:
+                        tab.windowId === this.state.currentWindowId &&
+                        tab.active,
+                      isHighlighted: index === highlightedIndex,
+                      onRemove: event => {
+                        removeItem(tab, index);
+                        event.stopPropagation();
+                      },
+                    })}
                   />,
                 )}
-              </Div>}
+              </TabsContainer>}
           </Highlighter>
         </Container>
       </ThemeProvider>

@@ -97,21 +97,9 @@ const favIconPlaceholder = (
   </svg>
 );
 
-function Tab({
-  tab,
-  isActive,
-  isHighlighted,
-  onMouseEnter,
-  onClick,
-  onRemove,
-}) {
+function Tab({ tab, isHighlighted, onRemove, ...props }) {
   return (
-    <Container
-      isActive={isActive}
-      isHighlighted={isHighlighted}
-      onMouseEnter={onMouseEnter}
-      onClick={onClick}
-    >
+    <Container isHighlighted={isHighlighted} {...props}>
       <FavIcon>
         {/^https?:\/\//.test(tab.favIconUrl)
           ? <img
