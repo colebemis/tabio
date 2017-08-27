@@ -81,7 +81,7 @@ const CloseIcon = glamorous('svg', { withProps: { viewBox: '0 0 16 16' } })(
     borderRadius: '0.1875rem',
 
     ':hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
     },
   },
   ({ isHighlighted }) =>
