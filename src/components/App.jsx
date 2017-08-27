@@ -4,6 +4,7 @@ import { Div } from 'glamorous';
 
 import FilterInput from './FilterInput';
 import Highlighter from './Highlighter';
+import Tab from './Tab';
 
 class App extends Component {
   state = {
@@ -91,7 +92,7 @@ class App extends Component {
     const tabs = this.filterTabs(this.state.tabs, this.state.filterValue);
 
     return (
-      <Div width={400}>
+      <Div width={400} color="rgba(0, 0, 0, 0.9)">
         <FilterInput
           placeholder="Jump to..."
           value={this.state.filterValue}
@@ -111,34 +112,24 @@ class App extends Component {
             selectItem,
             removeItem,
           }) =>
-            <ul>
+            <Div padding={6}>
               {items.map((item, index) =>
-                <li
+                <Tab
                   key={item.id}
-                  style={{
-                    fontWeight:
-                      item.windowId === this.state.currentWindowId &&
-                      item.active
-                        ? 'bold'
-                        : 'normal',
-                    backgroundColor:
-                      index === highlightedIndex ? 'lightgray' : 'white',
-                  }}
+                  tab={item}
+                  isActive={
+                    item.windowId === this.state.currentWindowId && item.active
+                  }
+                  isHighlighted={index === highlightedIndex}
                   onMouseEnter={() => changeHighlightedIndex(index)}
                   onClick={() => selectItem(item)}
-                >
-                  {item.title}
-                  <button
-                    onClick={event => {
-                      removeItem(item, index);
-                      event.stopPropagation();
-                    }}
-                  >
-                    x
-                  </button>
-                </li>,
+                  onRemove={event => {
+                    removeItem(item, index);
+                    event.stopPropagation();
+                  }}
+                />,
               )}
-            </ul>}
+            </Div>}
         </Highlighter>
       </Div>
     );
