@@ -127,7 +127,7 @@ class App extends Component {
               selectItem,
               removeItem,
             }) =>
-              <Div flex="1 1 auto" overflow="auto" padding="0.75rem">
+              <Div flex="1 1 auto" padding="0.75rem" overflow="auto">
                 {items.map((item, index) =>
                   <Tab
                     key={item.id}
