@@ -11,7 +11,7 @@ const propTypes = {
 const defaultProps = {
   placeholder: '',
   value: '',
-  onChange: '',
+  onChange: () => {},
 };
 
 const Input = glamorous.input({
@@ -21,11 +21,11 @@ const Input = glamorous.input({
   fontWeight: '500',
   color: 'inherit',
   border: 'none',
-  boxShadow: '0 1px 0 rgba(0, 0, 0, 0.12)',
+  borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   outline: 0,
 
   '&::placeholder': {
-    color: 'rgba(0, 0, 0, 0.38)',
+    color: 'rgba(0, 0, 0, 0.3)',
   },
 });
 
