@@ -22,7 +22,6 @@ const Input = glamorous.input(({ theme }) => ({
   fontWeight: '500',
   color: theme.text,
   border: 'none',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
   outline: 0,
 
   '&::placeholder': {

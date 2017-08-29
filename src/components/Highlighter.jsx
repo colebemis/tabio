@@ -12,6 +12,13 @@ class Highlighter extends Component {
   };
 
   componentDidMount() {
+    const highlightedNode = document.getElementById(
+      this.props.highlightedIndex,
+    );
+
+    this.scrollTo(highlightedNode, this.containerNode);
+
+    // set up key handlers
     Mousetrap.prototype.stopCallback = () => false;
 
     Object.keys(this.keyHandlers).forEach(key => {

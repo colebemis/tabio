@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
-import glamorous, { ThemeProvider } from 'glamorous';
+import glamorous, { ThemeProvider, Span } from 'glamorous';
 
 import FilterInput from './FilterInput';
 import Highlighter from './Highlighter';
@@ -23,13 +23,14 @@ const Container = glamorous.div({
 const TabsContainer = glamorous.div({
   flex: '1 1 auto',
   padding: '0.75rem',
+  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
   overflow: 'auto',
 });
 
 class App extends Component {
   state = {
     filterValue: '',
-    tabs: [],
+    tabs: null,
     currentWindowId: null,
     highlightedIndex: 0,
   };
@@ -119,36 +120,48 @@ class App extends Component {
             value={this.state.filterValue}
             onChange={this.handleFilterChange}
           />
-          <Highlighter
-            highlightedIndex={this.state.highlightedIndex}
-            onChange={this.handleHighlightChange}
-            onSelect={this.handleTabSelect}
-            onRemove={this.handleTabRemove}
-          >
-            {({
-              getContainerProps,
-              getItemProps,
-              highlightedIndex,
-              removeItem,
-            }) =>
-              <TabsContainer {...getContainerProps({ refKey: 'innerRef' })}>
-                {tabs.map((tab, index) =>
-                  <Tab
-                    key={tab.id}
-                    tab={tab}
-                    isActive={
-                      tab.windowId === this.state.currentWindowId && tab.active
-                    }
-                    isHighlighted={index === highlightedIndex}
-                    onRemove={event => {
-                      removeItem(tab, index);
-                      event.stopPropagation();
-                    }}
-                    {...getItemProps({ item: tab, index })}
-                  />,
-                )}
-              </TabsContainer>}
-          </Highlighter>
+          {tabs &&
+            <Highlighter
+              highlightedIndex={this.state.highlightedIndex}
+              onChange={this.handleHighlightChange}
+              onSelect={this.handleTabSelect}
+              onRemove={this.handleTabRemove}
+            >
+              {({
+                getContainerProps,
+                getItemProps,
+                highlightedIndex,
+                removeItem,
+              }) =>
+                <TabsContainer {...getContainerProps({ refKey: 'innerRef' })}>
+                  {tabs.length > 0
+                    ? tabs.map((tab, index) =>
+                      <Tab
+                        key={tab.id}
+                        tab={tab}
+                        isActive={
+                          tab.windowId === this.state.currentWindowId &&
+                            tab.active
+                        }
+                        isHighlighted={index === highlightedIndex}
+                        onRemove={event => {
+                          removeItem(tab, index);
+                          event.stopPropagation();
+                        }}
+                        {...getItemProps({ item: tab, index })}
+                      />,
+                    )
+                    : <Span
+                      display="block"
+                      height="2.5rem"
+                      fontSize="0.875rem"
+                      lineHeight="2.5rem"
+                      textAlign="center"
+                    >
+                        No matches found.
+                    </Span>}
+                </TabsContainer>}
+            </Highlighter>}
         </Container>
       </ThemeProvider>
     );
