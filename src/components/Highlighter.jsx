@@ -26,7 +26,9 @@ class Highlighter extends Component {
 
     const highlightedNode = document.getElementById(highlightedIndex);
 
-    this.scrollIntoView(highlightedNode, this.containerNode);
+    if (highlightedNode) {
+      this.scrollTo(highlightedNode, this.containerNode);
+    }
   }
 
   componentWillUnmount() {
@@ -51,7 +53,7 @@ class Highlighter extends Component {
     };
   };
 
-  scrollIntoView = (itemNode, containerNode) => {
+  scrollTo = (itemNode, containerNode) => {
     const containerStyle = getComputedStyle(containerNode);
     const containerPaddingTop = parseInt(
       containerStyle.getPropertyValue('padding-top'),
