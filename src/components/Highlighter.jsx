@@ -26,56 +26,53 @@ class Highlighter extends Component {
 
     const highlightedNode = document.getElementById(highlightedIndex);
 
-    this.scrollIntoView(highlightedNode, this.rootNode);
+    this.scrollIntoView(highlightedNode, this.containerNode);
   }
 
   componentWillUnmount() {
     Mousetrap.reset();
   }
 
-  getRootProps = ({ refKey = 'ref', ...props } = {}) => ({
-    ...props,
-    [refKey]: this.rootRef,
+  setContainerRef = node => {
+    this.containerNode = node;
+  };
+
+  getContainerProps = ({ refKey = 'ref' } = {}) => ({
+    [refKey]: this.setContainerRef,
   });
 
-  getItemProps = ({ item, index, ...props }) => {
+  getItemProps = ({ item, index }) => {
     this.items[index] = item;
 
     return {
-      ...props,
       id: index,
       onMouseEnter: () => this.changeHighlightedIndex(index),
       onClick: () => this.selectItem(item),
     };
   };
 
-  rootRef = node => {
-    this.rootNode = node;
-  };
-
-  scrollIntoView = (node, rootNode) => {
-    const rootStyle = getComputedStyle(rootNode);
-    const rootPaddingTop = parseInt(
-      rootStyle.getPropertyValue('padding-top'),
+  scrollIntoView = (itemNode, containerNode) => {
+    const containerStyle = getComputedStyle(containerNode);
+    const containerPaddingTop = parseInt(
+      containerStyle.getPropertyValue('padding-top'),
       10,
     );
-    const rootPaddingBottom = parseInt(
-      rootStyle.getPropertyValue('padding-bottom'),
+    const containerPaddingBottom = parseInt(
+      containerStyle.getPropertyValue('padding-bottom'),
       10,
     );
 
-    const viewTop = rootNode.scrollTop;
-    const viewBottom = viewTop + rootNode.getBoundingClientRect().height;
+    const containerRect = containerNode.getBoundingClientRect();
+    const itemRect = itemNode.getBoundingClientRect();
 
-    const nodeTop = node.offsetTop - rootNode.offsetTop;
-    const nodeBottom = nodeTop + node.getBoundingClientRect().height;
-
-    if (nodeTop < viewTop + rootPaddingTop) {
-      rootNode.scrollTop += nodeTop - (viewTop + rootPaddingTop);
+    if (itemRect.top < containerRect.top + containerPaddingTop) {
+      containerNode.scrollTop +=
+        itemRect.top - (containerRect.top + containerPaddingTop);
     }
 
-    if (nodeBottom > viewBottom - rootPaddingBottom) {
-      rootNode.scrollTop += nodeBottom - (viewBottom - rootPaddingBottom);
+    if (itemRect.bottom > containerRect.bottom - containerPaddingBottom) {
+      containerNode.scrollTop +=
+        itemRect.bottom - (containerRect.bottom - containerPaddingBottom);
     }
   };
 
@@ -158,7 +155,7 @@ class Highlighter extends Component {
 
     return this.props.children({
       // prop getters
-      getRootProps: this.getRootProps,
+      getContainerProps: this.getContainerProps,
       getItemProps: this.getItemProps,
 
       // state

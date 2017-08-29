@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Fuse from 'fuse.js';
-import glamorous, { ThemeProvider, Div } from 'glamorous';
+import glamorous, { ThemeProvider } from 'glamorous';
 
 import FilterInput from './FilterInput';
 import Highlighter from './Highlighter';
@@ -8,7 +8,7 @@ import Tab from './Tab';
 
 const theme = {
   accent: '#0366D6',
-  text: 'rgba(0, 0, 0, 0.9)',
+  text: 'rgba(0, 0, 0, 0.7)',
   placeholderText: 'rgba(0, 0, 0, 0.3)',
   highlightedText: '#FFFFFF',
 };
@@ -125,24 +125,26 @@ class App extends Component {
             onSelect={this.handleTabSelect}
             onRemove={this.handleTabRemove}
           >
-            {({ getRootProps, getItemProps, highlightedIndex, removeItem }) =>
-              <TabsContainer {...getRootProps({ refKey: 'innerRef' })}>
+            {({
+              getContainerProps,
+              getItemProps,
+              highlightedIndex,
+              removeItem,
+            }) =>
+              <TabsContainer {...getContainerProps({ refKey: 'innerRef' })}>
                 {tabs.map((tab, index) =>
                   <Tab
                     key={tab.id}
-                    {...getItemProps({
-                      item: tab,
-                      index,
-                      tab,
-                      isActive:
-                        tab.windowId === this.state.currentWindowId &&
-                        tab.active,
-                      isHighlighted: index === highlightedIndex,
-                      onRemove: event => {
-                        removeItem(tab, index);
-                        event.stopPropagation();
-                      },
-                    })}
+                    tab={tab}
+                    isActive={
+                      tab.windowId === this.state.currentWindowId && tab.active
+                    }
+                    isHighlighted={index === highlightedIndex}
+                    onRemove={event => {
+                      removeItem(tab, index);
+                      event.stopPropagation();
+                    }}
+                    {...getItemProps({ item: tab, index })}
                   />,
                 )}
               </TabsContainer>}
