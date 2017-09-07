@@ -4,9 +4,9 @@ import glamorous from 'glamorous';
 
 const propTypes = {
   tab: PropTypes.shape({
-    title: PropTypes.string,
-    url: PropTypes.string,
-    favIconUrl: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    favIconUrl: PropTypes.string.isRequired,
   }).isRequired,
   isActive: PropTypes.bool,
   isHighlighted: PropTypes.bool,
@@ -101,7 +101,7 @@ function Tab({ tab, isHighlighted, onRemove, ...props }) {
     <Container isHighlighted={isHighlighted} {...props}>
       <FavIcon>
         {/^https?:\/\//.test(tab.favIconUrl) ? (
-          <img src={tab.favIconUrl} alt="FavIcon" width="100%" height="100%" />
+          <img src={tab.favIconUrl} alt="" width="100%" height="100%" />
         ) : (
           favIconPlaceholder
         )}
