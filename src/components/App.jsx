@@ -115,46 +115,45 @@ class App extends Component {
             value={this.state.filterValue}
             onChange={this.handleFilterChange}
           />
-          {tabs &&
-            (tabs.length > 0 ? (
-              <List
-                style={{
-                  flex: '1 1 auto',
-                  padding: 12,
-                }}
-                data={tabs}
-                highlightedIndex={this.state.highlightedIndex}
-                onChange={this.handleHighlightChange}
-                onSelect={this.handleTabSelect}
-                onRemove={this.handleTabRemove}
-                renderItem={({
-                  item,
-                  index,
-                  highlightedIndex,
-                  getItemEventHandlers,
-                }) => (
-                  <Tab
-                    key={item.id}
-                    tab={item}
-                    isHighlighted={index === highlightedIndex}
-                    isActive={
-                      item.windowId === this.state.currentWindowId &&
-                      item.active
-                    }
-                    {...getItemEventHandlers(item, index)}
-                  />
-                )}
-              />
-            ) : (
-              <Span
-                display="block"
-                padding={24}
-                fontSize={14}
-                textAlign="center"
-              >
-                No matches found.
-              </Span>
-            ))}
+          {tabs && (
+            <List
+              style={{
+                flex: '1 1 auto',
+                padding: 12,
+              }}
+              data={tabs}
+              highlightedIndex={this.state.highlightedIndex}
+              onChange={this.handleHighlightChange}
+              onSelect={this.handleTabSelect}
+              onRemove={this.handleTabRemove}
+              renderItem={({
+                item,
+                index,
+                highlightedIndex,
+                getItemEventHandlers,
+              }) => (
+                <Tab
+                  key={item.id}
+                  tab={item}
+                  isHighlighted={index === highlightedIndex}
+                  isActive={
+                    item.windowId === this.state.currentWindowId && item.active
+                  }
+                  {...getItemEventHandlers(item, index)}
+                />
+              )}
+              renderEmpty={() => (
+                <Span
+                  display="block"
+                  padding={12}
+                  fontSize={14}
+                  textAlign="center"
+                >
+                  No matches found.
+                </Span>
+              )}
+            />
+          )}
         </Container>
       </ThemeProvider>
     );

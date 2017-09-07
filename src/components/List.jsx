@@ -5,17 +5,24 @@ import { Div } from 'glamorous';
 
 class List extends React.PureComponent {
   static propTypes = {
-    data: PropTypes.arrayOf(PropTypes.any).isRequired,
-    highlightedIndex: PropTypes.number.isRequired,
-    renderItem: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.any),
+    highlightedIndex: PropTypes.number,
     style: PropTypes.objectOf(PropTypes.any),
-    onChange: PropTypes.func.isRequired,
-    onSelect: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
+    renderItem: PropTypes.func.isRequired,
+    renderEmpty: PropTypes.func,
+    onChange: PropTypes.func,
+    onSelect: PropTypes.func,
+    onRemove: PropTypes.func,
   };
 
   static defaultProps = {
+    data: [],
+    highlightedIndex: 0,
     style: {},
+    renderEmpty: () => {},
+    onChange: () => {},
+    onSelect: () => {},
+    onRemove: () => {},
   };
 
   state = {
@@ -103,6 +110,8 @@ class List extends React.PureComponent {
   };
 
   moveHighlightedIndex = amount => {
+    if (this.props.data.length === 0) return;
+
     let newIndex =
       (this.props.highlightedIndex + amount) % this.props.data.length;
 
@@ -197,13 +206,17 @@ class List extends React.PureComponent {
         css={this.props.style}
         overflowY="auto"
       >
-        {this.props.data.map((item, index) =>
-          this.props.renderItem({
-            item,
-            index,
-            highlightedIndex: this.props.highlightedIndex,
-            getItemEventHandlers: this.getItemEventHandlers,
-          }),
+        {this.props.data.length > 0 ? (
+          this.props.data.map((item, index) =>
+            this.props.renderItem({
+              item,
+              index,
+              highlightedIndex: this.props.highlightedIndex,
+              getItemEventHandlers: this.getItemEventHandlers,
+            }),
+          )
+        ) : (
+          this.props.renderEmpty()
         )}
       </Div>
     );
