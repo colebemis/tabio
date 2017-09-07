@@ -29,19 +29,19 @@ const Container = glamorous.div(
     alignItems: 'center',
     height: '2.5rem',
     padding: '0 0.375rem',
-    color: theme.text,
+    color: theme.textColor,
     borderRadius: '0.1875rem',
     cursor: 'pointer',
     userSelect: 'none',
   }),
   ({ isActive, theme }) =>
     isActive && {
-      color: theme.accent,
+      color: theme.primaryColor,
     },
   ({ isHighlighted, theme }) =>
     isHighlighted && {
-      color: theme.highlightedText,
-      backgroundColor: theme.accent,
+      color: theme.highlightedTextColor,
+      backgroundColor: theme.primaryColor,
     },
 );
 
@@ -101,18 +101,13 @@ function Tab({ tab, isHighlighted, onRemove, ...props }) {
   return (
     <Container isHighlighted={isHighlighted} {...props}>
       <FavIcon>
-        {/^https?:\/\//.test(tab.favIconUrl)
-          ? <img
-            src={tab.favIconUrl}
-            alt="FavIcon"
-            width="100%"
-            height="100%"
-          />
-          : favIconPlaceholder}
+        {/^https?:\/\//.test(tab.favIconUrl) ? (
+          <img src={tab.favIconUrl} alt="FavIcon" width="100%" height="100%" />
+        ) : (
+          favIconPlaceholder
+        )}
       </FavIcon>
-      <Title>
-        {tab.title}
-      </Title>
+      <Title>{tab.title}</Title>
       <CloseIcon isHighlighted={isHighlighted} onClick={onRemove}>
         <line x1="3" y1="3" x2="13" y2="13" />
         <line x1="13" y1="3" x2="3" y2="13" />

@@ -7,10 +7,11 @@ import Highlighter from './Highlighter';
 import Tab from './Tab';
 
 const theme = {
-  accent: '#0366D6',
-  text: 'rgba(0, 0, 0, 0.7)',
-  placeholderText: 'rgba(0, 0, 0, 0.3)',
-  highlightedText: '#FFFFFF',
+  primaryColor: '#0366D6',
+  textColor: 'rgba(0, 0, 0, 0.8)',
+  placeholderTextColor: 'rgba(0, 0, 0, 0.4)',
+  highlightedTextColor: '#FFFFFF',
+  dividerColor: 'rgba(0, 0, 0, 0.1)',
 };
 
 const Container = glamorous.div({
@@ -20,12 +21,12 @@ const Container = glamorous.div({
   maxHeight: 600,
 });
 
-const TabsContainer = glamorous.div({
+const TabsContainer = glamorous.div(({ theme }) => ({
   flex: '1 1 auto',
   padding: '0.75rem',
-  borderTop: '1px solid rgba(0, 0, 0, 0.1)',
+  borderTop: `1px solid ${theme.dividerColor}`,
   overflow: 'auto',
-});
+}));
 
 class App extends Component {
   state = {
@@ -120,7 +121,7 @@ class App extends Component {
             value={this.state.filterValue}
             onChange={this.handleFilterChange}
           />
-          {tabs &&
+          {tabs && (
             <Highlighter
               highlightedIndex={this.state.highlightedIndex}
               onChange={this.handleHighlightChange}
@@ -132,16 +133,16 @@ class App extends Component {
                 getItemProps,
                 highlightedIndex,
                 removeItem,
-              }) =>
+              }) => (
                 <TabsContainer {...getContainerProps({ refKey: 'innerRef' })}>
-                  {tabs.length > 0
-                    ? tabs.map((tab, index) =>
+                  {tabs.length > 0 ? (
+                    tabs.map((tab, index) => (
                       <Tab
                         key={tab.id}
                         tab={tab}
                         isActive={
                           tab.windowId === this.state.currentWindowId &&
-                            tab.active
+                          tab.active
                         }
                         isHighlighted={index === highlightedIndex}
                         onRemove={event => {
@@ -149,19 +150,23 @@ class App extends Component {
                           event.stopPropagation();
                         }}
                         {...getItemProps({ item: tab, index })}
-                      />,
-                    )
-                    : <Span
+                      />
+                    ))
+                  ) : (
+                    <Span
                       display="block"
                       height="2.5rem"
                       fontSize="0.875rem"
                       lineHeight="2.5rem"
                       textAlign="center"
                     >
-                        No matches found.
-                    </Span>}
-                </TabsContainer>}
-            </Highlighter>}
+                      No matches found.
+                    </Span>
+                  )}
+                </TabsContainer>
+              )}
+            </Highlighter>
+          )}
         </Container>
       </ThemeProvider>
     );

@@ -20,12 +20,12 @@ const Input = glamorous.input(({ theme }) => ({
   padding: '1rem 1.5rem',
   fontSize: '1.25rem',
   fontWeight: '500',
-  color: theme.text,
+  color: theme.textColor,
   border: 'none',
   outline: 0,
 
   '&::placeholder': {
-    color: theme.placeholderText,
+    color: theme.placeholderTextColor,
   },
 }));
 
