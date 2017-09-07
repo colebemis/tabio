@@ -1,13 +1,9 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = {
+const config = {
   context: __dirname,
-  entry: [
-    // TODO: set up development and production configs
-    'react-devtools',
-    path.resolve(__dirname, 'src/index.jsx'),
-  ],
+  entry: ['react-devtools', path.resolve(__dirname, 'src/index.jsx')],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -38,3 +34,10 @@ module.exports = {
     ]),
   ],
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.entry = path.resolve(__dirname, 'src/index.jsx');
+  config.devtool = false;
+}
+
+module.exports = config;
