@@ -3,7 +3,7 @@ import Fuse from 'fuse.js';
 import glamorous, { ThemeProvider, Span } from 'glamorous';
 
 import FilterInput from './FilterInput';
-import Highlighter from './Highlighter';
+import List from './List';
 import Tab from './Tab';
 
 const theme = {
@@ -122,7 +122,7 @@ class App extends Component {
             onChange={this.handleFilterChange}
           />
           {tabs && (
-            <Highlighter
+            <List
               highlightedIndex={this.state.highlightedIndex}
               onChange={this.handleHighlightChange}
               onSelect={this.handleTabSelect}
@@ -165,7 +165,7 @@ class App extends Component {
                   )}
                 </TabsContainer>
               )}
-            </Highlighter>
+            </List>
           )}
         </Container>
       </ThemeProvider>

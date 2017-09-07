@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 
-class Highlighter extends Component {
+class List extends Component {
   static propTypes = {
     children: PropTypes.func.isRequired,
     highlightedIndex: PropTypes.number.isRequired,
@@ -178,4 +178,4 @@ class Highlighter extends Component {
   }
 }
 
-export default Highlighter;
+export default List;
