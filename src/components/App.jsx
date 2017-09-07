@@ -17,13 +17,13 @@ const theme = {
 const Container = glamorous.div({
   display: 'flex',
   flexDirection: 'column',
-  width: '25rem',
+  width: 400,
   maxHeight: 600,
 });
 
 const TabsContainer = glamorous.div(({ theme }) => ({
   flex: '1 1 auto',
-  padding: '0.75rem',
+  padding: 12,
   borderTop: `1px solid ${theme.dividerColor}`,
   overflow: 'auto',
 }));
@@ -155,9 +155,9 @@ class App extends Component {
                   ) : (
                     <Span
                       display="block"
-                      height="2.5rem"
-                      fontSize="0.875rem"
-                      lineHeight="2.5rem"
+                      height={40}
+                      fontSize={14}
+                      lineHeight={40}
                       textAlign="center"
                     >
                       No matches found.

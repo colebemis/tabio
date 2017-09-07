@@ -17,9 +17,9 @@ const defaultProps = {
 const Input = glamorous.input(({ theme }) => ({
   flex: '0 0 auto',
   width: '100%',
-  padding: '1rem 1.5rem',
-  fontSize: '1.25rem',
-  fontWeight: '500',
+  padding: '16px 24px',
+  fontSize: 20,
+  fontWeight: 500,
   color: theme.textColor,
   border: 'none',
   outline: 0,
