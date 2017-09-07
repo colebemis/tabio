@@ -7,7 +7,7 @@ import List from './List';
 import Tab from './Tab';
 
 const theme = {
-  primaryColor: '#0366D6',
+  primaryColor: '#0052CC',
   textColor: 'rgba(0, 0, 0, 0.8)',
   placeholderTextColor: 'rgba(0, 0, 0, 0.4)',
   highlightedTextColor: '#FFFFFF',
