@@ -1,6 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Tabio",
+  "description": "An open source tab switcher for Chrome",
   "version": "2.0.0",
   "browser_action": {
     "default_popup": "popup.html"
