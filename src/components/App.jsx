@@ -14,18 +14,12 @@ const theme = {
   dividerColor: 'rgba(0, 0, 0, 0.1)',
 };
 
-const Container = glamorous.div({
+const Container = glamorous.div(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: 400,
   maxHeight: 600,
-});
-
-const TabsContainer = glamorous.div(({ theme }) => ({
-  flex: '1 1 auto',
-  padding: 12,
-  borderTop: `1px solid ${theme.dividerColor}`,
-  overflow: 'auto',
+  color: theme.textColor,
 }));
 
 class App extends Component {
@@ -121,52 +115,50 @@ class App extends Component {
             value={this.state.filterValue}
             onChange={this.handleFilterChange}
           />
-          {tabs && (
-            <List
-              highlightedIndex={this.state.highlightedIndex}
-              onChange={this.handleHighlightChange}
-              onSelect={this.handleTabSelect}
-              onRemove={this.handleTabRemove}
-            >
-              {({
-                getContainerProps,
-                getItemProps,
-                highlightedIndex,
-                removeItem,
-              }) => (
-                <TabsContainer {...getContainerProps({ refKey: 'innerRef' })}>
-                  {tabs.length > 0 ? (
-                    tabs.map((tab, index) => (
-                      <Tab
-                        key={tab.id}
-                        tab={tab}
-                        isActive={
-                          tab.windowId === this.state.currentWindowId &&
-                          tab.active
-                        }
-                        isHighlighted={index === highlightedIndex}
-                        onRemove={event => {
-                          removeItem(tab, index);
-                          event.stopPropagation();
-                        }}
-                        {...getItemProps({ item: tab, index })}
-                      />
-                    ))
-                  ) : (
-                    <Span
-                      display="block"
-                      height={40}
-                      fontSize={14}
-                      lineHeight={40}
-                      textAlign="center"
-                    >
-                      No matches found.
-                    </Span>
-                  )}
-                </TabsContainer>
-              )}
-            </List>
-          )}
+          {tabs &&
+            (tabs.length > 0 ? (
+              <List
+                style={{
+                  flex: '1 1 auto',
+                  padding: 12,
+                }}
+                data={tabs}
+                highlightedIndex={this.state.highlightedIndex}
+                onChange={this.handleHighlightChange}
+                onSelect={this.handleTabSelect}
+                onRemove={this.handleTabRemove}
+                renderItem={({
+                  item,
+                  index,
+                  highlightedIndex,
+                  changeHighlightedIndex,
+                  selectItem,
+                  removeItem,
+                }) => (
+                  <Tab
+                    key={item.id}
+                    tab={item}
+                    isHighlighted={index === highlightedIndex}
+                    isActive={
+                      item.windowId === this.state.currentWindowId &&
+                      item.active
+                    }
+                    onMouseEnter={() => changeHighlightedIndex(index)}
+                    onClick={() => selectItem(item)}
+                    onRemove={() => removeItem(item, index)}
+                  />
+                )}
+              />
+            ) : (
+              <Span
+                display="block"
+                padding={24}
+                fontSize={14}
+                textAlign="center"
+              >
+                No matches found.
+              </Span>
+            ))}
         </Container>
       </ThemeProvider>
     );

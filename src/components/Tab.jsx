@@ -29,7 +29,6 @@ const Container = glamorous.div(
     alignItems: 'center',
     height: 40,
     padding: '0 6px',
-    color: theme.textColor,
     borderRadius: 3,
     cursor: 'pointer',
     userSelect: 'none',
@@ -108,7 +107,13 @@ function Tab({ tab, isHighlighted, onRemove, ...props }) {
         )}
       </FavIcon>
       <Title>{tab.title}</Title>
-      <CloseIcon isHighlighted={isHighlighted} onClick={onRemove}>
+      <CloseIcon
+        isHighlighted={isHighlighted}
+        onClick={event => {
+          onRemove();
+          event.stopPropagation();
+        }}
+      >
         <line x1="3" y1="3" x2="13" y2="13" />
         <line x1="13" y1="3" x2="3" y2="13" />
       </CloseIcon>

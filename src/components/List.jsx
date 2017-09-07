@@ -1,22 +1,29 @@
-import { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
+import { Div } from 'glamorous';
 
-class List extends Component {
+class List extends React.Component {
   static propTypes = {
-    children: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.any).isRequired,
     highlightedIndex: PropTypes.number.isRequired,
+    renderItem: PropTypes.func.isRequired,
+    style: PropTypes.objectOf(PropTypes.any),
     onChange: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
-    const highlightedNode = document.getElementById(
-      this.props.highlightedIndex,
-    );
+  static defaultProps = {
+    style: {},
+  };
 
-    this.scrollTo(highlightedNode, this.containerNode);
+  componentDidMount() {
+    const highlightedNode = this.containerElement.children[
+      this.props.highlightedIndex
+    ];
+
+    this.scrollToItem(highlightedNode, this.containerElement);
 
     // set up key handlers
     Mousetrap.prototype.stopCallback = () => false;
@@ -27,14 +34,14 @@ class List extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { highlightedIndex } = this.props;
+    if (prevProps.highlightedIndex === this.props.highlightedIndex) return;
 
-    if (prevProps.highlightedIndex === highlightedIndex) return;
+    if (this.containerElement.children.length > 0) {
+      const highlightedNode = this.containerElement.children[
+        this.props.highlightedIndex
+      ];
 
-    const highlightedNode = document.getElementById(highlightedIndex);
-
-    if (highlightedNode) {
-      this.scrollTo(highlightedNode, this.containerNode);
+      this.scrollToItem(highlightedNode, this.containerElement);
     }
   }
 
@@ -43,25 +50,11 @@ class List extends Component {
   }
 
   setContainerRef = node => {
-    this.containerNode = node;
+    this.containerElement = node;
   };
 
-  getContainerProps = ({ refKey = 'ref' } = {}) => ({
-    [refKey]: this.setContainerRef,
-  });
-
-  getItemProps = ({ item, index }) => {
-    this.items[index] = item;
-
-    return {
-      id: index,
-      onMouseEnter: () => this.changeHighlightedIndex(index),
-      onClick: () => this.selectItem(item),
-    };
-  };
-
-  scrollTo = (itemNode, containerNode) => {
-    const containerStyle = getComputedStyle(containerNode);
+  scrollToItem = (itemElement, containerElement) => {
+    const containerStyle = getComputedStyle(containerElement);
     const containerPaddingTop = parseInt(
       containerStyle.getPropertyValue('padding-top'),
       10,
@@ -71,16 +64,16 @@ class List extends Component {
       10,
     );
 
-    const containerRect = containerNode.getBoundingClientRect();
-    const itemRect = itemNode.getBoundingClientRect();
+    const containerRect = containerElement.getBoundingClientRect();
+    const itemRect = itemElement.getBoundingClientRect();
 
     if (itemRect.top < containerRect.top + containerPaddingTop) {
-      containerNode.scrollTop +=
+      containerElement.scrollTop +=
         itemRect.top - (containerRect.top + containerPaddingTop);
     }
 
     if (itemRect.bottom > containerRect.bottom - containerPaddingBottom) {
-      containerNode.scrollTop +=
+      containerElement.scrollTop +=
         itemRect.bottom - (containerRect.bottom - containerPaddingBottom);
     }
   };
@@ -90,12 +83,11 @@ class List extends Component {
   };
 
   moveHighlightedIndex = amount => {
-    const { highlightedIndex } = this.props;
-
-    let newIndex = (highlightedIndex + amount) % this.items.length;
+    let newIndex =
+      (this.props.highlightedIndex + amount) % this.props.data.length;
 
     if (newIndex < 0) {
-      newIndex += this.items.length;
+      newIndex += this.props.data.length;
     }
 
     this.changeHighlightedIndex(newIndex);
@@ -106,14 +98,13 @@ class List extends Component {
   };
 
   selectHighlightedItem = () => {
-    if (this.items.length === 0) return;
-    const { highlightedIndex } = this.props;
+    if (this.props.data.length === 0) return;
 
-    this.selectItem(this.items[highlightedIndex]);
+    this.selectItem(this.props.data[this.props.highlightedIndex]);
   };
 
   removeItem = (item, index) => {
-    if (index === this.items.length - 1) {
+    if (index === this.props.data.length - 1) {
       this.changeHighlightedIndex(index - 1);
     }
 
@@ -121,10 +112,12 @@ class List extends Component {
   };
 
   removeHighlightedItem = () => {
-    if (this.items.length === 0) return;
+    if (this.props.data.length === 0) return;
 
-    const { highlightedIndex } = this.props;
-    this.removeItem(this.items[highlightedIndex], highlightedIndex);
+    this.removeItem(
+      this.props.data[this.props.highlightedIndex],
+      this.props.highlightedIndex,
+    );
   };
 
   keyHandlers = {
@@ -158,23 +151,28 @@ class List extends Component {
       event.preventDefault();
     },
   };
-
   render() {
-    this.items = [];
+    return (
+      <Div
+        innerRef={this.setContainerRef}
+        css={this.props.style}
+        overflowY="auto"
+      >
+        {this.props.data.map((item, index) =>
+          this.props.renderItem({
+            // state
+            item,
+            index,
+            highlightedIndex: this.props.highlightedIndex,
 
-    return this.props.children({
-      // prop getters
-      getContainerProps: this.getContainerProps,
-      getItemProps: this.getItemProps,
-
-      // state
-      highlightedIndex: this.props.highlightedIndex,
-
-      // actions
-      changeHighlightedIndex: this.changeHighlightedIndex,
-      selectItem: this.selectItem,
-      removeItem: this.removeItem,
-    });
+            // actions
+            changeHighlightedIndex: this.changeHighlightedIndex,
+            selectItem: this.selectItem,
+            removeItem: this.removeItem,
+          }),
+        )}
+      </Div>
+    );
   }
 }
 
