@@ -131,9 +131,7 @@ class App extends Component {
                   item,
                   index,
                   highlightedIndex,
-                  changeHighlightedIndex,
-                  selectItem,
-                  removeItem,
+                  getItemEventHandlers,
                 }) => (
                   <Tab
                     key={item.id}
@@ -143,9 +141,7 @@ class App extends Component {
                       item.windowId === this.state.currentWindowId &&
                       item.active
                     }
-                    onMouseEnter={() => changeHighlightedIndex(index)}
-                    onClick={() => selectItem(item)}
-                    onRemove={() => removeItem(item, index)}
+                    {...getItemEventHandlers(item, index)}
                   />
                 )}
               />

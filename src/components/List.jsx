@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { Div } from 'glamorous';
 
-class List extends React.Component {
+class List extends React.PureComponent {
   static propTypes = {
     data: PropTypes.arrayOf(PropTypes.any).isRequired,
     highlightedIndex: PropTypes.number.isRequired,
@@ -16,6 +16,10 @@ class List extends React.Component {
 
   static defaultProps = {
     style: {},
+  };
+
+  state = {
+    isMouseEnterPrevented: false,
   };
 
   componentDidMount() {
@@ -49,6 +53,16 @@ class List extends React.Component {
     Mousetrap.reset();
   }
 
+  getItemEventHandlers = (item, index) => ({
+    onMouseEnter: () => {
+      if (!this.state.isMouseEnterPrevented) {
+        this.changeHighlightedIndex(index);
+      }
+    },
+    onClick: () => this.selectItem(item),
+    onRemove: () => this.removeItem(item, index),
+  });
+
   setContainerRef = node => {
     this.containerElement = node;
   };
@@ -68,13 +82,19 @@ class List extends React.Component {
     const itemRect = itemElement.getBoundingClientRect();
 
     if (itemRect.top < containerRect.top + containerPaddingTop) {
-      containerElement.scrollTop +=
-        itemRect.top - (containerRect.top + containerPaddingTop);
+      containerElement.scrollBy({
+        top: itemRect.top - (containerRect.top + containerPaddingTop),
+      });
+
+      this.setState({ isMouseEnterPrevented: true });
     }
 
     if (itemRect.bottom > containerRect.bottom - containerPaddingBottom) {
-      containerElement.scrollTop +=
-        itemRect.bottom - (containerRect.bottom - containerPaddingBottom);
+      containerElement.scrollBy({
+        top: itemRect.bottom - (containerRect.bottom - containerPaddingBottom),
+      });
+
+      this.setState({ isMouseEnterPrevented: true });
     }
   };
 
@@ -151,24 +171,38 @@ class List extends React.Component {
       event.preventDefault();
     },
   };
+
+  handleMouseMoveFactory = () => {
+    let prevX;
+    let prevY;
+
+    return event => {
+      this.setState({
+        isMouseEnterPrevented:
+          event.clientX === prevX && event.clientY === prevY,
+      });
+
+      prevX = event.clientX;
+      prevY = event.clientY;
+    };
+  };
+
+  handleMouseMove = this.handleMouseMoveFactory();
+
   render() {
     return (
       <Div
+        onMouseMove={this.handleMouseMove}
         innerRef={this.setContainerRef}
         css={this.props.style}
         overflowY="auto"
       >
         {this.props.data.map((item, index) =>
           this.props.renderItem({
-            // state
             item,
             index,
             highlightedIndex: this.props.highlightedIndex,
-
-            // actions
-            changeHighlightedIndex: this.changeHighlightedIndex,
-            selectItem: this.selectItem,
-            removeItem: this.removeItem,
+            getItemEventHandlers: this.getItemEventHandlers,
           }),
         )}
       </Div>
