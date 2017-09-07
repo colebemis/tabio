@@ -24,7 +24,7 @@ const defaultProps = {
 };
 
 const Container = glamorous.div(
-  ({ theme }) => ({
+  {
     display: 'flex',
     alignItems: 'center',
     height: 40,
@@ -32,7 +32,7 @@ const Container = glamorous.div(
     borderRadius: 3,
     cursor: 'pointer',
     userSelect: 'none',
-  }),
+  },
   ({ isActive, theme }) =>
     isActive && {
       color: theme.primaryColor,

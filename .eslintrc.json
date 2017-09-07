@@ -4,6 +4,7 @@
   "rules": {
     "arrow-parens": ["error", "as-needed"],
     "max-len": "off",
+    "no-shadow": "off",
     "react/jsx-wrap-multilines": [
       "error",
       { "declaration": false, "assignment": false, "arrow": false }
