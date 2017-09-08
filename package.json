@@ -8,7 +8,8 @@
     "start": "webpack --watch",
     "build": "cross-env NODE_ENV=production webpack -p",
     "lint": "eslint --ext .js,.jsx .",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "release": "webstore upload --source=dist --auto-publish"
   },
   "dependencies": {
     "fuse.js": "^3.0.5",
@@ -27,6 +28,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
+    "chrome-webstore-upload-cli": "^1.1.1",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.5",
     "eslint": "^4.3.0",

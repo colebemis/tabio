@@ -5,7 +5,15 @@ cache:
 notifications:
   email: false
 node_js: "node"
+env:
+  - EXTENSION_ID=bgbhfmeabcmpjblimfddkeikogidjhao
 before_script:
   - npm prune
 script:
   - npm run build
+deploy:
+  provider: script
+  script: npm run release
+  on:
+    branch: master
+    tags: true
