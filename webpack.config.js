@@ -15,6 +15,12 @@ const config = {
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /\.jsx?$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+      },
+      {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
@@ -24,6 +30,7 @@ const config = {
   plugins: [
     new CopyWebpackPlugin([
       {
+        ignore: ['.DS_Store'],
         from: path.resolve(__dirname, 'public'),
         to: path.resolve(__dirname, 'dist'),
       },
