@@ -2,7 +2,7 @@
   "name": "tabio",
   "version": "0.0.0",
   "repository": "https://github.com/colebemis/tabio.git",
-  "author": "Cole Bemis <cole@colebemis.com>",
+  "author": "Cole Bemis <cole@colebemis.com> (http://colebemis.com)",
   "license": "MIT",
   "scripts": {
     "start": "webpack --watch",
