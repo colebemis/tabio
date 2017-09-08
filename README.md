@@ -1,6 +1,6 @@
 # Tabio
 
-An open-source tab switcher for Chrome
+An open-source tab manager for Chrome
 
 [![Travis branch](https://img.shields.io/travis/colebemis/tabio/master.svg?style=flat-square)](https://travis-ci.org/colebemis/tabio)
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/bgbhfmeabcmpjblimfddkeikogidjhao.svg?style=flat-square)](https://chrome.google.com/webstore/detail/tabio/bgbhfmeabcmpjblimfddkeikogidjhao)
