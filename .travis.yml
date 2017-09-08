@@ -12,8 +12,8 @@ before_script:
 script:
   - npm run build
 deploy:
+  skip_cleanup: true
   provider: script
   script: npm run release
   on:
     branch: master
-    tags: true
