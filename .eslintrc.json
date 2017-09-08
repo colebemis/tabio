@@ -1,14 +1,13 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
-    "arrow-parens": ["error", "as-needed"],
-    "max-len": "off",
     "no-shadow": "off",
-    "react/jsx-wrap-multilines": [
-      "error",
-      { "declaration": false, "assignment": false, "arrow": false }
-    ]
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "all"
+    }]
   },
   "env": {
     "browser": true
