@@ -89,17 +89,17 @@ class List extends React.PureComponent {
     const itemRect = itemElement.getBoundingClientRect();
 
     if (itemRect.top < containerRect.top + containerPaddingTop) {
-      containerElement.scrollBy({
-        top: itemRect.top - (containerRect.top + containerPaddingTop),
-      });
+      // eslint-disable-next-line no-param-reassign
+      containerElement.scrollTop +=
+        itemRect.top - (containerRect.top + containerPaddingTop);
 
       this.setState({ isMouseEnterPrevented: true });
     }
 
     if (itemRect.bottom > containerRect.bottom - containerPaddingBottom) {
-      containerElement.scrollBy({
-        top: itemRect.bottom - (containerRect.bottom - containerPaddingBottom),
-      });
+      // eslint-disable-next-line no-param-reassign
+      containerElement.scrollTop +=
+        itemRect.bottom - (containerRect.bottom - containerPaddingBottom);
 
       this.setState({ isMouseEnterPrevented: true });
     }
