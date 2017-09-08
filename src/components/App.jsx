@@ -117,29 +117,21 @@ class App extends Component {
           />
           {tabs && (
             <List
-              style={{
-                flex: '1 1 auto',
-                padding: 12,
-              }}
+              style={{ flex: '1 1 auto', padding: 12 }}
               data={tabs}
               highlightedIndex={this.state.highlightedIndex}
               onChange={this.handleHighlightChange}
               onSelect={this.handleTabSelect}
               onRemove={this.handleTabRemove}
-              renderItem={({
-                item,
-                index,
-                highlightedIndex,
-                getItemEventHandlers,
-              }) => (
+              renderItem={({ item, isHighlighted, itemEventHandlers }) => (
                 <Tab
                   key={item.id}
                   tab={item}
-                  isHighlighted={index === highlightedIndex}
+                  isHighlighted={isHighlighted}
                   isActive={
                     item.windowId === this.state.currentWindowId && item.active
                   }
-                  {...getItemEventHandlers(item, index)}
+                  {...itemEventHandlers}
                 />
               )}
               renderEmpty={() => (

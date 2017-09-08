@@ -210,9 +210,8 @@ class List extends React.PureComponent {
           this.props.data.map((item, index) =>
             this.props.renderItem({
               item,
-              index,
-              highlightedIndex: this.props.highlightedIndex,
-              getItemEventHandlers: this.getItemEventHandlers,
+              isHighlighted: index === this.props.highlightedIndex,
+              itemEventHandlers: this.getItemEventHandlers(item, index),
             }),
           )
         ) : (
