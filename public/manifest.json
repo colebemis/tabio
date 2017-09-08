@@ -1,8 +1,16 @@
 {
   "manifest_version": 2,
   "name": "Tabio",
-  "description": "An open-source tab switcher for Chrome",
   "version": "2.0.0",
+  "description": "An open-source tab switcher for Chrome",
+  "author": "Cole Bemis <cole@colebemis.com> (http://colebemis.com)",
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+K"
+      }
+    }
+  },
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",
