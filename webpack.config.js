@@ -24,12 +24,8 @@ const config = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, 'manifest.json'),
-        to: path.resolve(__dirname, 'dist/manifest.json'),
-      },
-      {
-        from: path.resolve(__dirname, 'popup.html'),
-        to: path.resolve(__dirname, 'dist/popup.html'),
+        from: path.resolve(__dirname, 'public'),
+        to: path.resolve(__dirname, 'dist'),
       },
     ]),
   ],
