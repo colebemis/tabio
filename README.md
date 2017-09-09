@@ -11,6 +11,10 @@ An open-source tab manager for Chrome
 
 **[Available on the Chrome Web Store](https://chrome.google.com/webstore/detail/tabio/bgbhfmeabcmpjblimfddkeikogidjhao)**
 
+## Contributing
+
+Bug reports, feature requests and pull requests are always welcome. Please see the [contributing guidelines](https://github.com/colebemis/tabio/blob/master/CONTRIBUTING.md) for more information.
+
 ## License
 
 Tabio is licensed under the [MIT License](https://github.com/colebemis/feather/blob/master/LICENSE).
