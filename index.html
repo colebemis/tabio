@@ -1,11 +1,21 @@
+---
+title: Tabio
+description: An open source tab manager for Chrome. Made for tab hoarders like you.
+---
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tabio - An open source tab manager for Chrome</title>
+
+  <title>{{ page.title }}</title>
+  <meta name="description" content="{{ page.description }}">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page.description }}">
+  <!-- <meta property="og:image" content="#"> -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@colebemis">
 
   <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
   <link rel="stylesheet" href="style.css">
@@ -15,8 +25,18 @@
   <header class="flex justify-between items-center mw8 w-80 center pv4 mb4">
     <h1 class="mv0 f3 fw7 lh-title">Tabio</h1>
     <div>
-      <a class="dib no-underline color-inherit dim" href="#">Tweet</a>
-      <a class="dib ml4 no-underline color-inherit dim" href="https://github.com/colebemis/tabio">GitHub</a>
+      <a
+        class="dib no-underline color-inherit dim"
+        href="https://twitter.com/intent/tweet?text=Tabio%20-%20An%20open%20source%20tab%20manager%20for%20Chrome%20by%20%40colebemis%20https%3A%2F%2Fusetabio.com"
+      >
+        Tweet
+      </a>
+      <a
+        class="dib ml4 no-underline color-inherit dim"
+        href="https://github.com/colebemis/tabio"
+      >
+        GitHub
+      </a>
     </div>
   </header>
 
