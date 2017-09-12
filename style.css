@@ -1,0 +1,171 @@
+/* font family */
+
+@import url('https://rsms.me/interface/interface.css');
+
+.interface {
+  font-family: Interface, sans-serif;
+}
+
+/* colors */
+
+:root {
+  --blue: #0052cc;
+  --yellow: #ffab00;
+  --dark-gray: #253858;
+  --moon-gray: rgba(0, 16, 48, 0.24);
+  --light-gray: rgba(0, 16, 48, 0.12);
+  --near-white: #f4f5f7;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.bg-blue {
+  background-color: var(--blue);
+}
+
+.b--blue {
+  border-color: var(--blue);
+}
+
+.hover-blue:hover,
+.hover-blue:focus {
+  color: var(--blue);
+}
+
+.hover-bg-blue:hover,
+.hover-bg-blue:focus {
+  background-color: var(--blue);
+}
+
+.yellow {
+  color: var(--yellow);
+}
+
+.bg-yellow {
+  background-color: var(--yellow);
+}
+
+.b--yellow {
+  border-color: var(--yellow);
+}
+
+.hover-yellow:hover,
+.hover-yellow:focus {
+  color: var(--yellow);
+}
+
+.hover-bg-yellow:hover,
+.hover-bg-yellow:focus {
+  background-color: var(--yellow);
+}
+
+.dark-gray {
+  color: var(--dark-gray);
+}
+
+.bg-dark-gray {
+  background-color: var(--dark-gray);
+}
+
+.b--dark-gray {
+  border-color: var(--dark-gray);
+}
+
+.hover-dark-gray:hover,
+.hover-dark-gray:focus {
+  color: var(--dark-gray);
+}
+
+.hover-bg-dark-gray:hover,
+.hover-bg-dark-gray:focus {
+  background-color: var(--dark-gray);
+}
+
+.light-gray {
+  color: var(--light-gray);
+}
+
+.bg-light-gray {
+  background-color: var(--light-gray);
+}
+
+.b--light-gray {
+  border-color: var(--light-gray);
+}
+
+.hover-light-gray:hover,
+.hover-light-gray:focus {
+  color: var(--light-gray);
+}
+
+.hover-bg-light-gray:hover,
+.hover-bg-light-gray:focus {
+  background-color: var(--light-gray);
+}
+
+.near-white {
+  color: var(--near-white);
+}
+
+.bg-near-white {
+  background-color: var(--near-white);
+}
+
+.b--near-white {
+  border-color: var(--near-white);
+}
+
+.hover-near-white:hover,
+.hover-near-white:focus {
+  color: var(--near-white);
+}
+
+.hover-bg-near-white:hover,
+.hover-bg-near-white:focus {
+  background-color: var(--near-white);
+}
+
+.moon-gray {
+  color: var(--moon-gray);
+}
+
+.bg-moon-gray {
+  background-color: var(--moon-gray);
+}
+
+.b--moon-gray {
+  border-color: var(--moon-gray);
+}
+
+.hover-moon-gray:hover,
+.hover-moon-gray:focus {
+  color: var(--moon-gray);
+}
+
+.hover-bg-moon-gray:hover,
+.hover-bg-moon-gray:focus {
+  background-color: var(--moon-gray);
+}
+
+/* components */
+
+.kbd {
+  display: inline-block;
+  padding: 0.5rem;
+  font-family: inherit;
+  background: white;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 2px var(--light-gray);
+}
+
+.browser {
+  height: 400px;
+}
+
+.popup {
+  width: 300px;
+  height: 400px;
+  box-shadow: 0 0 0 1px var(--moon-gray), 0 16px 36px var(--light-gray);
+}
