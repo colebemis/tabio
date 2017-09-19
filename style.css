@@ -1,9 +1,9 @@
 /* font family */
 
-@import url('https://rsms.me/interface/interface.css');
+@import url('https://rsms.me/inter/inter-ui.css');
 
-.interface {
-  font-family: Interface, sans-serif;
+.inter {
+  font-family: 'Inter UI', sans-serif;
 }
 
 /* colors */
