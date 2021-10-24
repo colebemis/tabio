@@ -1,3 +1,5 @@
+> **Update:** [Tab search](https://support.google.com/chrome/answer/10490587?hl=en) is now built into Chrome.
+
 # Tabio
 
 An open source tab manager for Chrome
@@ -12,7 +14,7 @@ An open source tab manager for Chrome
 
 ## Contributing
 
-Bug reports, feature requests and pull requests are always welcome. Please see the [contributing guidelines](https://github.com/colebemis/tabio/blob/master/CONTRIBUTING.md) for more information.
+Bug reports, feature requests, and pull requests are always welcome. Please see the [contributing guidelines](https://github.com/colebemis/tabio/blob/master/CONTRIBUTING.md) for more information.
 
 ## License
 
