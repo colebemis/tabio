@@ -100,7 +100,7 @@ function Tab({ tab, isHighlighted, onRemove, ...props }) {
   return (
     <Container isHighlighted={isHighlighted} {...props}>
       <FavIcon>
-        {/^https?:\/\//.test(tab.favIconUrl) ? (
+        {/^(https?:\/\/|data:image)/.test(tab.favIconUrl) ? (
           <img src={tab.favIconUrl} alt="" width="100%" height="100%" />
         ) : (
           favIconPlaceholder
